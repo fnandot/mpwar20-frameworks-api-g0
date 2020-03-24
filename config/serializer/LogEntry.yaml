@@ -1,0 +1,13 @@
+LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogEntry:
+  attributes:
+    id:
+      groups: [api-v1]
+    environment:
+      groups: [api-v1]
+    level:
+      groups: [api-v1]
+    message:
+      groups: [api-v1]
+    occurredOn:
+#      serialized_name: occurred_on
+      groups: [api-v1]

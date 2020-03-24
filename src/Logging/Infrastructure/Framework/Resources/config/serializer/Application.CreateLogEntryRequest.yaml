@@ -1,0 +1,19 @@
+LaSalle\GroupZero\Logging\Application\CreateLogEntryRequest:
+  exclusion_policy: all
+  properties:
+    id:
+      type: string
+      expose: true
+    environment:
+      type: string
+      expose: true
+    level:
+      type: string
+      expose: true
+    message:
+      type: string
+      expose: true
+    occurredOn:
+      type: DateTimeImmutable
+      serialized_name: occurred_on
+      expose: true
