@@ -31,6 +31,9 @@ final class LogLevel
     /** @var string */
     private $value;
 
+    /**
+     * @throws InvalidLogLevelException
+     */
     public function __construct(string $value)
     {
         $this->setValue($value);

@@ -1,0 +1,10 @@
+LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary:
+  attributes:
+    id:
+      groups: [api-v1]
+    environment:
+      groups: [api-v1]
+    level:
+      groups: [api-v1]
+    count:
+      groups: [api-v1]

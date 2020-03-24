@@ -9,6 +9,8 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 
 interface LogSummaryRepository
 {
+    public function find(string $id): ?LogSummary;
+
     /**
      * @return LogSummary[]
      */

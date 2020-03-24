@@ -1,0 +1,15 @@
+LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary:
+  exclusion_policy: all
+  properties:
+    id:
+      type: string
+      expose: true
+    environment:
+      type: string
+      expose: true
+    level:
+      type: string
+      expose: true
+    count:
+      type: int
+      expose: true

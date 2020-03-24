@@ -18,13 +18,33 @@ final class FilesystemLogSummaryRepository implements LogSummaryRepository
     /** @var string */
     private $directory;
 
+    /** @var string */
+    private $defaultEnvironment;
+
     /** @var Filesystem */
     private $filesystem;
 
-    public function __construct(string $directory, Filesystem $filesystem)
+    public function __construct(string $directory, string $defaultEnvironment, Filesystem $filesystem)
     {
-        $this->directory  = $directory;
-        $this->filesystem = $filesystem;
+        $this->directory          = $directory;
+        $this->defaultEnvironment = $defaultEnvironment;
+        $this->filesystem         = $filesystem;
+    }
+
+    public function find(string $id): ?LogSummary
+    {
+        $files = $this->findFiles($this->defaultEnvironment, ...[]);
+
+        foreach ($files as $file) {
+            /** @var LogSummary $summary */
+            $summary = unserialize($file->getContents());
+
+            if ($id === $summary->id()) {
+                return $summary;
+            }
+        }
+
+        return null;
     }
 
     /**

@@ -1,0 +1,18 @@
+LaSalle\GroupZero\Logging\Application\CreateLogEntryRequest:
+  attributes:
+    id:
+      type: string
+      groups: [api-v1]
+    environment:
+      type: string
+      groups: [api-v1]
+    level:
+      type: string
+      groups: [api-v1]
+    message:
+      type: string
+      groups: [api-v1]
+    occurredOn:
+      type: DateTimeImmutable
+      serialized_name: occurred_on
+      groups: [api-v1]

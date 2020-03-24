@@ -69,6 +69,7 @@ services:
   LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\FilesystemLogSummaryRepository:
     arguments:
       $directory: '%app_log_summary_data_dir%'
+      $defaultEnvironment: '%env(APP_ENV)%'
 
   #    LaSalle\GroupZero\Logging\Domain\Model\Event\Handler\IncreaseLogSummaryOnLogEntryCreated:
   #        autoconfigure: false
@@ -81,6 +82,19 @@ services:
     autoconfigure: false
     tags:
       - { name: messenger.message_handler, bus: event.bus }
+
+  # Custom ExceptionListener, without priority to -32 overrides de logKernelException
+  LaSalle\GroupZero\Logging\Infrastructure\Framework\EventListener\ErrorListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, priority: -32 }
+
+  LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\V1\ValueResolver\CreateLogEntryRequestValueResolver:
+    tags:
+      - { name: controller.argument_value_resolver, priority: 50 }
+
+  LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\V1\GetLogSummaryStubController:
+    bind:
+      string $kernelEnvironment: '%kernel.environment%'
 
   LaSalle\GroupZero\Core\Domain\Model\Event\DomainEventBus:
     alias: 'LaSalle\GroupZero\Core\Infrastructure\Event\MessengerDomainEventBus'

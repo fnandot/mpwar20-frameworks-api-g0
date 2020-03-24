@@ -21,15 +21,19 @@ final class GetLogSummariesByEnvironment implements ApplicationService
     /**
      * @return LogSummary[]
      */
-    public function __invoke(GetLogSummariesByEnvironmentRequest $request): array
+    public function __invoke(GetLogSummariesByEnvironmentRequest $request): LogSummaryCollectionResponse
     {
         $domainLogLevels = 0 === count($request->levels()) ?
             LogLevel::all() :
             $this->mapToDomainLevels(...$request->levels());
 
-        return $this
+        $logSummaries = $this
             ->repository
             ->findByEnvironmentAndLevels($request->environment(), ...$domainLogLevels);
+
+        return new LogSummaryCollectionResponse(
+            ...$this->buildLogSummaryResponses(...$logSummaries)
+        );
     }
 
     /**
@@ -44,5 +48,23 @@ final class GetLogSummariesByEnvironment implements ApplicationService
         }
 
         return $domainLogLevels;
+    }
+
+    /**
+     * @return LogSummaryResponse[]
+     */
+    private function buildLogSummaryResponses(LogSummary ...$logSummaries): array
+    {
+        return array_map(
+            static function (LogSummary $summary) {
+                return new LogSummaryResponse(
+                    (string) $summary->id(),
+                    $summary->environment(),
+                    (string) $summary->level(),
+                    $summary->count()
+                );
+            },
+            $logSummaries
+        );
     }
 }

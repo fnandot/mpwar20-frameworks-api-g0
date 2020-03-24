@@ -5,9 +5,13 @@ framework:
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
-            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
+#             async: '%env(MESSENGER_TRANSPORT_DSN)%'
             # failed: 'doctrine://default?queue_name=failed'
              sync: 'sync://'
+
+#        routing:
+#          # async is whatever name you gave your transport above
+#          'LaSalle\GroupZero\Logging\Domain\Model\Event\LogEntryCreatedDomainEvent':  async
 
         # The bus that is going to be injected when injecting MessageBusInterface
         default_bus: event.bus
