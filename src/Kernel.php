@@ -2,9 +2,12 @@
 
 namespace LaSalle\GroupZero;
 
+use LaSalle\GroupZero\Logging\Application\ApplicationService;
+use LaSalle\GroupZero\Logging\Infrastructure\Framework\DependencyInjection\Compiler\ApplicationServiceContainerLoaderPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
@@ -14,6 +17,15 @@ class Kernel extends BaseKernel
     use MicroKernelTrait;
 
     private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
+
+    protected function build(ContainerBuilder $container): void
+    {
+        $container->addCompilerPass(new ApplicationServiceContainerLoaderPass());
+
+        $container
+            ->registerForAutoconfiguration(ApplicationService::class)
+            ->addTag('group_zero.application_service');
+    }
 
     public function registerBundles(): iterable
     {

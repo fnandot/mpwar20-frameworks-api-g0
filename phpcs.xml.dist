@@ -86,6 +86,6 @@
     <file>src/</file>
     <file>tests/</file>
 
-    <exclude-pattern>*/src/Kernel.php$</exclude-pattern>
+    <exclude-pattern>src/Kernel.php</exclude-pattern>
 
 </ruleset>

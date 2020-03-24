@@ -8,6 +8,6 @@ final class JsonLogParser implements LogParser
 {
     public function parse(string $rawLog): array
     {
-        return json_decode($rawLog, true, 512, JSON_THROW_ON_ERROR);
+        return json_decode($rawLog, true);
     }
 }

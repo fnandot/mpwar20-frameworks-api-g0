@@ -1,0 +1,12 @@
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  LaSalle\GroupZero\Logging\Infrastructure\Services\ApplicationServiceContainer:
+    arguments:
+      $services:
+        - '@LaSalle\GroupZero\Logging\Application\GetLogEntriesByEnvironment'
+        - '@LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironment'
+

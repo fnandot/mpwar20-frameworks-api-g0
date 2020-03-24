@@ -1,0 +1,90 @@
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: false      # Automatically injects dependencies in your services.
+    autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
+
+  ####################################
+  ##        SERVICE DISCOVERY       ##
+  ####################################
+
+  LaSalle\GroupZero\Logging\:
+    resource: '%kernel.project_dir%/src/Logging/{Application,Domain,Infrastructure}/'
+    exclude:
+      - '%kernel.project_dir%/src/Logging/Infrastructure/Framework/{DependencyInjection}'
+      - '%kernel.project_dir%/src/Logging/Domain/Model/{Aggregate,ValueObject,Exception}'
+
+  LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\:
+    resource: '%kernel.project_dir%/src/Logging/Infrastructure/Framework/Controller'
+    tags: ['controller.service_arguments']
+
+  ####################################
+  ##    Not needed because of SD    ##
+  ####################################
+
+#  LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository:
+#    alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\InMemory\LogSummaryInMemoryRepository'
+#
+#  LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository:
+#    alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\LogEntryFilesystemRepository'
+#
+#  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogFileFinder:
+#    alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogRotatingFileFinder'
+#
+#  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Parser\LogParser:
+#    alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Parser\JsonLogParser'
+#
+#  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Parser\JsonLogParser: ~
+
+  ####################################
+  ##        CONSOLE COMMANDS        ##
+  ####################################
+
+  LaSalle\GroupZero\Logging\Infrastructure\Framework\Command\AppLogSummariesCommand:
+    arguments:
+      $getLogSummariesByEnvironment: '@LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironment'
+    tags: ['console.command']
+
+  LaSalle\GroupZero\Logging\Infrastructure\Framework\Command\AppLogEntriesCommand:
+    arguments:
+      $getLogEntriesByEnvironment: '@LaSalle\GroupZero\Logging\Application\GetLogEntriesByEnvironment'
+    tags: ['console.command']
+
+    ####################################
+    ##      APPLICATION SERVICES      ##
+    ####################################
+
+  LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironment:
+    arguments:
+      $repository: '@LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository'
+
+  LaSalle\GroupZero\Logging\Application\GetLogEntriesByEnvironment:
+      arguments:
+        $repository: '@LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository'
+
+    ####################################
+    ##         REPOSITORIES           ##
+    ####################################
+
+  LaSalle\GroupZero\Logging\Infrastructure\Persistence\InMemory\LogSummaryInMemoryRepository:
+    arguments:
+      $logEntryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\LogEntryFilesystemRepository'
+
+  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\LogEntryFilesystemRepository:
+    arguments:
+      $finder: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogFileFinder'
+      $reader: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Reader\LogFileReader'
+
+    ####################################
+    ##              OTHER             ##
+    ####################################
+
+  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogRotatingFileFinder:
+    arguments:
+      $kernelLogsDir: '%kernel.logs_dir%'
+
+  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Reader\LogFileReader:
+    arguments:
+      $parser: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Parser\LogParser'
+
+

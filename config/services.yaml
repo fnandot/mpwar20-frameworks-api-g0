@@ -1,37 +1,22 @@
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 imports:
-  - { resource: services/*.yaml }
+    - { resource: services/monolog.yaml }
+    - { resource: services/modules/*.yaml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
 services:
-    # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true
+        autoconfigure: true
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    LaSalle\GroupZero\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+    LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\HelloWorldWithInjectionController:
+        arguments:
+            $environment: '%env(APP_ENV)%'
+            $environmentAlias: '%env(APP_ENV_ALIAS)%'
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\:
-        resource: '../src/Logging/Infrastructure/Framework/Controller'
-        tags: ['controller.service_arguments']
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
-    LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogRotatingFileFinder:
-      arguments:
-        $logDirectory: '%kernel.logs_dir%'
-
-    LaSalle\GroupZero\Command\HelloWorldCommand:
-      arguments:
-        $environment: '%env(APP_ENV)%'
-        $environmentAlias: '%env(APP_ENV_ALIAS)%'
+    LaSalle\GroupZero\Logging\Infrastructure\Framework\Command\AppLogGenerateCommand: ~
+    LaSalle\GroupZero\Logging\Infrastructure\Framework\Command\AppDebugApplicationServiceContainerCommand: ~

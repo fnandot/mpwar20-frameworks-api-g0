@@ -4,24 +4,24 @@ declare(strict_types = 1);
 
 namespace LaSalle\GroupZero\Logging\Application;
 
-use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogEntry;
-use LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository;
+use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary;
+use LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 
-final class GetLogEntriesByEnvironment implements ApplicationService
+final class GetLogSummariesByEnvironment implements ApplicationService
 {
-    /** @var LogEntryRepository */
+    /** @var LogSummaryRepository */
     private $repository;
 
-    public function __construct(LogEntryRepository $repository)
+    public function __construct(LogSummaryRepository $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @return LogEntry[]
+     * @return LogSummary[]
      */
-    public function __invoke(GetLogEntriesByEnvironmentRequest $request): array
+    public function __invoke(GetLogSummariesByEnvironmentRequest $request): array
     {
         $domainLogLevels = 0 === count($request->levels()) ?
             LogLevel::all() :
@@ -29,7 +29,7 @@ final class GetLogEntriesByEnvironment implements ApplicationService
 
         return $this
             ->repository
-            ->findAllByEnvironment($request->environment(), ...$domainLogLevels);
+            ->findByEnvironmentAndLevels($request->environment(), ...$domainLogLevels);
     }
 
     /**
