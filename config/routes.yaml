@@ -1,8 +1,10 @@
-hello:
+index:
     path: /hello
     controller: LaSalle\GroupZero\Controller\HelloWorldController::helloWorld
 
-hello_param_env:
-    path: /hello-param-env
-    controller: app.controller.hello_world_param_controller
-
+homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    defaults:
+        path: /hello
+        permanent: true

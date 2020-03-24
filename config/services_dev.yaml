@@ -1,2 +1,2 @@
 parameters:
-#  env(APP_ENV_ALIAS): 'playground'
+  env(APP_ENV_ALIAS): 'playground'

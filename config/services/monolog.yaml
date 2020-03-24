@@ -1,0 +1,25 @@
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  Monolog\Processor\MemoryUsageProcessor: ~
+
+  Monolog\Processor\MemoryPeakUsageProcessor: ~
+
+  Monolog\Processor\ProcessIdProcessor: ~
+
+  Monolog\Processor\IntrospectionProcessor: ~
+
+  Symfony\Bridge\Monolog\Processor\WebProcessor: ~
+
+  Symfony\Bridge\Monolog\Processor\RouteProcessor:
+    tags:
+      - {name: monolog.processor }
+
+  Symfony\Bridge\Monolog\Processor\DebugProcessor:
+    tags:
+      - {name: monolog.processor }
+
+  LaSalle\GroupZero\Monolog\Formatter\JsonPrettyFormatter: ~

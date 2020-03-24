@@ -1,19 +1,52 @@
 monolog:
+    channels: ['app']
     handlers:
         main:
-            type: stream
-            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            type: rotating_file
+            path: "%kernel.logs_dir%/%kernel.environment%.json"
             level: debug
+            max_files: 15 # Because the default behavior is FILE_PER_DAY
             channels: ["!event"]
-        # uncomment to get logging in your browser
-        # you may have to allow bigger header sizes in your Web server configuration
-        #firephp:
-        #    type: firephp
-        #    level: info
-        #chromephp:
-        #    type: chromephp
-        #    level: info
+            formatter: 'monolog.formatter.json'
+        main_pretty:
+            type: rotating_file
+            path: "%kernel.logs_dir%/%kernel.environment%.jsonpretty"
+            level: debug
+            max_files: 15 # Because the default behavior is FILE_PER_DAY
+            channels: ["!event"]
+            formatter: 'LaSalle\GroupZero\Monolog\Formatter\JsonPrettyFormatter'
+        main_logstash:
+            type: rotating_file
+            path: "%kernel.logs_dir%/%kernel.environment%.logstash"
+            level: debug
+            max_files: 15 # Because the default behavior is FILE_PER_DAY
+            channels: ["!event"]
+            formatter: 'monolog.formatter.logstash'
+        buffered:
+            type:  stream
+            path:  "php://stderr"
+            level: debug
         console:
             type: console
-            process_psr_3_messages: false
+            process_psr_3_messages: true
+            level: debug
             channels: ["!event", "!doctrine", "!console"]
+        elasticsearch:
+            type: elasticsearch
+            elasticsearch:
+                host: '%env(MONOLOG_ELASTICSEARCH_HOST)%'
+                port: '%env(MONOLOG_ELASTICSEARCH_PORT)%'
+            index: '%env(MONOLOG_ELASTICSEARCH_INDEX)%'
+            level: debug
+            tags: monolog.logger
+            process_psr_3_messages: true
+            ignore_error: true
+            channels: ["!event"]
+#         uncomment to get logging in your browser
+#         you may have to allow bigger header sizes in your Web server configuration
+#        firephp:
+#            type: firephp
+#            level: info
+#        chromephp:
+#            type: chromephp
+#            level: info

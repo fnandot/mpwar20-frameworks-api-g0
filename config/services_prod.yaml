@@ -1,2 +1,2 @@
 parameters:
-  app.environment.alias: 'live'
+  env(APP_ENV_ALIAS): 'live'
