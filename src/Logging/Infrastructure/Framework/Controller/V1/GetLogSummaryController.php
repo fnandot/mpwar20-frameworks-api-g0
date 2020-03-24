@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 final class GetLogSummaryController extends AbstractController
 {
     /**
-     * @Route("/disabled/log-summaries/{id}", methods={"GET"}, requirements={"version"="v1"})
+     * @Route("/log-summaries/{id}", methods={"GET"}, requirements={"version"="v1"})
      * @Cache(public=true,maxage=30)
      */
     public function __invoke(

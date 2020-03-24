@@ -1,0 +1,23 @@
+LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary:
+  type: entity
+  table: log_summary
+  uniqueConstraints:
+    environmentLevel:
+      columns: [environment, level]
+  id:
+    id:
+      type: log_summary_id
+
+  embedded:
+    count:
+      class: LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogCount
+      columnPrefix: false
+  fields:
+    level:
+      type: log_level
+    environment:
+      type: string
+      length: 32 # We assume that the max length an environment name can have is 32 characters
+    updatedOn:
+      type: datetime_immutable
+

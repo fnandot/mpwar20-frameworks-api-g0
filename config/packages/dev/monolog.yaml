@@ -6,11 +6,7 @@ monolog:
             level: debug
             max_files: 15 # Because the default behavior is FILE_PER_DAY
             channels: ["!event"]
-            formatter: 'monolog.formatter.json'
-        create_log_entry_handler:
-            type: service
-            id: 'LaSalle\GroupZero\Logging\Infrastructure\Monolog\CreateLogEntryHandler'
-            channels: ["!event", "!messenger"]
+            formatter: 'LaSalle\GroupZero\Logging\Infrastructure\Monolog\Formatter\JsonPrettyFormatter'
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:
@@ -35,6 +31,3 @@ monolog:
             process_psr_3_messages: true
             ignore_error: true
             channels: ["!event"]
-        telegram:
-            type: service
-            id: 'jacklul\MonologTelegramHandler\TelegramHandler'

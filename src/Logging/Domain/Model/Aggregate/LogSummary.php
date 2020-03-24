@@ -8,10 +8,11 @@ use DateTimeImmutable;
 use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEvent;
 use LaSalle\GroupZero\Logging\Domain\Model\Event\LogSummaryCreatedDomainEvent;
 use LaSalle\GroupZero\Logging\Domain\Model\Event\LogSummaryIncreasedDomainEvent;
+use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogCount;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
-final class LogSummary
+class LogSummary
 {
     /** @var LogSummaryId */
     private $id;
@@ -25,26 +26,35 @@ final class LogSummary
     /** @var int */
     private $count;
 
+    /** @var DateTimeImmutable */
+    private $updatedOn;
+
     /** @var DomainEvent[] */
     private $eventStream;
 
-    public function __construct(LogSummaryId $id, string $environment, LogLevel $level, int $count = 0)
-    {
+    public function __construct(
+        LogSummaryId $id,
+        string $environment,
+        LogLevel $level,
+        LogCount $count = null,
+        DateTimeImmutable $updatedOn = null
+    ) {
         $this->id          = $id;
         $this->environment = $environment;
         $this->level       = $level;
-        $this->count       = $count;
+        $this->count       = $count ?? LogCount::zero();
+        $this->updatedOn   = $updatedOn ?? new DateTimeImmutable();
     }
 
-    public static function create(string $environment, LogLevel $level): self
+    public static function create(LogSummaryId $id, string $environment, LogLevel $level): self
     {
-        $instance = new static(LogSummaryId::generate(), $environment, $level, 0);
+        $instance = new static($id, $environment, $level, LogCount::zero(), new DateTimeImmutable());
 
         $instance->recordThat(
             new LogSummaryCreatedDomainEvent(
-                (string) $instance->id(),
+                $instance->id(),
                 $instance->environment(),
-                (string) $instance->level(),
+                $instance->level(),
                 $instance->count(),
                 new DateTimeImmutable()
             )
@@ -68,18 +78,24 @@ final class LogSummary
         return $this->level;
     }
 
-    public function count(): int
+    public function count(): LogCount
     {
         return $this->count;
     }
 
+    public function updatedOn(): DateTimeImmutable
+    {
+        return $this->updatedOn;
+    }
+
     public function increase(int $increaseBy = 1): void
     {
-        $this->count += $increaseBy;
+        $this->count     = $this->count->increaseBy($increaseBy);
+        $this->updatedOn = new DateTimeImmutable();
 
         $this->recordThat(
             new LogSummaryIncreasedDomainEvent(
-                (string) $this->id,
+                $this->id,
                 $increaseBy,
                 new DateTimeImmutable()
             )

@@ -1,5 +1,12 @@
 LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary:
   exclusion_policy: all
+  accessor_order: custom
+  custom_accessor_order: [id, environment, level, count, updatedOn]
+  virtual_properties:
+    count:
+      name: count
+      exp: object.count().toInt()
+      type: integer
   properties:
     id:
       type: string
@@ -10,6 +17,9 @@ LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary:
     level:
       type: string
       expose: true
-    count:
-      type: int
+#    count:
+#      type: LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogCount
+#      expose: true
+    updatedOn:
+      type: DateTimeImmutable
       expose: true

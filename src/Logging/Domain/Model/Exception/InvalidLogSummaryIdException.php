@@ -9,8 +9,8 @@ use Throwable;
 
 final class InvalidLogSummaryIdException extends Exception
 {
-    public function __construct(string $value, $code = 0, Throwable $previous = null)
+    public function __construct(string $id, $code = 0, Throwable $previous = null)
     {
-        parent::__construct(sprintf('Id "%s" is invalid', $value), $code, $previous);
+        parent::__construct(sprintf('Provided log summary id "%s" is invalid', $id), $code, $previous);
     }
 }

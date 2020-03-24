@@ -1,0 +1,6 @@
+LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogCount:
+  exclusion_policy: all
+  properties:
+    count:
+      type: int
+      expose: true

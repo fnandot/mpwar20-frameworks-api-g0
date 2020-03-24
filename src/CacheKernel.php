@@ -2,6 +2,7 @@
 
 namespace LaSalle\GroupZero;
 
+
 use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
 
 class CacheKernel extends HttpCache

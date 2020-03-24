@@ -1,0 +1,19 @@
+# This file was just to test how DIC works, is not necessary anymore
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # Commands
+#  LaSalle\GroupZero\Logging\Infrastructure\Framework\Command\AppLogEntriesCommand:
+#    arguments:
+#      - '@LaSalle\GroupZero\Logging\Application\GetLogEntriesByEnvironment'
+#    tags:
+#      - {name: 'console.command'}
+
+#  LaSalle\GroupZero\Logging\Infrastructure\Framework\Command\AppLogSummariesCommand:
+#    arguments:
+#      - '@LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironment'
+#    tags:
+#      - {name: 'console.command'}

@@ -7,12 +7,12 @@ namespace LaSalle\GroupZero\Logging\Domain\Model\Aggregate;
 use DateTimeImmutable;
 use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEvent;
 use LaSalle\GroupZero\Logging\Domain\Model\Event\LogEntryCreatedDomainEvent;
-use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogEntryId;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
+use Ramsey\Uuid\Uuid;
 
 final class LogEntry
 {
-    /** @var LogEntryId */
+    /** @var string */
     private $id;
 
     /** @var string */
@@ -31,7 +31,7 @@ final class LogEntry
     private $eventStream;
 
     public function __construct(
-        LogEntryId $id,
+        string $id,
         string $environment,
         LogLevel $level,
         string $message,
@@ -45,7 +45,7 @@ final class LogEntry
     }
 
     public static function create(
-        LogEntryId $id,
+        string $id,
         string $environment,
         LogLevel $level,
         string $message,
@@ -55,7 +55,8 @@ final class LogEntry
 
         $instance->recordThat(
             new LogEntryCreatedDomainEvent(
-                (string) $instance->id(),
+                (string) Uuid::uuid4(),
+                $instance->id(),
                 $instance->environment(),
                 (string) $instance->level(),
                 $instance->message(),
@@ -66,7 +67,7 @@ final class LogEntry
         return $instance;
     }
 
-    public function id(): LogEntryId
+    public function id(): string
     {
         return $this->id;
     }

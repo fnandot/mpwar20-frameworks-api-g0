@@ -1,0 +1,8 @@
+LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogCount:
+  type: embeddable
+  fields:
+    count:
+      type: integer
+      options:
+        unsigned: true
+

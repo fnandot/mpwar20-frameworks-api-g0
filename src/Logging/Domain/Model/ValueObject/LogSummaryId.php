@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace LaSalle\GroupZero\Logging\Domain\Model\ValueObject;
 
-use LaSalle\GroupZero\Logging\Domain\Model\Exception\InvalidLogEntryIdException;
+use LaSalle\GroupZero\Logging\Domain\Model\Exception\InvalidLogSummaryIdException;
 use Ramsey\Uuid\Uuid;
 
 final class LogSummaryId
@@ -32,7 +32,7 @@ final class LogSummaryId
     private function guardIdIsValid(string $id): void
     {
         if (!Uuid::isValid($id)) {
-            throw new InvalidLogEntryIdException($id);
+            throw new InvalidLogSummaryIdException($id);
         }
     }
 

@@ -11,6 +11,7 @@ use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary;
 use LaSalle\GroupZero\Logging\Domain\Model\Event\LogEntryCreatedDomainEvent;
 use LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
+use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 final class IncreaseLogSummaryOnLogEntryCreated
 {
@@ -39,7 +40,7 @@ final class IncreaseLogSummaryOnLogEntryCreated
             ->findOneByEnvironmentAndLevel($environment, $level);
 
         if (null === $summary) {
-            $summary = LogSummary::create($environment, $level);
+            $summary = LogSummary::create(LogSummaryId::generate(), $environment, $level);
         }
 
         $summary->increase();

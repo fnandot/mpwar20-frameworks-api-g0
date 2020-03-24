@@ -1,23 +1,27 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
   app_log_summary_data_dir: '%env(resolve:APP_LOG_SUMMARY_DATA_DIR)%'
 
 services:
   # default configuration for services in *this* file
   _defaults:
-    public: false
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
     bind:
       string $kernelLogsDir: '%kernel.logs_dir%'
       string $kernelEnvironment: '%kernel.environment%'
       LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\LogEntryFilesystemRepository'
-      LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\FilesystemLogSummaryRepository'
+      #            LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository\LogSummaryDbalRepository'
+      LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository\LogSummaryOrmRepository'
+  #            LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository\LogSummaryOrmDqlRepository'
+  #            LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Pdo\LogSummaryPdoRepository'
 
-  LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository:
-    alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\LogEntryFilesystemRepository'
-
-  LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository:
-    alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\FilesystemLogSummaryRepository'
+  #    LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository:
+  #        alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\LogEntryFilesystemRepository'
+  #
+  #    LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository:
+  #        alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\Pdo\LogSummaryPdoRepository'
 
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
@@ -58,7 +62,7 @@ services:
   #            tags: ['group_zero.application_service']
 
   # Workaround just to have PSR-3 messages processed on our custom handler
-  LaSalle\GroupZero\Logging\Infrastructure\Monolog\CreateLogEntryHandler:
+  LaSalle\GroupZero\Logging\Infrastructure\Monolog\EventDispatcherHandler:
     arguments:
       $kernelEnvironment: '%kernel.environment%'
     calls:
@@ -92,9 +96,30 @@ services:
     tags:
       - { name: controller.argument_value_resolver, priority: 50 }
 
-  LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\V1\GetLogSummaryStubController:
-    bind:
-      string $kernelEnvironment: '%kernel.environment%'
+  #    pdo_connection:
+  #        class: PDO
+  #        arguments:
+  #            - '%env(resolve:DATABASE_DNS)%'
+  #            - '%env(resolve:DATABASE_USER)%'
+  #            - '%env(resolve:DATABASE_PASSWORD)%'
+  #            - !php/const PDO::ATTR_ERRMODE: !php/const PDO::ERRMODE_EXCEPTION
+  #              !php/const PDO::ATTR_DEFAULT_FETCH_MODE: !php/const PDO::FETCH_ASSOC
+  #              !php/const PDO::ATTR_EMULATE_PREPARES: false
 
-  LaSalle\GroupZero\Core\Domain\Model\Event\DomainEventBus:
-    alias: 'LaSalle\GroupZero\Core\Infrastructure\Event\MessengerDomainEventBus'
+  PDO:
+    class: PDO
+    factory: ['LaSalle\GroupZero\Logging\Infrastructure\Persistence\Pdo\PdoFactory', 'create']
+    arguments:
+      - '%env(resolve:DATABASE_DNS)%'
+      - '%env(resolve:DATABASE_USER)%'
+      - '%env(resolve:DATABASE_PASSWORD)%'
+
+  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Pdo\LogSummaryPdoRepository:
+    arguments:
+      $tableName: '%env(resolve:DATABASE_LOG_SUMMARY_TABLE_NAME)%'
+
+  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository\LogSummaryDbalRepository:
+    arguments:
+      $tableName: '%env(resolve:DATABASE_LOG_SUMMARY_TABLE_NAME)%'
+
+

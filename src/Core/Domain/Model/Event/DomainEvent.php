@@ -8,7 +8,7 @@ use DateTimeImmutable;
 
 interface DomainEvent
 {
-    public function aggregateId(): string;
+    public function id(): string;
 
     public function occurredOn(): DateTimeImmutable;
 }

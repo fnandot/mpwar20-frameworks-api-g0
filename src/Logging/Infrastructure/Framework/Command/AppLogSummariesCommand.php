@@ -7,6 +7,7 @@ namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Command;
 use LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironment;
 use LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironmentRequest;
 use LaSalle\GroupZero\Logging\Application\LogSummaryResponse;
+use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;

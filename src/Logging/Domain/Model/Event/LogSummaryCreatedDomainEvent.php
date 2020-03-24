@@ -6,31 +6,39 @@ namespace LaSalle\GroupZero\Logging\Domain\Model\Event;
 
 use DateTimeImmutable;
 use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEvent;
+use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogCount;
+use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
+use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
+use Ramsey\Uuid\Uuid;
 
 final class LogSummaryCreatedDomainEvent implements DomainEvent
 {
     /** @var string */
+    private $id;
+
+    /** @var LogSummaryId */
     private $aggregateId;
 
     /** @var string */
     private $environment;
 
-    /** @var string */
+    /** @var LogLevel */
     private $level;
 
-    /** @var int */
+    /** @var LogCount */
     private $count;
 
     /** @var DateTimeImmutable */
     private $occurredOn;
 
     public function __construct(
-        string $aggregateId,
+        LogSummaryId $aggregateId,
         string $environment,
-        string $level,
-        int $count,
+        LogLevel $level,
+        LogCount $count,
         DateTimeImmutable $occurredOn
     ) {
+        $this->id          = (string) Uuid::uuid4();
         $this->aggregateId = $aggregateId;
         $this->environment = $environment;
         $this->level       = $level;
@@ -38,7 +46,12 @@ final class LogSummaryCreatedDomainEvent implements DomainEvent
         $this->occurredOn  = $occurredOn;
     }
 
-    public function aggregateId(): string
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function aggregateId(): LogSummaryId
     {
         return $this->aggregateId;
     }
@@ -48,12 +61,12 @@ final class LogSummaryCreatedDomainEvent implements DomainEvent
         return $this->environment;
     }
 
-    public function level(): string
+    public function level(): LogLevel
     {
         return $this->level;
     }
 
-    public function count(): int
+    public function count(): LogCount
     {
         return $this->count;
     }

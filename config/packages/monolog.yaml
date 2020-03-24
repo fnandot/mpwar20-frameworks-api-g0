@@ -1,6 +1,6 @@
 monolog:
   handlers:
-    create_log_entry_handler:
+    event_dispatcher_handler:
       type: service
-      id: 'LaSalle\GroupZero\Logging\Infrastructure\Monolog\CreateLogEntryHandler'
-      channels: ["!event", "!messenger"]
+      id: LaSalle\GroupZero\Logging\Infrastructure\Monolog\EventDispatcherHandler
+      channels: ["!event", "!messenger", "!doctrine"]

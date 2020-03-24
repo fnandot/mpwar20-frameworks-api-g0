@@ -1,0 +1,38 @@
+# This file was just to test how DIC works, is not necessary anymore
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # Persistence
+#  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\LogEntryFilesystemRepository:
+#    arguments:
+#      $finder: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogFileFinder'
+#      $reader: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Reader\LogFileReader'
+
+#  LaSalle\GroupZero\Logging\Infrastructure\Persistence\InMemory\LogSummaryInMemoryRepository:
+#    arguments:
+#      $logEntryRepository: '@LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository'
+
+  # Persistence - File Finder
+
+#  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogFileFinder:
+#    alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogRotatingFileFinder'
+
+#  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogRotatingFileFinder:
+#    arguments:
+#      $directory: '%kernel.logs_dir%'
+
+  # Persistence - File Reader
+
+#  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Reader\LogFileReader:
+#    arguments:
+#      $parser: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Parser\LogParser'
+
+  # Persistence - Parser
+
+#  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Parser\LogParser:
+#    alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Parser\JsonLogParser'
+
+#  LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Parser\JsonLogParser: ~
