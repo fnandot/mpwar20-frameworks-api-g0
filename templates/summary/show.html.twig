@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% set environment = app.request.get('environment') %}
+{% set level = app.request.get('level') %}
+
+{% block title %}Summary for {{ environment }} and {{ level }}{% endblock %}
+
+{% block body %}
+    <article>
+        {% if not summary %}
+            <header><h1>No summary were found for {{ environment }} and level {{ level }}</h1></header>
+        {% else %}
+            <header><h1>Summary for {{ environment }} and {{ level }}</h1></header>
+            <table>
+                <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Identifier</td>
+                    <td>{{ summary.id }}</td>
+                </tr>
+                <tr>
+                    <td>Environment</td>
+                    <td><a href="{{ url('logging_web_summary_list', {environment: summary.environment}) }}">{{ summary.environment }}</a></td>
+                </tr>
+                <tr>
+                    <td>Level</td>
+                    <td>{{ summary.level }}</td>
+                </tr>
+                <tr>
+                    <td>Count</td>
+                    <td>{{ summary.count }}</td>
+                </tr>
+                <tr>
+                    <td>Last Updated</td>
+                    <td>{{ summary.updatedOn|date }}</td>
+                </tr>
+                </tbody>
+            </table>
+        {% endif %}
+    </article>
+{% endblock %}

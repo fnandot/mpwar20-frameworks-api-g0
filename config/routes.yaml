@@ -24,7 +24,7 @@ v1_api_controllers:
     resource: './Logging/Infrastructure/Framework/Controller/V1'
     prefix: /api/{version}/
     condition:  "request.headers.get('Accept') matches '/application\\\\/json/i' or (request.getMethod() in ['PUT', 'POST', 'PATCH'] and request.headers.get('Content-Type') matches '/application\\\\/json/i')"
-    name_prefix: logging_
+    name_prefix: logging_api_v1_
     type:     annotation
     defaults:
         _format: json
@@ -35,3 +35,12 @@ v2_api_controllers:
     resource: './Logging/Infrastructure/Framework/Controller/V2'
     prefix: /api/
     condition: "request.attributes.get('version') == '2.0'"
+    name_prefix: logging_api_v2_
+
+web_controllers:
+    resource: './Logging/Infrastructure/Framework/Controller/Web'
+    prefix: /
+    name_prefix: logging_web_
+    type:     annotation
+    defaults:
+        _format: html

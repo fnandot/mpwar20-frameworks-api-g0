@@ -31,6 +31,3 @@ monolog:
             process_psr_3_messages: true
             ignore_error: true
             channels: ["!event"]
-        telegram:
-            type: service
-            id: 'jacklul\MonologTelegramHandler\TelegramHandler'

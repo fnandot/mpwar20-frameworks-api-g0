@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Summary for {{ environment }}{% endblock %}
+
+{% block body %}
+    <article>
+    {% if not summaries %}
+        <header><h1>No summaries were found for {{ environment }}</h1></header>
+    {% else %}
+        <header><h1>Summary for {{ environment }}</h1></header>
+        <table>
+            <thead>
+            <tr>
+                <th>Level</th>
+                <th>Count</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for summary in summaries %}
+                <tr>
+                    <td>
+                        <a href="{{ url('logging_web_summary_show', {environment: summary.environment, level: summary.level}) }}">{{ summary.level }}</a>
+                    </td>
+                    <td>{{ summary.count }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    </article>
+{% endblock %}

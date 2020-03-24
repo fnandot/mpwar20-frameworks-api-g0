@@ -73,29 +73,18 @@ final class LogSummaryDbalRepository implements LogSummaryRepository
     public function findByEnvironmentAndLevels(string $environment, LogLevel ...$levels): array
     {
         $statement = $this
-            ->connection
-            ->createQueryBuilder()
-            ->select('ls.*')
-            ->from('log_summary', 'ls')
+            ->createNamedQueryBuilder()
             ->where('ls.environment = :environment')
             ->andWhere('ls.level IN (:levels)')
-            ->setParameter('environment', $environment)
-            /* LogLevel implementa __toString */
+            ->setParameter(self::COLUMN_ENVIRONMENT, $environment)
             ->setParameter('levels', $levels, Connection::PARAM_STR_ARRAY)
             ->setMaxResults(count($levels))
             ->execute();
 
-        foreach ($statement->fetchAll(PDO::FETCH_ASSOC) as $data) {
-            $results[] = new LogSummary(
-                $this->connection->convertToPHPValue($data['id'], LogSummaryIdType::NAME),
-                $this->connection->convertToPHPValue($data['environment'], Types::STRING),
-                $this->connection->convertToPHPValue($data['level'], LogLevelType::NAME),
-                $this->connection->convertToPHPValue($data['count'], LogCountType::NAME),
-                $this->connection->convertToPHPValue($data['updated.on'], Types::DATETIME_IMMUTABLE)
-            );
-        }
-
-        return $results ?? [];
+        return array_map(
+            $this->mapToDomainFunction(),
+            $statement->fetchAll(PDO::FETCH_ASSOC) ?? []
+        );
     }
 
     public function findOneByEnvironmentAndLevel(string $environment, LogLevel $level): ?LogSummary
@@ -158,7 +147,7 @@ final class LogSummaryDbalRepository implements LogSummaryRepository
     {
         $statement = $this
             ->connection
-            ->prepare('SELECT 1 FROM ' . $this->tableName . ' ls WHERE ls.id = :id LIMIT 1');
+            ->prepare('SELECT 1 FROM '.$this->tableName.' ls WHERE ls.id = :id LIMIT 1');
 
         $statement->execute(['id' => (string) $logSummary->id()]);
 
@@ -199,7 +188,7 @@ final class LogSummaryDbalRepository implements LogSummaryRepository
             ->select(
                 array_map(
                     static function (string $columnName) use ($alias): string {
-                        return $alias . '.' . $columnName;
+                        return $alias.'.'.$columnName;
                     },
                     array_keys(static::DATABASE_MAPPING)
                 )

@@ -1,0 +1,32 @@
+table {
+    font-family: "Meera", monospace;
+    border: 1px solid #FFFFFF;
+    text-align: center;
+    min-width: 500px;
+    border-collapse: collapse;
+}
+table td, table th {
+    border: 1px solid #FFFFFF;
+    padding: 3px 2px;
+}
+table tbody td {
+    font-size: 24px;
+}
+table tr:nth-child(even) {
+    background: #D0E4F5;
+}
+table thead {
+    background: #0B6FA4;
+    border-bottom: 5px solid #FFFFFF;
+}
+table thead th {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px;
+    border-left: 2px solid #FFFFFF;
+}
+table thead th:first-child {
+    border-left: none;
+}
