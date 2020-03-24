@@ -1,31 +1,20 @@
 monolog:
-    channels: ['app']
     handlers:
         main:
             type: rotating_file
-            path: "%kernel.logs_dir%/%kernel.environment%.json"
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
             max_files: 15 # Because the default behavior is FILE_PER_DAY
             channels: ["!event"]
             formatter: 'monolog.formatter.json'
-        main_pretty:
-            type: rotating_file
-            path: "%kernel.logs_dir%/%kernel.environment%.jsonpretty"
-            level: debug
-            max_files: 15 # Because the default behavior is FILE_PER_DAY
-            channels: ["!event"]
-            formatter: 'LaSalle\GroupZero\Monolog\Formatter\JsonPrettyFormatter'
-        main_logstash:
-            type: rotating_file
-            path: "%kernel.logs_dir%/%kernel.environment%.logstash"
-            level: debug
-            max_files: 15 # Because the default behavior is FILE_PER_DAY
-            channels: ["!event"]
-            formatter: 'monolog.formatter.logstash'
-        buffered:
-            type:  stream
-            path:  "php://stderr"
-            level: debug
+        # uncomment to get logging in your browser
+        # you may have to allow bigger header sizes in your Web server configuration
+        #firephp:
+        #    type: firephp
+        #    level: info
+        #chromephp:
+        #    type: chromephp
+        #    level: info
         console:
             type: console
             process_psr_3_messages: true
@@ -42,11 +31,6 @@ monolog:
             process_psr_3_messages: true
             ignore_error: true
             channels: ["!event"]
-#         uncomment to get logging in your browser
-#         you may have to allow bigger header sizes in your Web server configuration
-#        firephp:
-#            type: firephp
-#            level: info
-#        chromephp:
-#            type: chromephp
-#            level: info
+        telegram:
+            type: service
+            id: 'jacklul\MonologTelegramHandler\TelegramHandler'

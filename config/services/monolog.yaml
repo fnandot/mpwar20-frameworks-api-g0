@@ -1,6 +1,7 @@
 services:
   # default configuration for services in *this* file
   _defaults:
+    public: false
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
@@ -22,4 +23,18 @@ services:
     tags:
       - {name: monolog.processor }
 
-  LaSalle\GroupZero\Monolog\Formatter\JsonPrettyFormatter: ~
+  LaSalle\GroupZero\Logging\Infrastructure\Monolog\Formatter\JsonPrettyFormatter: ~
+
+  jacklul\MonologTelegramHandler\TelegramHandler:
+    arguments:
+      $token: '%env(resolve:TELEGRAM_BOT_TOKEN)%'
+      $chatId: '%env(resolve:TELEGRAM_CHAT_ID)%'
+      $level: !php/const Monolog\Logger::EMERGENCY
+
+  # Actually is not needed due autowiring loads automatically the Processor
+  LaSalle\GroupZero\Logging\Infrastructure\Monolog\Processor\IdProcessor:
+    tags:
+      - { name: monolog.processor }
+
+  LaSalle\GroupZero\Logging\Infrastructure\Monolog\Processor\FakeWebProcessor:
+    autoconfigure: false

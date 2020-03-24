@@ -36,4 +36,8 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 config/secrets/*/*.decrypt.private.php
+
+###> lexik/jwt-authentication-bundle ###
+/credentials/jwt/private.pem
+###< lexik/jwt-authentication-bundle ###
 docker.env
