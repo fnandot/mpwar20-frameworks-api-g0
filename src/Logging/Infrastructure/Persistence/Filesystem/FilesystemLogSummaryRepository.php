@@ -7,6 +7,7 @@ namespace LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem;
 use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary;
 use LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
+use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
@@ -31,7 +32,7 @@ final class FilesystemLogSummaryRepository implements LogSummaryRepository
         $this->filesystem         = $filesystem;
     }
 
-    public function find(string $id): ?LogSummary
+    public function find(LogSummaryId $logSummaryId): ?LogSummary
     {
         $files = $this->findFiles($this->defaultEnvironment, ...[]);
 
@@ -39,7 +40,7 @@ final class FilesystemLogSummaryRepository implements LogSummaryRepository
             /** @var LogSummary $summary */
             $summary = unserialize($file->getContents());
 
-            if ($id === $summary->id()) {
+            if (((string) $logSummaryId) === $summary->id()) {
                 return $summary;
             }
         }

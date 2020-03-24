@@ -1,0 +1,9 @@
+# This file was just to test how DIC works, is not necessary anymore
+
+services:
+  # Implementations
+#  LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository:
+#    alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\LogEntryFilesystemRepository'
+
+#  LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository:
+#    alias: 'LaSalle\GroupZero\Logging\Infrastructure\Persistence\InMemory\LogSummaryInMemoryRepository'

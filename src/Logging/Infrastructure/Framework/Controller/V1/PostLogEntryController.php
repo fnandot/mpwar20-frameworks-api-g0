@@ -8,7 +8,6 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use LaSalle\GroupZero\Logging\Application\CreateLogEntry;
 use LaSalle\GroupZero\Logging\Application\CreateLogEntryRequest;
-use LaSalle\GroupZero\Logging\Domain\Model\Exception\InvalidLogLevelException;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +20,7 @@ use Throwable;
 final class PostLogEntryController extends AbstractController
 {
     /**
-     * @Route("/log-entries-without-serializer", methods={"POST"}, requirements={"version"="v1"})
+     * @Route("/log-entries", methods={"POST"}, requirements={"version"="v1"})
      */
     public function __invoke(Request $request, CreateLogEntry $createLogEntry): Response
     {
@@ -48,7 +47,7 @@ final class PostLogEntryController extends AbstractController
     }
 
     /**
-     * @Route("/log-entries", methods={"POST"}, requirements={"version"="v1"})
+     * @Route("/log-entries-w-serializer", methods={"POST"}, requirements={"version"="v1"})
      */
     public function withSerializer(
         Request $request,
@@ -57,21 +56,18 @@ final class PostLogEntryController extends AbstractController
     ): Response {
         $data = $request->getContent();
         try {
-            /** @var CreateLogEntryRequest $createLogEntryRequest */
             $createLogEntryRequest = $serializer->deserialize(
                 $data,
                 CreateLogEntryRequest::class,
                 'json',
                 ['groups' => 'api-v1']
             );
-
-            $logEntry = $createLogEntry($createLogEntryRequest);
-        } catch (InvalidLogLevelException $e) {
-            throw new BadRequestHttpException($e->getMessage(), $e);
         } catch (Throwable $t) {
             throw new BadRequestHttpException('Bad request', $t);
         }
 
-        return $this->json($logEntry, Response::HTTP_OK, [], ['groups' => 'api-v1']);
+        $logEntry = $createLogEntry($createLogEntryRequest);
+
+        return new Response(null, Response::HTTP_CREATED);
     }
 }

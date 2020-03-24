@@ -61,7 +61,8 @@ final class GetLogSummariesByEnvironment implements ApplicationService
                     (string) $summary->id(),
                     $summary->environment(),
                     (string) $summary->level(),
-                    $summary->count()
+                    $summary->count()->toInt(),
+                    $summary->updatedOn()
                 );
             },
             $logSummaries

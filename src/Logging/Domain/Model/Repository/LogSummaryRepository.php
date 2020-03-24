@@ -6,10 +6,11 @@ namespace LaSalle\GroupZero\Logging\Domain\Model\Repository;
 
 use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
+use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 interface LogSummaryRepository
 {
-    public function find(string $id): ?LogSummary;
+    public function find(LogSummaryId $id): ?LogSummary;
 
     /**
      * @return LogSummary[]

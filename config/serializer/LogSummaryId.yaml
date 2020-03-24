@@ -1,0 +1,4 @@
+LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId:
+  attributes:
+    id:
+      groups: [api-v1]

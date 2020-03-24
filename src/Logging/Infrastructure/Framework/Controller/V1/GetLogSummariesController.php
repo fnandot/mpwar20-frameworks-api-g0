@@ -25,18 +25,12 @@ final class GetLogSummariesController extends AbstractController
         Request $request,
         GetLogSummariesByEnvironment $getLogSummariesByEnvironment
     ): JsonResponse {
-        $filters = $request->query->get('filter', []);
-
-        if (!array_key_exists('env', $filters)) {
+        if (!$request->query->has('env')) {
             throw new BadRequestHttpException('No environment supplied');
         }
 
-        $env    = $filters['env'];
-        $levels = [];
-
-        if (array_key_exists('level', $filters)) {
-            $levels = explode(',', $filters['level']);
-        }
+        $env = $request->query->get('env');
+        $levels = $request->query->get('level', []);
 
         try {
             $summaries = ($getLogSummariesByEnvironment)(new GetLogSummariesByEnvironmentRequest($env, ...$levels));
@@ -45,6 +39,7 @@ final class GetLogSummariesController extends AbstractController
         }
 
         return $this
-            ->json($summaries, Response::HTTP_OK, [], ['groups' => 'api-v1']);
+            ->json($summaries, Response::HTTP_OK, [], ['groups' => 'api-v1'])
+        ;
     }
 }

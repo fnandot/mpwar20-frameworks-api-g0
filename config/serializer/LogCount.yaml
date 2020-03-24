@@ -1,0 +1,4 @@
+LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogCount:
+  attributes:
+    count:
+      groups: [api-v1]

@@ -30,16 +30,6 @@ v1_api_controllers:
         _format: json
         version: v1
 
-api_controllers:
-    resource: './Logging/Infrastructure/Framework/Controller/V1'
-    prefix: /api/
-    condition:  "request.headers.get('Accept') matches '/application\\\\/json/i' or (request.getMethod() in ['PUT', 'POST', 'PATCH'] and request.headers.get('Content-Type') matches '/application\\\\/json/i')"
-    name_prefix: logging_unversioned_
-    type:     annotation
-    defaults:
-        _format: json
-        version: v1
-
 v2_api_controllers:
     type: rest
     resource: './Logging/Infrastructure/Framework/Controller/V2'

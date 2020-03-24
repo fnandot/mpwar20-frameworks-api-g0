@@ -4,14 +4,10 @@ imports:
   - { resource: services/*.yaml }
   - { resource: services/modules/*.yaml }
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-parameters:
-    app_log_summary_data_dir: '%env(resolve:APP_LOG_SUMMARY_DATA_DIR)%'
-
 services:
     # default configuration for services in *this* file
     _defaults:
+        public: false
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 

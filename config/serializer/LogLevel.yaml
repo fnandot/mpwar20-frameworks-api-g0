@@ -1,4 +1,4 @@
 LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel:
   attributes:
-    value:
+    level:
       groups: [api-v1]

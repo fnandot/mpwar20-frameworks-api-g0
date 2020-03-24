@@ -29,19 +29,16 @@ final class LogLevel
     ];
 
     /** @var string */
-    private $value;
+    private $level;
 
-    /**
-     * @throws InvalidLogLevelException
-     */
-    public function __construct(string $value)
+    public function __construct(string $level)
     {
-        $this->setValue($value);
+        $this->setLevel($level);
     }
 
-    public static function fromString(string $value): self
+    public static function fromString(string $level): self
     {
-        return new static($value);
+        return new static($level);
     }
 
     /**
@@ -54,12 +51,12 @@ final class LogLevel
 
     public function equals(self $other): bool
     {
-        return $this->value === $other->value;
+        return $this->level === $other->level;
     }
 
     public function __toString(): string
     {
-        return $this->value;
+        return $this->level;
     }
 
     public function isGreaterOrEqualThan(LogLevel $other): bool
@@ -70,12 +67,12 @@ final class LogLevel
         return $currentIndex <= $otherIndex;
     }
 
-    private function setValue(string $value): void
+    private function setLevel(string $level): void
     {
-        if (!in_array($value, static::$allowedValues, true)) {
-            throw new InvalidLogLevelException($value);
+        if (!in_array($level, static::$allowedValues, true)) {
+            throw new InvalidLogLevelException($level);
         }
 
-        $this->value = $value;
+        $this->level = $level;
     }
 }

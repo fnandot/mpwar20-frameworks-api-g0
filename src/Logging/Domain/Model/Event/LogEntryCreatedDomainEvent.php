@@ -10,6 +10,9 @@ use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEvent;
 final class LogEntryCreatedDomainEvent implements DomainEvent
 {
     /** @var string */
+    private $id;
+
+    /** @var string */
     private $aggregateId;
 
     /** @var string */
@@ -25,17 +28,24 @@ final class LogEntryCreatedDomainEvent implements DomainEvent
     private $occurredOn;
 
     public function __construct(
+        string $id,
         string $aggregateId,
         string $environment,
         string $level,
         string $message,
         DateTimeImmutable $occurredOn
     ) {
+        $this->id          = $id;
         $this->aggregateId = $aggregateId;
         $this->environment = $environment;
         $this->level       = $level;
         $this->message     = $message;
         $this->occurredOn  = $occurredOn;
+    }
+
+    public function id(): string
+    {
+        return $this->id;
     }
 
     public function aggregateId(): string

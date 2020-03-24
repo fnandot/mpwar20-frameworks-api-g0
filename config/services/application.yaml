@@ -1,0 +1,15 @@
+# This file was just to test how DIC works, is not necessary anymore
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+#  LaSalle\GroupZero\Logging\Application\GetLogEntriesByEnvironment:
+#    arguments:
+#      $repository: '@LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository'
+
+#  LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironment:
+#    arguments:
+#      $repository: '@LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository'
+

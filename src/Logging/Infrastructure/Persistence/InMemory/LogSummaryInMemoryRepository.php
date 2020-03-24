@@ -21,7 +21,7 @@ final class LogSummaryInMemoryRepository implements LogSummaryRepository
         $this->logEntryRepository = $logEntryRepository;
     }
 
-    public function find(string $id): ?LogSummary
+    public function find(LogSummaryId $logSummaryId): ?LogSummary
     {
         throw new \BadMethodCallException('Not implemented');
     }
