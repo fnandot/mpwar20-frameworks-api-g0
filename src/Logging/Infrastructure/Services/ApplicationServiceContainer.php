@@ -14,7 +14,7 @@ final class ApplicationServiceContainer
     /**
      * @param ApplicationService[] $services
      */
-    public function __construct(iterable $services = [])
+    public function __construct(array $services = [])
     {
         $this->services = [];
 

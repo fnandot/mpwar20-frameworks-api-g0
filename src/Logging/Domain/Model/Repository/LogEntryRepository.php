@@ -11,4 +11,6 @@ interface LogEntryRepository
 {
     /** @return array|LogEntry[] */
     public function findAllByEnvironment(string $environment, LogLevel ...$levels): array;
+
+    public function save(LogEntry $logEntry): void;
 }
