@@ -4,13 +4,10 @@ declare(strict_types = 1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Command;
 
-use LaSalle\GroupZero\Logging\Application\GetLogEntriesByEnvironment;
-use LaSalle\GroupZero\Logging\Application\GetLogEntriesByEnvironmentRequest;
+use LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironment;
+use LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironmentRequest;
+use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
-use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogRotatingFileFinder;
-use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\LogEntryFilesystemRepository;
-use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Parser\JsonLogParser;
-use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Reader\LogFileReader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,6 +23,15 @@ final class AppLogSummariesCommand extends Command implements ContainerAwareInte
 
     protected static $defaultName = 'app:log:summaries';
 
+    /** @var GetLogSummariesByEnvironment */
+    private $getLogSummariesByEnvironment;
+
+    public function __construct(GetLogSummariesByEnvironment $getLogSummariesByEnvironment)
+    {
+        parent::__construct();
+        $this->getLogSummariesByEnvironment = $getLogSummariesByEnvironment;
+    }
+
     protected function configure(): void
     {
         $this
@@ -33,7 +39,7 @@ final class AppLogSummariesCommand extends Command implements ContainerAwareInte
             ->setHelp('This command allows you to dump logs based on the environment');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -51,7 +57,12 @@ final class AppLogSummariesCommand extends Command implements ContainerAwareInte
             ->getHelper('question')
             ->ask($input, $output, $question);
 
-        $summaries = $this->summarize($environment, ...$levels);
+        $summaries = ($this->getLogSummariesByEnvironment)(
+            new GetLogSummariesByEnvironmentRequest(
+                $environment,
+                ...$levels
+            )
+        );
 
         if (0 === count($summaries)) {
             $io->note(
@@ -71,48 +82,14 @@ final class AppLogSummariesCommand extends Command implements ContainerAwareInte
             ->setHeaders(['Level', 'Count'])
             ->setRows(
                 array_map(
-                    static function (string $level, int $count): array {
-                        return [$level, $count];
+                    static function (LogSummary $logSummary): array {
+                        return [$logSummary->level(), $logSummary->count()];
                     },
-                    array_keys($summaries),
                     $summaries
                 )
             )
             ->render();
 
         return 0;
-    }
-
-    private function buildGetLogEntriesByEnvironment(): GetLogEntriesByEnvironment
-    {
-        $logs = $this->container->getParameter('kernel.logs_dir');
-
-        return new GetLogEntriesByEnvironment(
-            new LogEntryFilesystemRepository(
-                new LogRotatingFileFinder($logs),
-                new LogFileReader(
-                    new JsonLogParser()
-                )
-            )
-        );
-    }
-
-    private function summarize(string $environment, string ...$levels): array
-    {
-        $logEntries = $this->buildGetLogEntriesByEnvironment()(
-            new GetLogEntriesByEnvironmentRequest(
-                $environment,
-                ...$levels
-            )
-        );
-
-        $summaries = [];
-
-        foreach ($logEntries as $logEntry) {
-            $levelName             = (string) $logEntry->level();
-            $summaries[$levelName] = ($summaries[$levelName] ?? 0) + 1;
-        }
-
-        return $summaries;
     }
 }

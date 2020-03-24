@@ -45,24 +45,12 @@ final class LogEntryFilesystemRepository implements LogEntryRepository
     {
         $levels = array_map('strtoupper', $levels);
 
-        //foreach ($levels as $level) {
-        //    $upperLevels[] = strtoupper($level);
-        //}
-
         return array_filter(
             $normalizedLogEntries,
             static function (array $logEntry) use ($levels) {
                 return in_array($logEntry['level_name'], $levels, true);
             }
         );
-
-        //foreach ($normalizedLogEntries as $normalizedLogEntry) {
-        //    if (in_array($logEntry['level_name'], $upperLevels, true)) {
-        //        $filteredLevels[] = $normalizedLogEntry;
-        //    }
-        //}
-        //
-        //return $filteredLevels;
     }
 
     private function mapToDomain($environment, array $normalizedLogEntries): array

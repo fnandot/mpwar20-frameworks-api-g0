@@ -34,7 +34,7 @@ parameters:
             tab_width: ~
             report: full
             report_width: ~
-            whitelist_patterns: []
+            whitelist_patterns: ["src/Kernel.php"]
             encoding: ~
             ignore_patterns: []
             sniffs: []

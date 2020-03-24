@@ -16,14 +16,19 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-final class AppLogEntriesCommand extends Command implements ContainerAwareInterface
+final class AppLogEntriesCommand extends Command
 {
-    use ContainerAwareTrait;
-
     protected static $defaultName = 'app:log:entries';
+
+    /** @var GetLogEntriesByEnvironment */
+    private $getLogEntriesByEnvironment;
+
+    public function __construct(GetLogEntriesByEnvironment $getLogEntriesByEnvironment)
+    {
+        parent::__construct();
+        $this->getLogEntriesByEnvironment = $getLogEntriesByEnvironment;
+    }
 
     protected function configure(): void
     {
@@ -51,7 +56,7 @@ final class AppLogEntriesCommand extends Command implements ContainerAwareInterf
         $environment = $input->getArgument('environment');
         $levels      = $input->getOption('level');
 
-        $entries = $this->buildGetLogEntriesByEnvironment()(
+        $entries = ($this->getLogEntriesByEnvironment)(
             new GetLogEntriesByEnvironmentRequest(
                 $environment,
                 ...$levels
@@ -71,20 +76,5 @@ final class AppLogEntriesCommand extends Command implements ContainerAwareInterf
         }
 
         return 0;
-    }
-
-    private function buildGetLogEntriesByEnvironment(): GetLogEntriesByEnvironment
-    {
-        $logsDirectory = $this->container->getParameter('kernel.logs_dir');
-
-        // We are not using DI Container, we will explain DI in next lessons ;)
-        return new GetLogEntriesByEnvironment(
-            new LogEntryFilesystemRepository(
-                new LogRotatingFileFinder($logsDirectory),
-                new LogFileReader(
-                    new JsonLogParser()
-                )
-            )
-        );
     }
 }

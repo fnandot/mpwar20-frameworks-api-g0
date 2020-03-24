@@ -2,7 +2,7 @@
 
 namespace LaSalle\GroupZero\Logging\Application;
 
-class GetLogEntriesByEnvironmentRequest
+class GetLogSummariesByEnvironmentRequest
 {
     /** @var string */
     private $environment;

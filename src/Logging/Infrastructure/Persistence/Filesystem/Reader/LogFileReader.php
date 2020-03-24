@@ -25,7 +25,7 @@ final class LogFileReader
         $entries = [];
 
         foreach ($files as $file) {
-            $file = fopen($file->getRealPath(), 'r');
+            $file = fopen($file->getRealPath(), 'rb');
             while ($line = fgets($file)) {
                 $entries[] = $this->parser->parse($line);
             }
