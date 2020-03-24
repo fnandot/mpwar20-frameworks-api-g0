@@ -1,5 +1,4 @@
 monolog:
-    channels: ['app', 'event']
     handlers:
         main:
             type: fingers_crossed

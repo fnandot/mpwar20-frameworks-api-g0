@@ -1,2 +1,2 @@
 maker:
-  root_namespace: 'LaSalle\GroupZero'
+  root_namespace: 'LaSalle\GroupZero\Logging\Infrastructure\Framework'

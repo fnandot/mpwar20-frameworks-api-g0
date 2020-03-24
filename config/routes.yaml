@@ -1,6 +1,6 @@
 index:
     path: /hello
-    controller: LaSalle\GroupZero\Controller\HelloWorldController::helloWorld
+    controller: LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\HelloWorldController::helloWorld
 
 homepage:
     path: /
