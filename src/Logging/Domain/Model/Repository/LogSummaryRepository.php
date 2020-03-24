@@ -13,4 +13,8 @@ interface LogSummaryRepository
      * @return LogSummary[]
      */
     public function findByEnvironmentAndLevels(string $environment, LogLevel ...$levels): array;
+
+    public function findOneByEnvironmentAndLevel(string $environment, LogLevel $level): ?LogSummary;
+
+    public function save(LogSummary $logSummary): void;
 }

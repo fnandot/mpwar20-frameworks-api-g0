@@ -9,7 +9,7 @@ use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary;
 use LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository;
 use LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
-use Ramsey\Uuid\Uuid;
+use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 final class LogSummaryInMemoryRepository implements LogSummaryRepository
 {
@@ -45,8 +45,17 @@ final class LogSummaryInMemoryRepository implements LogSummaryRepository
         return $summaries;
     }
 
+    public function findOneByEnvironmentAndLevel(string $environment, LogLevel $level): ?LogSummary
+    {
+        return null;
+    }
+
+    public function save(LogSummary $logSummary): void
+    {
+    }
+
     private function buildLogSummary(string $environment, LogEntry $logEntry): LogSummary
     {
-        return new LogSummary((string) Uuid::uuid4(), $environment, $logEntry->level());
+        return new LogSummary(LogSummaryId::generate(), $environment, $logEntry->level());
     }
 }

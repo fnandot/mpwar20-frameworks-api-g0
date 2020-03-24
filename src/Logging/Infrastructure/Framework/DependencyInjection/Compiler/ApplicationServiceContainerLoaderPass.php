@@ -8,7 +8,6 @@ use LaSalle\GroupZero\Logging\Application\ApplicationService;
 use LaSalle\GroupZero\Logging\Infrastructure\Services\ApplicationServiceContainer;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 final class ApplicationServiceContainerLoaderPass implements CompilerPassInterface
@@ -19,17 +18,14 @@ final class ApplicationServiceContainerLoaderPass implements CompilerPassInterfa
             return;
         }
 
-        $taggedServices = $container
-            ->findTaggedServiceIds('group_zero.application_service');
+        $applicationServiceContainerDefinition = $container
+            ->getDefinition(ApplicationServiceContainer::class);
 
-        $definitions = [];
 
-        foreach ($taggedServices as $serviceId => $tags) {
-            $definitions[] = new Reference($serviceId);
+        $serviceIds = $container->findTaggedServiceIds('group_zero.application_service');
+
+        foreach ($serviceIds as $serviceId => $tag) {
+            $applicationServiceContainerDefinition->addMethodCall('add', [new Reference($serviceId)]);
         }
-
-        $container
-            ->getDefinition(ApplicationServiceContainer::class)
-            ->addArgument($definitions);
     }
 }

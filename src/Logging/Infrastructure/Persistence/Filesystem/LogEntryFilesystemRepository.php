@@ -7,6 +7,7 @@ namespace LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem;
 use DateTimeImmutable;
 use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogEntry;
 use LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository;
+use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogEntryId;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogFileFinder;
 use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Reader\LogFileReader;
@@ -59,7 +60,7 @@ final class LogEntryFilesystemRepository implements LogEntryRepository
 
         foreach ($normalizedLogEntries as $normalizedLogEntry) {
             $entries[] = new LogEntry(
-                $normalizedLogEntry['extra']['id'],
+                LogEntryId::fromString($normalizedLogEntry['extra']['id']),
                 $environment,
                 new LogLevel(strtolower($normalizedLogEntry['level_name'])),
                 $normalizedLogEntry['message'],
@@ -68,5 +69,9 @@ final class LogEntryFilesystemRepository implements LogEntryRepository
         }
 
         return $entries;
+    }
+
+    public function save(LogEntry $logEntry): void
+    {
     }
 }

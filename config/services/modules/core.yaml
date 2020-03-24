@@ -1,0 +1,17 @@
+parameters:
+  app_log_summary_data_dir: '%env(resolve:APP_LOG_SUMMARY_DATA_DIR)%'
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+
+  LaSalle\GroupZero\Core\:
+    resource: '%kernel.project_dir%/src/Core/{Application,Domain,Infrastructure}/'
+
+  LaSalle\GroupZero\Core\Infrastructure\Event\MessengerDomainEventBus:
+    arguments:
+      $eventBus: '@event.bus'
