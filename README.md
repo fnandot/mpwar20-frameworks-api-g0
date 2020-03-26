@@ -1,9 +1,13 @@
 ### MPWAR 20 - Frameworks
 
 #### Disclaimer
-Los resultados aquí mostrados no reflejan exactamente la solución más idonea sino la que mejor intenta mostrar los diferentes conceptos a aprender.
+Los resultados aquí mostrados no reflejan exactamente la solución más idónea sino la que mejor intenta mostrar los diferentes conceptos a aprender.
 
 Los resultados finales de cada práctica están divididos en ramas, en muchas de ellas se incluyen varias implementaciones con resultados intermedios de cada apartado.
+
+Importante denotar que esta es "mi propuesta", ni mucho menos implica necesariamente que es la única o la forma o la más correcta de solucionar los distintos problemas que se presentan.
+
+Por supuesto, también puede presentar algunos errores (no esta 100% libre de bugs). Os puede servir para coger una idea general de como implementar la arquitectura que hemos estado trabajando en las clases junto con Symfony.
 
 ### Ramas
 - [Práctica 1 - Framework](https://github.com/letnando/mpwar20-frameworks-api-g0/tree/practice/1/framework)
