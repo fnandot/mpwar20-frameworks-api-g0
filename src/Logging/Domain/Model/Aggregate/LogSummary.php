@@ -5,14 +5,14 @@ declare(strict_types = 1);
 namespace LaSalle\GroupZero\Logging\Domain\Model\Aggregate;
 
 use DateTimeImmutable;
-use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEvent;
+use LaSalle\GroupZero\Core\Domain\Model\Aggregate\Aggregate;
 use LaSalle\GroupZero\Logging\Domain\Model\Event\LogSummaryCreatedDomainEvent;
 use LaSalle\GroupZero\Logging\Domain\Model\Event\LogSummaryIncreasedDomainEvent;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogCount;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
-class LogSummary
+class LogSummary extends Aggregate
 {
     /** @var LogSummaryId */
     private $id;
@@ -28,9 +28,6 @@ class LogSummary
 
     /** @var DateTimeImmutable */
     private $updatedOn;
-
-    /** @var DomainEvent[] */
-    private $eventStream;
 
     public function __construct(
         LogSummaryId $id,
@@ -100,21 +97,5 @@ class LogSummary
                 new DateTimeImmutable()
             )
         );
-    }
-
-    /**
-     * @return DomainEvent[]
-     */
-    public function pullDomainEvents(): array
-    {
-        $events            = $this->eventStream ?: [];
-        $this->eventStream = [];
-
-        return $events;
-    }
-
-    private function recordThat(DomainEvent $event): void
-    {
-        $this->eventStream[] = $event;
     }
 }

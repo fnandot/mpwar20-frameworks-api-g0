@@ -1,32 +1,30 @@
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 imports:
-  - { resource: services/*.yaml }
-  - { resource: services/modules/*.yaml }
+    - { resource: services/*.yaml }
+    - { resource: services/modules/*.yaml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-  app_log_summary_data_dir: '%env(resolve:APP_LOG_SUMMARY_DATA_DIR)%'
+    app_log_summary_data_dir: '%env(resolve:APP_LOG_SUMMARY_DATA_DIR)%'
+    app.vendor.name: 'LaSalle'
+    app.name: 'Loggly'
+    app.support.email: 'fernando.pradas@salle.url.edu'
 
 services:
     # default configuration for services in *this* file
     _defaults:
-        public: false
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-
-    property_normalizer:
-        class: Symfony\Component\Serializer\Normalizer\PropertyNormalizer
-        public: false
-        tags: [serializer.normalizer]
 
     Symfony\Component\Serializer\Normalizer\PropertyNormalizer:
         arguments:
           $nameConverter: '@serializer.name_converter.metadata_aware'
 
-    LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\HelloWorldWithInjectionController:
-      arguments:
-        $environment: '%env(APP_ENV)%'
-        $environmentAlias: '%env(APP_ENV_ALIAS)%'
-
+    mailer.dev.set_recipients:
+        class: Symfony\Component\Mailer\EventListener\EnvelopeListener
+        tags: ['kernel.event_subscriber']
+        arguments:
+            $sender: null
+            $recipients: ['%app.support.email%']

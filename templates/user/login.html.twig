@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'button.sign_in'|trans }}{% endblock %}
+
+
+{% block outter_body %}
+    <body class="text-center signin">
+        <form method="post" class="form-signin">
+            <div class="mb-4"><img src="{{ asset('dist/images/logo.jpg') }}" class="login-logo" alt="{{ app_vendor_name }}"></div>
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            <h1 class="h3 mb-3 font-weight-normal">{{ 'message.please_sign_in'|trans }}</h1>
+            <label for="inputUsername">{{ 'label.email'|trans }}</label>
+            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
+            <label for="inputPassword">{{ 'label.password'|trans }}</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me">{{ 'label.remember_me'|trans }}
+                </label>
+            </div>
+
+            <button class="btn btn-lg btn-primary" type="submit">
+                {{ 'button.sign_in'|trans }}
+            </button>
+            <div class="mb4">{{ 'message.not_account'|trans }} <a href="{{ url('user_web_register') }}">{{ 'button.register'|trans }}</a></div>
+        </form>
+    {{ block('javascripts') }}
+    </body>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends 'bundles/TwigBundle/Exception/error.html.twig' %}
+
+{% block description %}
+    {{ 'message.page_not_found'|trans }} <a href="{{ url('homepage') }}">{{ 'link.homepage'|trans }}</a>
+{% endblock %}
+    

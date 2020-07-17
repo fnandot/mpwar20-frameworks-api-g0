@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace LaSalle\GroupZero\Logging\Domain\Model\Event\Handler;
 
 use Exception;
-use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEvent;
 use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEventBus;
 use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary;
 use LaSalle\GroupZero\Logging\Domain\Model\Event\LogEntryCreatedDomainEvent;
@@ -49,13 +48,6 @@ final class IncreaseLogSummaryOnLogEntryCreated
 
         $this->repository->save($summary);
 
-        $this->publishDomainEvents(...$domainEvents);
-    }
-
-    private function publishDomainEvents(DomainEvent ...$domainEvents): void
-    {
-        foreach ($domainEvents as $domainEvent) {
-            $this->eventBus->publish($domainEvent);
-        }
+        $this->eventBus->publish(...$domainEvents);
     }
 }

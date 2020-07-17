@@ -7,7 +7,6 @@ LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary:
   id:
     id:
       type: log_summary_id
-
   embedded:
     count:
       class: LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogCount
@@ -16,8 +15,7 @@ LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary:
     level:
       type: log_level
     environment:
-      type: string
-      length: 32 # We assume that the max length an environment name can have is 32 characters
+      type: environment
     updatedOn:
       type: datetime_immutable
 

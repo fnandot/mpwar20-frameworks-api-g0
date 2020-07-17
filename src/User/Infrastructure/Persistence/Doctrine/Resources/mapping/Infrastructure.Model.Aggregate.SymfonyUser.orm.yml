@@ -1,0 +1,19 @@
+LaSalle\GroupZero\User\Infrastructure\Model\Aggregate\SymfonyUser:
+  type: entity
+  table: user
+  id:
+    id:
+      type: user_id
+  embedded:
+    email:
+      class: LaSalle\GroupZero\User\Domain\Model\ValueObject\Email
+      columnPrefix: false
+
+    password:
+      class: LaSalle\GroupZero\User\Domain\Model\ValueObject\Password
+      columnPrefix: false
+
+  fields:
+    roles:
+      type: user_role_collection
+

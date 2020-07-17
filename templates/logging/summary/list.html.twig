@@ -1,0 +1,46 @@
+{% extends 'base_logged.html.twig' %}
+{% import 'core/_macros.html.twig' as macros %}
+
+{% set locale = app.request.attributes.get('_locale') %}
+
+{% set current_page = 'nav.summary' %}
+
+{% block title %}{{ 'header.summary'|trans({'%environment': environment}) }}{% endblock %}
+{% block page_header %}
+    {{ 'header.summary'|trans({'%environment': environment}) }}
+    <span class="badge badge-danger badge-environment float-right">
+        <a href="{{ url('logging_web_summary_list', {environment: 'prod'}) }}">prod</a>
+    </span>
+    <span class="badge badge-info badge-environment float-right">
+        <a href="{{ url('logging_web_summary_list', {environment: 'dev'}) }}">dev</a>
+    </span>
+{% endblock %}
+
+{% block page_body %}
+    <article>
+    {% if not summaries %}
+        <span>{{ 'error.entry.not_found'|trans({'%environment': environment}) }}</span>
+    {% else %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">{{ 'summary.level'|trans }}</th>
+                <th scope="col">{{ 'summary.count'|trans }}</th>
+                <th scope="col">{{ 'summary.updated_on'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for summary in summaries %}
+                <tr data-id="{{ summary.id }}" data-level="{{ summary.level }}">
+                    <th scope="row"></th>
+                    <td>{{ macros.log_level_badge(summary.level) }}</td>
+                    <td><div class="counter"><span class="counter-value">{{ summary.count }}</span><span class="ui-icon ui-icon-triangle-1-n" style="display: none;"></span></div></td>
+                    <td><span class="datetime">{{ summary.updatedOn|format_datetime('none', 'none', 'Y/M/d hh:mm a') }}</span></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    </article>
+{% endblock %}

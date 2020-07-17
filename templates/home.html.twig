@@ -1,0 +1,10 @@
+{% extends 'base_logged.html.twig' %}
+
+{% set current_page = 'nav.home' %}
+
+{% block title %}{{ 'header.home'|trans }}{% endblock %}
+{% block page_header %}{{ 'header.home'|trans }}{% endblock %}
+
+{% block page_body %}
+    {{ 'message.welcome'|trans({'%email': app.user.email }) }}
+{% endblock %}

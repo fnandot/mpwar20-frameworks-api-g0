@@ -1,0 +1,73 @@
+{% import 'core/_macros.html.twig' as macros %}
+
+{#{#}
+{#name: 'nav.home',#}
+{#icon: 'home',#}
+{#route: 'logging_web_home',#}
+{#role: 'ROLE_USER'#}
+{#},#}
+
+{% set sectionEntries = [
+    {
+        name: 'nav.summary',
+        icon: 'tachometer-alt',
+        route: 'logging_web_summary_list',
+        role: 'ROLE_USER'
+    },
+    {
+        name: 'nav.entries',
+        icon: 'scroll',
+        route: 'logging_web_entries_list',
+        role: 'ROLE_DEVELOPER'
+    }
+] %}
+{% set accountEntries = [
+    {
+        name: 'nav.profile',
+        icon: 'user',
+        route: 'user_web_profile',
+        role: 'ROLE_USER'
+    }
+] %}
+
+{% set languages = [
+    {name: 'en', locale: 'en', icon: 'us'},
+    {name: 'es', locale: 'es', icon: 'es'},
+    {name: 'ru', locale: 'ru', icon: 'ru'},
+    {name: 'de', locale: 'de', icon: 'de'},
+] %}
+
+{% set locale = app.request.attributes.get('_locale') %}
+
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>{{ 'nav.sections'|trans }}</span>
+            <a class="d-flex align-items-center text-muted" href="#"><i class="fa fa-puzzle-piece"></i></a>
+        </h6>
+        {{ macros.render_menu(sectionEntries, locale, current_page) }}
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>{{ 'nav.account'|trans }}</span>
+            <a class="d-flex align-items-center text-muted" href="#"><i class="fa fa-cogs"></i></a>
+        </h6>
+        {{ macros.render_menu(accountEntries, locale, current_page) }}
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>{{ 'nav.languages'|trans }}</span>
+            <a class="d-flex align-items-center text-muted" href="#"><i class="fa fa-language"></i></a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+            {% for language in languages %}
+                <li class="nav-item">
+                    <a class="nav-link{% if app.request.get('_route_params')['_locale'] == language.locale %} active{% endif %}"
+                       href="{{ url(
+                           app.request.attributes.get('_route'),
+                           app.request.get('_route_params') | merge({_locale: language.locale})
+                       ) }}">
+                        <span class="flag-icon flag-icon-{{ language.icon }}"></span>
+                        {{ language.name|language_name(language.name)|capitalize }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</nav>

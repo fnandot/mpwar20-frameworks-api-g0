@@ -1,0 +1,8 @@
+LaSalle\GroupZero\User\Domain\Model\ValueObject\Email:
+  type: embeddable
+  fields:
+    email:
+      type: string
+      length: 320
+      unique: true
+

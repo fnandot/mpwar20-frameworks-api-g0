@@ -12,15 +12,15 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 final class CreateLogEntry
 {
     /** @var LogEntryRepository */
-    private $logEntryRepository;
+    private $repository;
 
     /** @var DomainEventBus */
     private $eventBus;
 
-    public function __construct(LogEntryRepository $logEntryRepository, DomainEventBus $eventBus)
+    public function __construct(LogEntryRepository $repository, DomainEventBus $eventBus)
     {
-        $this->logEntryRepository = $logEntryRepository;
-        $this->eventBus           = $eventBus;
+        $this->repository = $repository;
+        $this->eventBus   = $eventBus;
     }
 
     public function __invoke(CreateLogEntryRequest $request): LogEntryResponse
@@ -35,11 +35,8 @@ final class CreateLogEntry
             $request->occurredOn()
         );
 
-        $this->logEntryRepository->save($logEntry);
-
-        foreach ($logEntry->pullDomainEvents() as $domainEvent) {
-            $this->eventBus->publish($domainEvent);
-        }
+        $this->repository->save($logEntry);
+        $this->eventBus->publish(...$logEntry->pullDomainEvents());
 
         return new LogEntryResponse(
             $logEntry->id(),

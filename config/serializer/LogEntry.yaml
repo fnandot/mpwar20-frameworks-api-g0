@@ -9,5 +9,4 @@ LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogEntry:
     message:
       groups: [api-v1]
     occurredOn:
-#      serialized_name: occurred_on
       groups: [api-v1]

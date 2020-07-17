@@ -1,17 +1,11 @@
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-parameters:
-  app_log_summary_data_dir: '%env(resolve:APP_LOG_SUMMARY_DATA_DIR)%'
-
 services:
-  # default configuration for services in *this* file
   _defaults:
-    autowire: true      # Automatically injects dependencies in your services.
-    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    autowire: true
+    autoconfigure: true
     bind:
       string $kernelLogsDir: '%kernel.logs_dir%'
       string $kernelEnvironment: '%kernel.environment%'
-      LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\LogEntryFilesystemRepository'
+      LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository\LogEntryDoctrineRepository'
       #            LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository\LogSummaryDbalRepository'
       LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository\LogSummaryOrmRepository'
   #            LaSalle\GroupZero\Logging\Domain\Model\Repository\LogSummaryRepository: '@LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository\LogSummaryOrmDqlRepository'
@@ -32,11 +26,14 @@ services:
       - '%kernel.project_dir%/src/Logging/Infrastructure/Framework/{DependencyInjection}'
       - '%kernel.project_dir%/src/Logging/Domain/Model/{Aggregate,ValueObject,Exception}'
 
+
   # controllers are imported separately to make sure services can be injected
   # as action arguments even if you don't extend any base controller class
   LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\:
     resource: '%kernel.project_dir%/src/Logging/Infrastructure/Framework/Controller'
     tags: ['controller.service_arguments']
+
+
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
@@ -61,19 +58,11 @@ services:
   #        LaSalle\GroupZero\Logging\Application\ApplicationService:
   #            tags: ['group_zero.application_service']
 
-  # Workaround just to have PSR-3 messages processed on our custom handler
-  LaSalle\GroupZero\Logging\Infrastructure\Monolog\EventDispatcherHandler:
-    arguments:
-      $kernelEnvironment: '%kernel.environment%'
-    calls:
-      - method: pushProcessor
-        arguments:
-          - '@monolog.processor.psr_log_message'
+
 
   LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\FilesystemLogSummaryRepository:
     arguments:
       $directory: '%app_log_summary_data_dir%'
-      $defaultEnvironment: '%env(APP_ENV)%'
 
   #    LaSalle\GroupZero\Logging\Domain\Model\Event\Handler\IncreaseLogSummaryOnLogEntryCreated:
   #        autoconfigure: false
@@ -81,11 +70,22 @@ services:
   #            - {name: kernel.event_listener, event: LaSalle\GroupZero\Logging\Domain\Model\Event\LogEntryCreatedDomainEvent }
   #            - { name: messenger.message_handler, bus: event.bus }
 
-  LaSalle\GroupZero\Logging\Domain\Model\Event\Handler\:
+  logging_event_handlers:
+    namespace: LaSalle\GroupZero\Logging\Domain\Model\Event\Handler\
     resource: '%kernel.project_dir%/src/Logging/Domain/Model/Event/Handler/*.php'
     autoconfigure: false
     tags:
       - { name: messenger.message_handler, bus: event.bus }
+
+  logging_infrastructure_event_handlers:
+    namespace: LaSalle\GroupZero\Logging\Infrastructure\Event\Handler\
+    resource: '%kernel.project_dir%/src/Logging/Infrastructure/Event/Handler/*.php'
+    autoconfigure: false
+    arguments:
+      $mercureResourceEntrypoint: '%env(MERCURE_RESOURCE_ENTRYPOINT)%'
+    tags:
+      - { name: messenger.message_handler, bus: event.bus }
+
 
   # Custom ExceptionListener, without priority to -32 overrides de logKernelException
   LaSalle\GroupZero\Logging\Infrastructure\Framework\EventListener\ErrorListener:
@@ -106,7 +106,7 @@ services:
   #              !php/const PDO::ATTR_DEFAULT_FETCH_MODE: !php/const PDO::FETCH_ASSOC
   #              !php/const PDO::ATTR_EMULATE_PREPARES: false
 
-  PDO:
+  pdo_connection:
     class: PDO
     factory: ['LaSalle\GroupZero\Logging\Infrastructure\Persistence\Pdo\PdoFactory', 'create']
     arguments:
@@ -116,10 +116,16 @@ services:
 
   LaSalle\GroupZero\Logging\Infrastructure\Persistence\Pdo\LogSummaryPdoRepository:
     arguments:
+      $pdo: '@pdo_connection'
       $tableName: '%env(resolve:DATABASE_LOG_SUMMARY_TABLE_NAME)%'
+
 
   LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository\LogSummaryDbalRepository:
     arguments:
       $tableName: '%env(resolve:DATABASE_LOG_SUMMARY_TABLE_NAME)%'
 
-
+  app.orm.repository.log_summary:
+    class: Doctrine\ORM\EntityRepository
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - 'LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary'

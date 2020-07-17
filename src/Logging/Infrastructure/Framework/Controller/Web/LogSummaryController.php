@@ -5,12 +5,26 @@ declare(strict_types = 1);
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\Web;
 
 use LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironment;
+use LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironmentRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/summary/{environment}", requirements={"environment"="dev|prod"}, name="summary_")
+ * @Route(
+ *     {
+ *      "en": "/summary/{environment}",
+ *      "es": "/sumario/{environment}",
+ *      "ru": "/резюме/{environment}",
+ *      "de": "/zusammenfassung/{environment}",
+ *      "fr": "/sommaire/{environment}",
+ *      "tr": "/özet/{environment}"
+ *     },
+ *     name="summary_",
+ *     requirements={"environment"="dev|prod"},
+ *     defaults={"environment": "prod"},
+ *     options = { "utf8": true }
+ * )
  */
 final class LogSummaryController extends AbstractController
 {
@@ -27,12 +41,15 @@ final class LogSummaryController extends AbstractController
      */
     public function listAction(string $environment): Response
     {
-        $summaries = ($this->getLogSummariesByEnvironment)($environment);
+        $summaries = ($this->getLogSummariesByEnvironment)(new GetLogSummariesByEnvironmentRequest($environment));
 
-        return $this->render('summary/list.html.twig', [
-            'summaries' => $summaries,
-            'environment' => $environment,
-        ]);
+        return $this->render(
+            'logging/summary/list.html.twig',
+            [
+                'summaries'   => $summaries,
+                'environment' => $environment,
+            ]
+        );
     }
 
     /**
@@ -40,10 +57,15 @@ final class LogSummaryController extends AbstractController
      */
     public function showAction(string $environment, string $level): Response
     {
-        $summaries = ($this->getLogSummariesByEnvironment)($environment, $level);
+        $summaries = ($this->getLogSummariesByEnvironment)(
+            new GetLogSummariesByEnvironmentRequest($environment, $level)
+        );
 
-        return $this->render('summary/show.html.twig', [
-            'summary' => reset($summaries),
-        ]);
+        return $this->render(
+            'logging/summary/show.html.twig',
+            [
+                'summary' => reset($summaries),
+            ]
+        );
     }
 }

@@ -1,0 +1,31 @@
+{% extends 'base_logged.html.twig' %}
+{% import 'core/_macros.html.twig' as macros %}
+
+{% set locale = app.request.attributes.get('_locale') %}
+
+{% set current_page = 'nav.profile' %}
+
+{% block title %}{{ 'nav.profile'|trans }}{% endblock %}
+{% block page_header %}{{ 'nav.profile'|trans }}{% endblock %}
+
+{% block page_body %}
+    <table class="table col-md-4">
+        <tbody>
+        <tr>
+            <td><img src="{{ app.user.id|identicon }}" alt="{{ app.user.email }}"></td>
+            <th scope="row">{{ 'user.id'|trans }}</th>
+            <td>{{ app.user.id }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <th scope="row">{{ 'user.email'|trans }}</th>
+            <td><a href="mailto:{{ app.user.email }}">{{ app.user.email }}</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <th scope="row">{{ 'user.role'|trans }}</th>
+            <td><span class="badge badge-primary">{{ app.user.roles|last|u.replaceMatches('/role_/', '').lower }}</span></td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

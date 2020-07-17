@@ -37,7 +37,7 @@ stop:
 ##    start@all:			starts all containers
 .PHONY : start@all
 start@all:
-	-@docker-compose -f docker-compose.db.yml -f docker-compose.yml start
+	-@docker-compose -f docker-compose.mercure.yml -f docker-compose.db.yml -f docker-compose.yml start
 
 ##    stop@all:			stops all containers
 .PHONY : stop@all
@@ -68,10 +68,29 @@ logs@php-fpm:
 .PHONY : deploy
 deploy:
 	@docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+	@docker-compose -f docker-compose.db.yml up -d
+	@docker-compose -f docker-compose.mercure.yml up -d
 	-@$(call docker_phpcli_run,/app/bin/console cache:clear -e prod);
 	-@$(call docker_phpcli_run,/app/bin/console cache:warmup -e prod);
+	-@$(call docker_phpcli_run,/app/bin/console doctrine:database:drop --force -e prod);
+	-@$(call docker_phpcli_run,/app/bin/console doctrine:database:create --if-not-exists -e prod);
+	-@$(call docker_phpcli_run,/app/bin/console doctrine:migrations:migrate --no-interaction -e prod);
 	-@$(call docker_phpcli_run,yarn encore production);
-	-@$(call docker_phpcli_run,chown -R www-data.www-data);
+	-@$(call docker_phpcli_run,chown -R www-data.www-data /app);
+
+##    deploy@dev:			starts web server containers (nginx + PHP fpm) in production environment
+.PHONY : deploy@dev
+deploy@dev:
+	@docker-compose -f docker-compose.yml up -d
+	@docker-compose -f docker-compose.db.yml up -d
+	@docker-compose -f docker-compose.mercure.yml up -d
+	-@$(call docker_phpcli_run,/app/bin/console cache:clear -e dev);
+	-@$(call docker_phpcli_run,/app/bin/console cache:warmup -e dev);
+	-@$(call docker_phpcli_run,/app/bin/console doctrine:database:drop --force -e dev);
+	-@$(call docker_phpcli_run,/app/bin/console doctrine:database:create --if-not-exists -e dev);
+	-@$(call docker_phpcli_run,/app/bin/console doctrine:migrations:migrate --no-interaction -e dev);
+	-@$(call docker_phpcli_run,yarn encore dev);
+	-@$(call docker_phpcli_run,chown -R www-data.www-data /app);
 
 ##    remove:			stops all containers and delete them
 .PHONY : remove

@@ -5,12 +5,12 @@ declare(strict_types = 1);
 namespace LaSalle\GroupZero\Logging\Domain\Model\Aggregate;
 
 use DateTimeImmutable;
-use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEvent;
+use LaSalle\GroupZero\Core\Domain\Model\Aggregate\Aggregate;
 use LaSalle\GroupZero\Logging\Domain\Model\Event\LogEntryCreatedDomainEvent;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 use Ramsey\Uuid\Uuid;
 
-final class LogEntry
+class LogEntry extends Aggregate
 {
     /** @var string */
     private $id;
@@ -26,9 +26,6 @@ final class LogEntry
 
     /** @var DateTimeImmutable */
     private $occurredOn;
-
-    /** @var DomainEvent[] */
-    private $eventStream;
 
     public function __construct(
         string $id,
@@ -55,7 +52,6 @@ final class LogEntry
 
         $instance->recordThat(
             new LogEntryCreatedDomainEvent(
-                (string) Uuid::uuid4(),
                 $instance->id(),
                 $instance->environment(),
                 (string) $instance->level(),
@@ -90,18 +86,5 @@ final class LogEntry
     public function occurredOn(): DateTimeImmutable
     {
         return $this->occurredOn;
-    }
-
-    public function pullDomainEvents(): array
-    {
-        $events            = $this->eventStream ?: [];
-        $this->eventStream = [];
-
-        return $events;
-    }
-
-    private function recordThat(DomainEvent $event): void
-    {
-        $this->eventStream[] = $event;
     }
 }

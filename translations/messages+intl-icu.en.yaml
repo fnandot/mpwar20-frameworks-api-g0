@@ -1,0 +1,7 @@
+page:
+  entry:
+    number: >-
+      {entries, plural,
+          one   {Only 1 log entry found}
+          other {# log entries found!}
+      }

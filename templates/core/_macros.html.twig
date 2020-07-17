@@ -1,0 +1,31 @@
+{% macro log_level_badge(level) %}
+    {% set level_badges = {
+        debug: 'primary',
+        info: 'info',
+        notice: 'info',
+        warning: 'warning',
+        error: 'danger',
+        critical: 'danger',
+        alert: 'danger',
+        emergency: 'danger',
+    } %}
+
+    <span class="badge badge-{{ level_badges[level|lower] }}">{{ level }}</span>
+{% endmacro %}
+
+{% macro render_menu(entries, locale, current_page) %}
+<ul class="nav flex-column">
+    {% for item in entries %}
+        {% if is_granted(item.role) %}
+            <li class="nav-item">
+                <a class="nav-link{% if current_page == item.name %} active{% endif %}" href="{{ url(
+                    item.route ~ '.' ~ locale
+                , {_locale: locale}) }}">
+                    <i class="fa fa-{{ item.icon }}"></i>
+                    {{ item.name|trans }}
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endmacro %}

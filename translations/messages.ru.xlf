@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="yml-file" datatype="plaintext" source-language="en" target-language="en">
+    <body>
+      <trans-unit id="nav.sections">
+        <source>nav.sections</source>
+        <target>Разделы</target>
+      </trans-unit>
+      <trans-unit id="nav.languages">
+        <source>nav.languages</source>
+        <target>Языки</target>
+      </trans-unit>
+      <trans-unit id="nav.home">
+        <source>nav.home</source>
+        <target>Дом</target>
+      </trans-unit>
+      <trans-unit id="nav.summary">
+        <source>nav.summary</source>
+        <target>Резюме</target>
+      </trans-unit>
+      <trans-unit id="nav.entries">
+        <source>nav.entries</source>
+        <target>Записи</target>
+      </trans-unit>
+      <trans-unit id="nav.profile">
+        <source>nav.profile</source>
+        <target>Профиль</target>
+      </trans-unit>
+      <trans-unit id="nav.account">
+        <source>nav.account</source>
+        <target>учетная запись</target>
+      </trans-unit>
+      <trans-unit id="entry.id">
+        <source>entry.id</source>
+        <target>Идентификатор</target>
+      </trans-unit>
+      <trans-unit id="entry.level">
+        <source>entry.level</source>
+        <target>уровень</target>
+      </trans-unit>
+      <trans-unit id="entry.message">
+        <source>entry.message</source>
+        <target>Сообщение</target>
+      </trans-unit>
+      <trans-unit id="entry.occurred_on">
+        <source>entry.occurred_on</source>
+        <target>Произошло</target>
+      </trans-unit>
+      <trans-unit id="summary.id">
+        <source>summary.id</source>
+        <target>Идентификатор</target>
+      </trans-unit>
+      <trans-unit id="summary.level">
+        <source>summary.level</source>
+        <target>уровень</target>
+      </trans-unit>
+      <trans-unit id="summary.count">
+        <source>summary.count</source>
+        <target>подсчитывать</target>
+      </trans-unit>
+      <trans-unit id="summary.environment">
+        <source>summary.environment</source>
+        <target>Окружающая обстановка</target>
+      </trans-unit>
+      <trans-unit id="summary.updated_on">
+        <source>summary.updated_on</source>
+        <target>Последнее обновление</target>
+      </trans-unit>
+      <trans-unit id="user.id">
+        <source>user.id</source>
+        <target>Идентификатор</target>
+      </trans-unit>
+      <trans-unit id="user.email">
+        <source>user.email</source>
+        <target>Эл. адрес</target>
+      </trans-unit>
+      <trans-unit id="user.role">
+        <source>user.role</source>
+        <target>Роль</target>
+      </trans-unit>
+      <trans-unit id="button.register">
+        <source>button.register</source>
+        <target>регистр</target>
+      </trans-unit>
+      <trans-unit id="button.sign_in">
+        <source>button.sign_in</source>
+        <target>Войти в систему</target>
+      </trans-unit>
+      <trans-unit id="button.sign_out">
+        <source>button.sign_out</source>
+        <target>Выход</target>
+      </trans-unit>
+      <trans-unit id="error.user.not_unique">
+        <source>error.user.not_unique</source>
+        <target>Пользователь с электронной почтой {email} уже существует</target>
+      </trans-unit>
+      <trans-unit id="error.entry.not_found">
+        <source>error.entry.not_found</source>
+        <target>Записи для %environment не найдены</target>
+      </trans-unit>
+      <trans-unit id="error.summary.not_found">
+        <source>error.summary.not_found</source>
+        <target>Записи для %environment не найдены</target>
+      </trans-unit>
+      <trans-unit id="error.password.invalid">
+        <source>error.password.invalid</source>
+        <target>Ваш пароль должен содержать не менее 8 символов и содержать как минимум одну заглавную букву и цифру.</target>
+      </trans-unit>
+      <trans-unit id="header.home">
+        <source>header.home</source>
+        <target>Дом</target>
+      </trans-unit>
+      <trans-unit id="header.summary">
+        <source>header.summary</source>
+        <target>Сводка для %environment</target>
+      </trans-unit>
+      <trans-unit id="header.entry">
+        <source>header.entry</source>
+        <target>Записи для %environment</target>
+      </trans-unit>
+      <trans-unit id="label.email">
+        <source>label.email</source>
+        <target>Эл. адрес</target>
+      </trans-unit>
+      <trans-unit id="label.password">
+        <source>label.password</source>
+        <target>пароль</target>
+      </trans-unit>
+      <trans-unit id="label.repeat_password">
+        <source>label.repeat_password</source>
+        <target>Повторите пароль</target>
+      </trans-unit>
+      <trans-unit id="label.remember_me">
+        <source>label.remember_me</source>
+        <target>Запомните меня</target>
+      </trans-unit>
+      <trans-unit id="message.welcome">
+        <source>message.welcome</source>
+        <target>Добро пожаловать на платформу %email</target>
+      </trans-unit>
+      <trans-unit id="message.page_not_found">
+        <source>message.page_not_found</source>
+        <target>Страница, которую вы ищете, не найдена.</target>
+      </trans-unit>
+      <trans-unit id="message.server_error">
+        <source>message.server_error</source>
+        <target>Произошла непредвиденная ошибка.</target>
+      </trans-unit>
+      <trans-unit id="message.not_account">
+        <source>message.not_account</source>
+        <target>Не аккаунт?</target>
+      </trans-unit>
+      <trans-unit id="message.please_sign_in">
+        <source>message.please_sign_in</source>
+        <target>Пожалуйста войдите</target>
+      </trans-unit>
+      <trans-unit id="message.please_register">
+        <source>message.please_register</source>
+        <target>Пожалуйста, зарегистрируйтесь</target>
+      </trans-unit>
+      <trans-unit id="message.already_registered">
+        <source>message.already_registered</source>
+        <target>Уже зарегистрирован?</target>
+      </trans-unit>
+      <trans-unit id="link.homepage">
+        <source>link.homepage</source>
+        <target>Перейти на домашнюю страницу.</target>
+      </trans-unit>
+      <trans-unit id="link.contact_support">
+        <source>link.contact_support</source>
+        <target>Контактная поддержка.</target>
+      </trans-unit>
+      <trans-unit id="email.welcome.subject">
+        <source>email.welcome.subject</source>
+        <target>Добро пожаловать!</target>
+      </trans-unit>
+      <trans-unit id="email.welcome.header">
+        <source>email.welcome.header</source>
+        <target>Добро пожаловать!</target>
+      </trans-unit>
+      <trans-unit id="email.welcome.message">
+        <source>email.welcome.message</source>
+        <target>Мы так рады, что вы используете нашу платформу. Мы надеемся, что вы сможете воспользоваться тем, что предлагает наша платформа. Не стесняйтесь обращаться к нам, чтобы попросить любое предложение, которое вы можете иметь.</target>
+      </trans-unit>
+      <trans-unit id="email.footer">
+        <source>email.footer</source>
+        <target>Работает на %name</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

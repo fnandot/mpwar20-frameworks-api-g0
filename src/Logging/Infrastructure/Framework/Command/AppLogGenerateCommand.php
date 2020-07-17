@@ -4,10 +4,13 @@ namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Command;
 
 use Faker\Factory;
 use Faker\Generator;
+use LaSalle\GroupZero\Logging\Application\CreateLogEntry;
+use LaSalle\GroupZero\Logging\Application\CreateLogEntryRequest;
 use LaSalle\GroupZero\Logging\Infrastructure\Monolog\Exception\Fake\CouldNotCreateUserException;
 use LaSalle\GroupZero\Logging\Infrastructure\Monolog\Exception\Fake\UserNotFoundException;
 use LaSalle\GroupZero\Logging\Infrastructure\Monolog\Processor\FakeWebProcessor;
 use Monolog\Logger;
+use Monolog\Processor\PsrLogMessageProcessor;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Ramsey\Uuid\Uuid;
@@ -39,10 +42,21 @@ class AppLogGenerateCommand extends Command
     /** @var Logger */
     private $logger;
 
-    public function __construct(LoggerInterface $logger)
-    {
+    /** @var CreateLogEntry */
+    private $createLogEntry;
+
+    /** @var PsrLogMessageProcessor */
+    private $psrMessageProcessor;
+
+    public function __construct(
+        LoggerInterface $logger,
+        CreateLogEntry $createLogEntry,
+        PsrLogMessageProcessor $psrMessageProcessor
+    ) {
         parent::__construct();
-        $this->logger = $logger;
+        $this->logger              = $logger;
+        $this->createLogEntry      = $createLogEntry;
+        $this->psrMessageProcessor = $psrMessageProcessor;
     }
 
     protected function configure(): void
@@ -78,6 +92,18 @@ class AppLogGenerateCommand extends Command
             $logData = $this->randomLog($generator);
 
             $this->logger->log($logData['level'], $logData['message'], $logData['context']);
+
+            $logData = ($this->psrMessageProcessor)($logData);
+
+            ($this->createLogEntry)(
+                new CreateLogEntryRequest(
+                    (string) Uuid::uuid4(),
+                    $input->getOption('env'),
+                    $logData['level'],
+                    $logData['message'],
+                    new \DateTimeImmutable()
+                )
+            );
 
             usleep($delay);
         }

@@ -9,13 +9,9 @@ use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEvent;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogCount;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
-use Ramsey\Uuid\Uuid;
 
 final class LogSummaryCreatedDomainEvent implements DomainEvent
 {
-    /** @var string */
-    private $id;
-
     /** @var LogSummaryId */
     private $aggregateId;
 
@@ -38,17 +34,11 @@ final class LogSummaryCreatedDomainEvent implements DomainEvent
         LogCount $count,
         DateTimeImmutable $occurredOn
     ) {
-        $this->id          = (string) Uuid::uuid4();
         $this->aggregateId = $aggregateId;
         $this->environment = $environment;
         $this->level       = $level;
         $this->count       = $count;
         $this->occurredOn  = $occurredOn;
-    }
-
-    public function id(): string
-    {
-        return $this->id;
     }
 
     public function aggregateId(): LogSummaryId

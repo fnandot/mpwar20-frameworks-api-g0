@@ -1,6 +1,1 @@
-monolog:
-  handlers:
-    event_dispatcher_handler:
-      type: service
-      id: LaSalle\GroupZero\Logging\Infrastructure\Monolog\EventDispatcherHandler
-      channels: ["!event", "!messenger", "!doctrine"]
+monolog: ~

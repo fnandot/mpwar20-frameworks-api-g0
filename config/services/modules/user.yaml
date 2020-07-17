@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  LaSalle\GroupZero\User\:
+    resource: '%kernel.project_dir%/src/User/{Application,Domain,Infrastructure}/'
+    exclude:
+      - '%kernel.project_dir%/src/User/Infrastructure/Framework/{DependencyInjection}'
+      - '%kernel.project_dir%/src/User/Domain/Model/{Aggregate,ValueObject,Exception}'
+
+  LaSalle\GroupZero\User\Infrastructure\Framework\Controller\:
+    resource: '%kernel.project_dir%/src/User/Infrastructure/Framework/Controller'
+    tags: ['controller.service_arguments']

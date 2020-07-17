@@ -1,0 +1,11 @@
+{% extends 'mailing/email/base.html.twig' %}
+
+{% block body %}
+    <h2 class="text-center">{{ 'email.welcome.header'|trans({'%name': app_vendor_name }) }}</h2>
+    <spacer size="16"></spacer>
+    <p>{{ 'email.welcome.message'|trans }}</p>
+    <spacer size="16"></spacer>
+    <center>
+        <button class="large primary" href="{{ absolute_url(url('user_web_login')) }}">{{ 'button.sign_in'|trans }}</button>
+    </center>
+{% endblock %}

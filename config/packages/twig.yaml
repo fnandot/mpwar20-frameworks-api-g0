@@ -2,4 +2,12 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes: ['bootstrap_4_layout.html.twig']
+    paths:
+        '%kernel.project_dir%/assets/css': 'styles'
+        '%kernel.project_dir%/assets/images': 'images'
+    globals:
+        app_name: '%app.name%'
+        app_vendor_name: '%app.vendor.name%'
+        app_support_email: '%app.support.email%'
 #    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'

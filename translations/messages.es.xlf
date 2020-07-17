@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="yml-file" datatype="plaintext" source-language="en" target-language="en">
+    <body>
+      <trans-unit id="nav.sections">
+        <source>nav.sections</source>
+        <target>Secciones</target>
+      </trans-unit>
+      <trans-unit id="nav.languages">
+        <source>nav.languages</source>
+        <target>Idiomas</target>
+      </trans-unit>
+      <trans-unit id="nav.home">
+        <source>nav.home</source>
+        <target>Inicio</target>
+      </trans-unit>
+      <trans-unit id="nav.summary">
+        <source>nav.summary</source>
+        <target>Resumen</target>
+      </trans-unit>
+      <trans-unit id="nav.entries">
+        <source>nav.entries</source>
+        <target>Registros</target>
+      </trans-unit>
+      <trans-unit id="nav.profile">
+        <source>nav.profile</source>
+        <target>Perfil</target>
+      </trans-unit>
+      <trans-unit id="nav.account">
+        <source>nav.account</source>
+        <target>Cuenta</target>
+      </trans-unit>
+      <trans-unit id="entry.id">
+        <source>entry.id</source>
+        <target>Identificador</target>
+      </trans-unit>
+      <trans-unit id="entry.level">
+        <source>entry.level</source>
+        <target>Nivel</target>
+      </trans-unit>
+      <trans-unit id="entry.message">
+        <source>entry.message</source>
+        <target>Mensaje</target>
+      </trans-unit>
+      <trans-unit id="entry.occurred_on">
+        <source>entry.occurred_on</source>
+        <target>Ocurrió en</target>
+      </trans-unit>
+      <trans-unit id="summary.id">
+        <source>summary.id</source>
+        <target>Identificador</target>
+      </trans-unit>
+      <trans-unit id="summary.level">
+        <source>summary.level</source>
+        <target>Nivel</target>
+      </trans-unit>
+      <trans-unit id="summary.count">
+        <source>summary.count</source>
+        <target>Cantidad</target>
+      </trans-unit>
+      <trans-unit id="summary.environment">
+        <source>summary.environment</source>
+        <target>Entorno</target>
+      </trans-unit>
+      <trans-unit id="summary.updated_on">
+        <source>summary.updated_on</source>
+        <target>Última actualización</target>
+      </trans-unit>
+      <trans-unit id="user.id">
+        <source>user.id</source>
+        <target>Identificador</target>
+      </trans-unit>
+      <trans-unit id="user.email">
+        <source>user.email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="user.role">
+        <source>user.role</source>
+        <target>Rol</target>
+      </trans-unit>
+      <trans-unit id="button.register">
+        <source>button.register</source>
+        <target>Registrarse</target>
+      </trans-unit>
+      <trans-unit id="button.sign_in">
+        <source>button.sign_in</source>
+        <target>Conectarse</target>
+      </trans-unit>
+      <trans-unit id="button.sign_out">
+        <source>button.sign_out</source>
+        <target>Desconectar</target>
+      </trans-unit>
+      <trans-unit id="error.user.not_unique">
+        <source>error.user.not_unique</source>
+        <target>Ya existe un usuario con correo electrónico {email}</target>
+      </trans-unit>
+      <trans-unit id="error.entry.not_found">
+        <source>error.entry.not_found</source>
+        <target>No se encontraron registros para %environment</target>
+      </trans-unit>
+      <trans-unit id="error.summary.not_found">
+        <source>error.summary.not_found</source>
+        <target>No se encontraron registros para %environment</target>
+      </trans-unit>
+      <trans-unit id="error.password.invalid">
+        <source>error.password.invalid</source>
+        <target>Su contraseña debe tener al menos 8 caracteres y contener al menos una letra mayúscula y un número.</target>
+      </trans-unit>
+      <trans-unit id="header.home">
+        <source>header.home</source>
+        <target>Inicio</target>
+      </trans-unit>
+      <trans-unit id="header.summary">
+        <source>header.summary</source>
+        <target>Resumen para %environment</target>
+      </trans-unit>
+      <trans-unit id="header.entry">
+        <source>header.entry</source>
+        <target>Registros para %environment</target>
+      </trans-unit>
+      <trans-unit id="label.email">
+        <source>label.email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="label.password">
+        <source>label.password</source>
+        <target>Contraseña</target>
+      </trans-unit>
+      <trans-unit id="label.repeat_password">
+        <source>label.repeat_password</source>
+        <target>Repetir la contraseña</target>
+      </trans-unit>
+      <trans-unit id="label.remember_me">
+        <source>label.remember_me</source>
+        <target>Recuérdame</target>
+      </trans-unit>
+      <trans-unit id="message.welcome">
+        <source>message.welcome</source>
+        <target>Bienvenido a la plataforma %email</target>
+      </trans-unit>
+      <trans-unit id="message.page_not_found">
+        <source>message.page_not_found</source>
+        <target>No se pudo encontrar la página que solicitó.</target>
+      </trans-unit>
+      <trans-unit id="message.server_error">
+        <source>message.server_error</source>
+        <target>Ocurrió un error inesperado.</target>
+      </trans-unit>
+      <trans-unit id="message.not_account">
+        <source>message.not_account</source>
+        <target>¿No tiene cuenta?</target>
+      </trans-unit>
+      <trans-unit id="message.please_sign_in">
+        <source>message.please_sign_in</source>
+        <target>Por favor, inicie sesión</target>
+      </trans-unit>
+      <trans-unit id="message.please_register">
+        <source>message.please_register</source>
+        <target>Por favor, regístrese</target>
+      </trans-unit>
+      <trans-unit id="message.already_registered">
+        <source>message.already_registered</source>
+        <target>¿Ya registrado?</target>
+      </trans-unit>
+      <trans-unit id="link.homepage">
+        <source>link.homepage</source>
+        <target>Ve a la página principal.</target>
+      </trans-unit>
+      <trans-unit id="link.contact_support">
+        <source>link.contact_support</source>
+        <target>Soporte de contacto.</target>
+      </trans-unit>
+      <trans-unit id="email.welcome.subject">
+        <source>email.welcome.subject</source>
+        <target>¡Bienvenido!</target>
+      </trans-unit>
+      <trans-unit id="email.welcome.header">
+        <source>email.welcome.header</source>
+        <target>¡Bienvenido!</target>
+      </trans-unit>
+      <trans-unit id="email.welcome.message">
+        <source>email.welcome.message</source>
+        <target>Estamos muy emocionados de tenerte usando nuestra plataforma. Esperamos que pueda aprovechar lo que ofrece nuestra plataforma. No dude en comunicarse con nosotros para solicitar cualquier sugerencia que pueda tener.</target>
+      </trans-unit>
+      <trans-unit id="email.footer">
+        <source>email.footer</source>
+        <target>Desarrollado por %name</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

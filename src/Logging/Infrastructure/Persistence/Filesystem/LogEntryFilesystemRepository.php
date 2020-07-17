@@ -6,8 +6,10 @@ namespace LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem;
 
 use DateTimeImmutable;
 use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogEntry;
+use LaSalle\GroupZero\Logging\Domain\Model\PaginatedLogEntryCollection;
 use LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
+use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\Pagination;
 use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogFileFinder;
 use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Reader\LogFileReader;
 
@@ -23,6 +25,24 @@ final class LogEntryFilesystemRepository implements LogEntryRepository
     {
         $this->finder = $finder;
         $this->reader = $reader;
+    }
+
+    public function findByEnvironmentPaginated(string $environment, Pagination $pagination): PaginatedLogEntryCollection
+    {
+        $logEntries = $this->findAllByEnvironment($environment);
+
+        $elements = array_slice(
+            $logEntries,
+            ($pagination->page() - 1) * $pagination->elementsPerPage(),
+            $pagination->elementsPerPage()
+        );
+
+        return new PaginatedLogEntryCollection(
+            $pagination->page(),
+            $pagination->elementsPerPage(),
+            count($logEntries),
+            $elements
+        );
     }
 
     /**

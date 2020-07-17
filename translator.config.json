@@ -1,0 +1,12 @@
+{
+  "source": "/translations/messages.en.xlf",
+  "outputPath": "/translations",
+  "fromLanguage": "en",
+  "toLanguage": [
+    "es",
+    "ru",
+    "de",
+    "fr",
+    "tr"
+  ]
+}

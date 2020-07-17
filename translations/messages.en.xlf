@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+ <file original="yml-file" datatype="plaintext" source-language="en" target-language="en">
+  <body>
+   <trans-unit id="nav.sections">
+    <source>nav.sections</source>
+    <target>Sections</target>
+   </trans-unit>
+   <trans-unit id="nav.languages">
+    <source>nav.languages</source>
+    <target>Languages</target>
+   </trans-unit>
+   <trans-unit id="nav.home">
+    <source>nav.home</source>
+    <target>Home</target>
+   </trans-unit>
+   <trans-unit id="nav.summary">
+    <source>nav.summary</source>
+    <target>Summary</target>
+   </trans-unit>
+   <trans-unit id="nav.entries">
+    <source>nav.entries</source>
+    <target>Entries</target>
+   </trans-unit>
+   <trans-unit id="nav.profile">
+    <source>nav.profile</source>
+    <target>Profile</target>
+   </trans-unit>
+   <trans-unit id="nav.account">
+    <source>nav.account</source>
+    <target>Account</target>
+   </trans-unit>
+   <trans-unit id="entry.id">
+    <source>entry.id</source>
+    <target>Identifier</target>
+   </trans-unit>
+   <trans-unit id="entry.level">
+    <source>entry.level</source>
+    <target>Level</target>
+   </trans-unit>
+   <trans-unit id="entry.message">
+    <source>entry.message</source>
+    <target>Message</target>
+   </trans-unit>
+   <trans-unit id="entry.occurred_on">
+    <source>entry.occurred_on</source>
+    <target>Occurred On</target>
+   </trans-unit>
+   <trans-unit id="summary.id">
+    <source>summary.id</source>
+    <target>Identifier</target>
+   </trans-unit>
+   <trans-unit id="summary.level">
+    <source>summary.level</source>
+    <target>Level</target>
+   </trans-unit>
+   <trans-unit id="summary.count">
+    <source>summary.count</source>
+    <target>Count</target>
+   </trans-unit>
+   <trans-unit id="summary.environment">
+    <source>summary.environment</source>
+    <target>Environment</target>
+   </trans-unit>
+   <trans-unit id="summary.updated_on">
+    <source>summary.updated_on</source>
+    <target>Last Updated</target>
+   </trans-unit>
+   <trans-unit id="user.id">
+    <source>user.id</source>
+    <target>Identifier</target>
+   </trans-unit>
+   <trans-unit id="user.email">
+    <source>user.email</source>
+    <target>Email</target>
+   </trans-unit>
+   <trans-unit id="user.role">
+    <source>user.role</source>
+    <target>Role</target>
+   </trans-unit>
+   <trans-unit id="button.register">
+    <source>button.register</source>
+    <target>Register</target>
+   </trans-unit>
+   <trans-unit id="button.sign_in">
+    <source>button.sign_in</source>
+    <target>Sign In</target>
+   </trans-unit>
+   <trans-unit id="button.sign_out">
+    <source>button.sign_out</source>
+    <target>Sign Out</target>
+   </trans-unit>
+   <trans-unit id="error.user.not_unique">
+    <source>error.user.not_unique</source>
+    <target>A user with email {email} already exists</target>
+   </trans-unit>
+   <trans-unit id="error.entry.not_found">
+    <source>error.entry.not_found</source>
+    <target>No entries found for %environment</target>
+   </trans-unit>
+   <trans-unit id="error.summary.not_found">
+    <source>error.summary.not_found</source>
+    <target>No entries found for %environment</target>
+   </trans-unit>
+   <trans-unit id="error.password.invalid">
+    <source>error.password.invalid</source>
+    <target>Your password should be at least 8 characters and contain at least one uppercase letter and a number.</target>
+   </trans-unit>
+   <trans-unit id="header.home">
+    <source>header.home</source>
+    <target>Home</target>
+   </trans-unit>
+   <trans-unit id="header.summary">
+    <source>header.summary</source>
+    <target>Summary for %environment</target>
+   </trans-unit>
+   <trans-unit id="header.entry">
+    <source>header.entry</source>
+    <target>Entries for %environment</target>
+   </trans-unit>
+   <trans-unit id="label.email">
+    <source>label.email</source>
+    <target>Email</target>
+   </trans-unit>
+   <trans-unit id="label.password">
+    <source>label.password</source>
+    <target>Password</target>
+   </trans-unit>
+   <trans-unit id="label.repeat_password">
+    <source>label.repeat_password</source>
+    <target>Repeat password</target>
+   </trans-unit>
+   <trans-unit id="label.remember_me">
+    <source>label.remember_me</source>
+    <target>Remember me</target>
+   </trans-unit>
+   <trans-unit id="message.welcome">
+    <source>message.welcome</source>
+    <target>Welcome to the platform %email</target>
+   </trans-unit>
+   <trans-unit id="message.page_not_found">
+    <source>message.page_not_found</source>
+    <target>The page you requested could not be found.</target>
+   </trans-unit>
+   <trans-unit id="message.server_error">
+    <source>message.server_error</source>
+    <target>An unexpected error occurred.</target>
+   </trans-unit>
+   <trans-unit id="message.not_account">
+    <source>message.not_account</source>
+    <target>Not an account?</target>
+   </trans-unit>
+   <trans-unit id="message.please_sign_in">
+    <source>message.please_sign_in</source>
+    <target>Please sign in</target>
+   </trans-unit>
+   <trans-unit id="message.please_register">
+    <source>message.please_register</source>
+    <target>Please register</target>
+   </trans-unit>
+   <trans-unit id="message.already_registered">
+    <source>message.already_registered</source>
+    <target>Already registered?</target>
+   </trans-unit>
+   <trans-unit id="link.homepage">
+    <source>link.homepage</source>
+    <target>Go to the homepage.</target>
+   </trans-unit>
+   <trans-unit id="link.contact_support">
+    <source>link.contact_support</source>
+    <target>Contact support.</target>
+   </trans-unit>
+   <trans-unit id="email.welcome.subject">
+    <source>email.welcome.subject</source>
+    <target>Welcome!</target>
+   </trans-unit>
+   <trans-unit id="email.welcome.header">
+    <source>email.welcome.header</source>
+    <target>Welcome!</target>
+   </trans-unit>
+   <trans-unit id="email.welcome.message">
+    <source>email.welcome.message</source>
+    <target>We are so excited to have you using our platform. We hope you can take advantage of what our platform offers. Do not hesitate to reach us to ask for any suggestion you may have.</target>
+   </trans-unit>
+   <trans-unit id="email.footer">
+    <source>email.footer</source>
+    <target>Powered by %name</target>
+   </trans-unit>
+  </body>
+ </file>
+</xliff>

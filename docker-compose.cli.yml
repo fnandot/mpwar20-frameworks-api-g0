@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  php-cli:
+    image: fnandot/php-cli:7.3-mpwar
+    volumes:
+      - type: bind
+        source: ${PWD}
+        target: /app
+        read_only: false
+    env_file:
+      - docker.env

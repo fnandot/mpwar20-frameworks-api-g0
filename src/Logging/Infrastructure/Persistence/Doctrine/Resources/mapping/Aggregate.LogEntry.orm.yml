@@ -1,0 +1,16 @@
+LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogEntry:
+  type: entity
+  table: log_entry
+  id:
+    id:
+      type: string
+  fields:
+    environment:
+      type: environment
+    level:
+      type: log_level
+    message:
+      type: text
+    occurredOn:
+      type: datetime_immutable
+

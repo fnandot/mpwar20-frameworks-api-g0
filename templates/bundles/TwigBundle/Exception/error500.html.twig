@@ -1,0 +1,6 @@
+{% extends 'bundles/TwigBundle/Exception/error.html.twig' %}
+
+{% block description %}
+    {{ 'message.server_error'|trans }} <a href="mailto:{{ app_support_email }}">{{ 'link.contact_support'|trans }}</a>
+{% endblock %}
+    

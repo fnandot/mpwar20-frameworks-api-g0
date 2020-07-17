@@ -1,0 +1,66 @@
+security:
+  encoders:
+    LaSalle\GroupZero\User\Infrastructure\Model\Aggregate\SymfonyUser:
+      algorithm: 'argon2i'
+      # maximum memory (in KiB) that may be used to compute the Argon2 hash
+      memory_cost: 1024
+      #  number of times the Argon2 hash algorithm will be run
+      time_cost: 3
+
+  providers:
+    app_user_provider:
+      entity:
+        class: LaSalle\GroupZero\User\Infrastructure\Model\Aggregate\SymfonyUser
+        property: email.email
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+      security: false
+
+#    api_login:
+#      pattern:  ^/api/login
+#      stateless: true
+#      anonymous: true
+#      json_login:
+#        check_path:               /api/login
+#        success_handler:          lexik_jwt_authentication.handler.authentication_success
+#        failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+#
+#    api:
+#      anonymous: false
+#      pattern:  ^/api
+#      stateless: true
+#      provider: app_user_provider
+#      guard:
+#        authenticators:
+#          - lexik_jwt_authentication.jwt_token_authenticator
+
+    main:
+      anonymous: lazy
+      pattern:  ^/(?!api)
+      provider: app_user_provider
+      guard:
+        entry_point: LaSalle\GroupZero\Logging\Infrastructure\Framework\Security\SymfonyUserAuthenticator
+        authenticators:
+          - LaSalle\GroupZero\Logging\Infrastructure\Framework\Security\SymfonyUserAuthenticator
+      logout:
+        path: user_web_logout
+        success_handler: LaSalle\GroupZero\User\Infrastructure\Framework\Security\ClearMercureCookieOnLogoutSuccessHandler
+      remember_me:
+        secret:   '%kernel.secret%'
+        lifetime: 1209600 # 2 weeks
+        path:     /
+
+  role_hierarchy:
+    ROLE_DEVELOPER:       [ROLE_USER]
+
+  access_control:
+    - { path: ^/api/login, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+    - { path: ^/logout, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+    - { path: ^/(es|en|ru)/login, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+    - { path: ^/login, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+    - { path: ^/register, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+    - { path: ^/(es|ru)/(registro|register), roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+    - { path: ^/entries, roles: [ROLE_DEVELOPER] }
+    - { path: ^/api, roles: [ROLE_USER] }
+    - { path: ^/, roles: [ROLE_USER] }

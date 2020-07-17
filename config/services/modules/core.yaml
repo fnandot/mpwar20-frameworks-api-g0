@@ -1,10 +1,14 @@
 services:
   _defaults:
     autowire: true
-    autoconfigure: false
+    autoconfigure: true
 
   LaSalle\GroupZero\Core\:
     resource: '%kernel.project_dir%/src/Core/{Application,Domain,Infrastructure}/'
 
   LaSalle\GroupZero\Core\Domain\Model\Event\DomainEventBus:
     alias: 'LaSalle\GroupZero\Core\Infrastructure\Event\MessengerDomainEventBus'
+
+  LaSalle\GroupZero\Core\Infrastructure\Event\MessengerDomainEventBus:
+    arguments:
+      $eventBus: '@event.bus'

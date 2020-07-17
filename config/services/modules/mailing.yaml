@@ -1,0 +1,30 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  LaSalle\GroupZero\Mailing\:
+    resource: '%kernel.project_dir%/src/Mailing/{Application,Domain,Infrastructure}/'
+    exclude:
+      - '%kernel.project_dir%/src/User/Infrastructure/Framework/{DependencyInjection}'
+      - '%kernel.project_dir%/src/Mailing/Domain/Model/{Aggregate,ValueObject,Exception}'
+
+  mailing_event_handlers:
+    namespace: LaSalle\GroupZero\Mailing\Domain\Model\Event\Handler\
+    resource: '%kernel.project_dir%/src/Mailing/Domain/Model/Event/Handler/*.php'
+    autoconfigure: false
+    tags:
+      - { name: messenger.message_handler, bus: event.bus }
+
+  mailing_event_subscriber:
+    namespace: LaSalle\GroupZero\Mailing\Infrastructure\Framework\EventSubscriber\
+    resource: '%kernel.project_dir%/src/Mailing/Infrastructure/Framework/EventSubscriber/*.php'
+    autoconfigure: false
+    tags:
+      - { name: messenger.message_handler, bus: event.bus }
+
+  LaSalle\GroupZero\Mailing\Infrastructure\Service\SendWelcomeEmailViaSymfonyMailerService:
+    arguments:
+      $senderName: '%app.name%'
+      $senderEmail: '%env(resolve:MAILER_SENDER)%'
+

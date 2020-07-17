@@ -7,13 +7,9 @@ namespace LaSalle\GroupZero\Logging\Domain\Model\Event;
 use DateTimeImmutable;
 use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEvent;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
-use Ramsey\Uuid\Uuid;
 
 final class LogSummaryIncreasedDomainEvent implements DomainEvent
 {
-    /** @var LogSummaryId */
-    private $id;
-
     /** @var string */
     private $aggregateId;
 
@@ -28,15 +24,9 @@ final class LogSummaryIncreasedDomainEvent implements DomainEvent
         int $count,
         DateTimeImmutable $occurredOn
     ) {
-        $this->id          = (string) Uuid::uuid4();
         $this->aggregateId = $id;
         $this->increasedBy = $count;
         $this->occurredOn  = $occurredOn;
-    }
-
-    public function id(): string
-    {
-        return $this->id;
     }
 
     public function aggregateId(): LogSummaryId

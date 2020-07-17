@@ -1,0 +1,50 @@
+{% extends 'base_logged.html.twig' %}
+{% import 'core/_macros.html.twig' as macros %}
+
+{% set locale = app.request.attributes.get('_locale') %}
+
+{% set current_page = 'nav.entries' %}
+
+{% block title %}{{ 'header.entry'|trans({'%environment': environment}) }}{% endblock %}
+{% block page_header %}
+    {{ 'header.entry'|trans({'%environment': environment}) }}
+    <span class="badge badge-danger badge-environment float-right">
+        <a href="{{ url('logging_web_entries_list', {environment: 'prod'}) }}">prod</a>
+    </span>
+    <span class="badge badge-info badge-environment float-right">
+        <a href="{{ url('logging_web_entries_list', {environment: 'dev'}) }}">dev</a>
+    </span>
+{% endblock %}
+
+{% block page_body %}
+    <article>
+        {% if not pagination.count %}
+            <span>{{ 'error.entry.not_found'|trans({'environment': environment}) }}</span>
+        {% else %}
+            {{ 'page.entry.number'|trans({'entries': pagination.totalItemCount }) }}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">{{ 'entry.id'|trans }}</th>
+                    <th scope="col">{{ 'entry.level'|trans }}</th>
+                    <th scope="col">{{ 'entry.message'|trans }}</th>
+                    <th scope="col">{{ 'entry.occurred_on'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entry in pagination %}
+                    <tr>
+                        <th scope="row">{{ entry.id }}</th>
+                        <td>{{ macros.log_level_badge(entry.level) }}</td>
+                        <td>{{ entry.message }}</td>
+                        <td>
+                            <span class="datetime">{{ entry.occurredOn|format_datetime('none', 'none', 'Y/M/d hh:mm a') }}</span>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {{ knp_pagination_render(pagination, null, {environment: app.request.get('environment')}) }}
+        {% endif %}
+    </article>
+{% endblock %}

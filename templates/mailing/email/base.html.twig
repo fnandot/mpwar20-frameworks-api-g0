@@ -1,0 +1,32 @@
+{% block header %}
+    {% apply inky_to_html|inline_css(source('@styles/email.css')) %}
+        <spacer size="16"></spacer>
+        <container class="header">
+            <row>
+                <columns>
+                    <h2 class="text-center"><img src="{{ email.image('@images/logo.jpg') }}" class="logo" alt="{{ app_name }}"></h2>
+                </columns>
+            </row>
+        </container>
+    {% endapply %}
+{% endblock %}
+
+{% block body_outter %}
+    {% apply inky_to_html %}
+        <container class="body-border">
+            <row>
+                <columns>
+                    {% block body %}{% endblock %}
+                    <spacer size="32"></spacer>
+                    <center>
+                        {% block footer %}
+                            <span>{{ 'email.footer'|trans({'%name': app_vendor_name }) }}</span>
+                        {% endblock %}
+                    </center>
+
+                </columns>
+            </row>
+            <spacer size="16"></spacer>
+        </container>
+    {% endapply %}
+{% endblock %}

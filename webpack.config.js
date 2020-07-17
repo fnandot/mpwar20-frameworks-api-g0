@@ -1,4 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
+var dotenv = require('dotenv');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -8,9 +9,9 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 
 Encore
     // directory where compiled assets will be stored
-    .setOutputPath('public/build/')
+    .setOutputPath('public/dist/')
     // public path used by the web server to access the output path
-    .setPublicPath('/build')
+    .setPublicPath('/dist')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 
@@ -54,7 +55,7 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
@@ -64,11 +65,33 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
+    .copyFiles({
+        from: './assets/images',
+
+        // optional target path, relative to the output dir
+        //to: 'images/[path][name].[ext]',
+
+        // if versioning is enabled, add the file hash too
+        to: 'images/[path][name].[hash:8].[ext]',
+
+        // only copy files matching this pattern
+        pattern: /\.(png|jpg|jpeg)$/
+    })
+    .configureDefinePlugin(options => {
+        const env = dotenv.config();
+
+        if (env.error) {
+            throw env.error;
+        }
+
+        options['process.env'].MERCURE_SUBSCRIBE_URL = JSON.stringify(env.parsed.MERCURE_SUBSCRIBE_URL);
+        options['process.env'].MERCURE_RESOURCE_ENTRYPOINT = JSON.stringify(env.parsed.MERCURE_RESOURCE_ENTRYPOINT);
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();

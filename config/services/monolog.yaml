@@ -25,6 +25,12 @@ services:
 
   LaSalle\GroupZero\Logging\Infrastructure\Monolog\Formatter\JsonPrettyFormatter: ~
 
+  jacklul\MonologTelegramHandler\TelegramHandler:
+    arguments:
+      $token: '%env(resolve:TELEGRAM_BOT_TOKEN)%'
+      $chatId: '%env(resolve:TELEGRAM_CHAT_ID)%'
+      $level: !php/const Monolog\Logger::EMERGENCY
+
   # Actually is not needed due autowiring loads automatically the Processor
   LaSalle\GroupZero\Logging\Infrastructure\Monolog\Processor\IdProcessor:
     tags:
@@ -32,3 +38,5 @@ services:
 
   LaSalle\GroupZero\Logging\Infrastructure\Monolog\Processor\FakeWebProcessor:
     autoconfigure: false
+
+  Monolog\Processor\PsrLogMessageProcessor: ~

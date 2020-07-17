@@ -18,8 +18,10 @@ final class MessengerDomainEventBus implements DomainEventBus
         $this->eventBus = $eventBus;
     }
 
-    public function publish(DomainEvent $event): void
+    public function publish(DomainEvent ...$events): void
     {
-        $this->eventBus->dispatch($event);
+        foreach ($events as $event) {
+            $this->eventBus->dispatch($event);
+        }
     }
 }
