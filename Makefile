@@ -37,7 +37,7 @@ stop:
 ##    start@all:			starts all containers
 .PHONY : start@all
 start@all:
-	-@docker-compose -f docker-compose.mercure.yml -f docker-compose.db.yml -f docker-compose.yml start
+	-@docker-compose -f docker-compose.mercure.yml -f docker-compose.db.yml -f docker-compose.yml up -d
 
 ##    stop@all:			stops all containers
 .PHONY : stop@all

@@ -28,3 +28,8 @@ services:
         arguments:
             $sender: null
             $recipients: ['%app.support.email%']
+
+    LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\HelloWorldWithInjectionController:
+        arguments:
+            - '%env(APP_ENV)%'
+            - '%env(APP_ENV_ALIAS)%'

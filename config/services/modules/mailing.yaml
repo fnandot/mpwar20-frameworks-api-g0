@@ -16,13 +16,6 @@ services:
     tags:
       - { name: messenger.message_handler, bus: event.bus }
 
-  mailing_event_subscriber:
-    namespace: LaSalle\GroupZero\Mailing\Infrastructure\Framework\EventSubscriber\
-    resource: '%kernel.project_dir%/src/Mailing/Infrastructure/Framework/EventSubscriber/*.php'
-    autoconfigure: false
-    tags:
-      - { name: messenger.message_handler, bus: event.bus }
-
   LaSalle\GroupZero\Mailing\Infrastructure\Service\SendWelcomeEmailViaSymfonyMailerService:
     arguments:
       $senderName: '%app.name%'
