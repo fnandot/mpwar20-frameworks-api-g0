@@ -14,7 +14,6 @@
         "jms/serializer-bundle": "^3.5",
         "knplabs/knp-paginator-bundle": "^5.0",
         "lcobucci/jwt": "^3.3",
-        "lexik/jwt-authentication-bundle": "^2.6",
         "matthiasnoback/symfony-console-form": "^3.6",
         "ramsey/uuid": "^3.8",
         "ruflin/elastica": "^6.1",
