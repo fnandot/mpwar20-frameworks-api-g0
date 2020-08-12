@@ -89,6 +89,7 @@ deploy@dev:
 	-@$(call docker_phpcli_run,/app/bin/console doctrine:database:drop --force -e dev);
 	-@$(call docker_phpcli_run,/app/bin/console doctrine:database:create --if-not-exists -e dev);
 	-@$(call docker_phpcli_run,/app/bin/console doctrine:migrations:migrate --no-interaction -e dev);
+	-@$(call docker_phpcli_run,yarn);
 	-@$(call docker_phpcli_run,yarn encore dev);
 	-@$(call docker_phpcli_run,chown -R www-data.www-data /app);
 
