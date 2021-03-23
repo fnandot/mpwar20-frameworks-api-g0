@@ -1,0 +1,21 @@
+version: '3.5'
+
+services:
+
+  kibana:
+    image: fnandot/kibana:5.5-mpwar
+    build: docker/kibana
+
+  nginx:
+    image: fnandot/nginx:1.11-mpwar
+    build: docker/nginx
+
+  php-fpm:
+    image: fnandot/php-fpm:7.3-mpwar
+    build: docker/php-fpm
+
+  php-cli:
+    image: fnandot/php-cli:7.3-mpwar
+    build: docker/php-cli
+    depends_on:
+      - php-fpm
