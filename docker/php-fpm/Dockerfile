@@ -1,8 +1,8 @@
-FROM php:7.3-fpm
+FROM php:8.0.3-fpm
 
 WORKDIR /app
 
-ARG XDEBUG_VERSION="2.8.0"
+ARG XDEBUG_VERSION="3.0.3"
 RUN apt-get update -y \
     && apt-get install -y \
         git \

@@ -1,12 +1,10 @@
 monolog:
     handlers:
         main:
-            type: rotating_file
+            type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
-            max_files: 15 # Because the default behavior is FILE_PER_DAY
             channels: ["!event"]
-            formatter: 'LaSalle\GroupZero\Logging\Infrastructure\Monolog\Formatter\JsonPrettyFormatter'
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:
@@ -17,20 +15,5 @@ monolog:
         #    level: info
         console:
             type: console
-            process_psr_3_messages: true
-            level: debug
+            process_psr_3_messages: false
             channels: ["!event", "!doctrine", "!console"]
-        elasticsearch:
-            type: elasticsearch
-            elasticsearch:
-                host: '%env(MONOLOG_ELASTICSEARCH_HOST)%'
-                port: '%env(MONOLOG_ELASTICSEARCH_PORT)%'
-            index: '%env(MONOLOG_ELASTICSEARCH_INDEX)%'
-            level: debug
-            tags: monolog.logger
-            process_psr_3_messages: true
-            ignore_error: true
-            channels: ["!event"]
-        telegram:
-            type: service
-            id: 'jacklul\MonologTelegramHandler\TelegramHandler'

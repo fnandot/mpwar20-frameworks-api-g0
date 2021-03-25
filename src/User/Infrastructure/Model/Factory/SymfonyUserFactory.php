@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\User\Infrastructure\Model\Factory;
 
@@ -31,7 +31,7 @@ final class SymfonyUserFactory implements UserFactory
             ->passwordEncoder
             ->encodePassword(
                 $user,
-                $user->password()
+                $user->password()->toString()
             );
 
         $user->setPassword($this->buildPasswordWithoutConstructor($encodedPassword));
@@ -45,7 +45,10 @@ final class SymfonyUserFactory implements UserFactory
         return unserialize(
             'O:'.strlen(Password::class).':"'.Password::class.'":1:{s:'.strlen(
                 'password'
-            ).':"'.'password";s:'.strlen($encodedPassword).':"'.$encodedPassword.'";}'
+            ).':"'.'password";s:'.strlen($encodedPassword).':"'.$encodedPassword.'";}',
+            [
+                'allowed_classes' => [Password::class],
+            ]
         );
     }
 }

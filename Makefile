@@ -1,10 +1,9 @@
 all: help
 
-##  _            ____        _ _
-## | |    __ _  / ___|  __ _| | | ___
-## | |   / _` | \___ \ / _` | | |/ _ \
-## | |__| (_| |  ___) | (_| | | |  __/
-## |_____\__,_| |____/ \__,_|_|_|\___|
+##    --------------------------------------------
+##    ||          LaSalle MPWAR 2021            ||
+##    --------------------------------------------
+
 
 .PHONY : help
 help : Makefile
@@ -101,7 +100,7 @@ remove:
 ##    build:			builds all Docker images
 .PHONY : build
 build:
-	@docker-compose -f docker-compose.cli.yml -f docker-compose.yml build
+	@docker-compose -f docker-compose.build.yml build
 
 
 ##    push:			pushes all Docker images
@@ -109,9 +108,9 @@ build:
 push:
 	@docker-compose -f docker-compose.cli.yml -f docker-compose.yml push
 
-##    interactive:			runs a container with an interactive shell
-.PHONY : interactive
-interactive:
+##    cli:			        runs a container with an interactive shell
+.PHONY : cli
+cli:
 	-@docker-compose -f docker-compose.cli.yml run \
 		--rm \
 		--no-deps \

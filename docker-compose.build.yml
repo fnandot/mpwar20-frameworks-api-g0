@@ -7,15 +7,15 @@ services:
     build: docker/kibana
 
   nginx:
-    image: fnandot/nginx:1.11-mpwar
+    image: fnandot/nginx:1.19-mpwar
     build: docker/nginx
 
   php-fpm:
-    image: fnandot/php-fpm:7.3-mpwar
+    image: fnandot/php-fpm:8.0.3-mpwar
     build: docker/php-fpm
 
   php-cli:
-    image: fnandot/php-cli:7.3-mpwar
+    image: fnandot/php-cli:8.0.3-mpwar
     build: docker/php-cli
     depends_on:
       - php-fpm

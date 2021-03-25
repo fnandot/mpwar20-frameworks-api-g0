@@ -7,4 +7,4 @@ jms_serializer:
         directories:
             logging_context:
                 namespace_prefix: "LaSalle\\GroupZero\\Logging"
-                path: "%kernel.root_dir%/Logging/Infrastructure/Framework/Resources/config/serializer"
+                path: "%kernel.project_dir%/src/Logging/Infrastructure/Framework/Resources/config/serializer"

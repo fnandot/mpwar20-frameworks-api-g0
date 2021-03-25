@@ -1,4 +1,4 @@
-FROM fnandot/php-fpm:7.3-mpwar
+FROM fnandot/php-fpm:8.0.3-mpwar
 
 ARG XDEBUG_VERSION="2.8.0"
 RUN apt-get update -y \
@@ -25,10 +25,9 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && apt-get install -y --no-install-recommends yarn \
     && apt-get clean
 
-ARG COMPOSER_VERSION="1.9.1"
+ARG COMPOSER_VERSION="2.0.11"
 RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar \
-    && chmod +x /usr/bin/composer \
-    && composer global require -n -q hirak/prestissimo
+    && chmod +x /usr/bin/composer
 
 RUN sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 

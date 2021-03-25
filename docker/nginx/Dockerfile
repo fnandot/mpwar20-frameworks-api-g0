@@ -1,4 +1,4 @@
-FROM nginx:1.11-alpine
+FROM nginx:1.19-alpine
 
 RUN apk --update add curl \
     && rm -rf /var/cache/apk/*

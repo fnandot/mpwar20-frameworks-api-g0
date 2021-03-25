@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Mailing\Domain\Model\Event\Handler;
 
@@ -21,12 +21,12 @@ final class SendWelcomeEmailOnUserRegistered
     public function __construct(SendWelcomeEmailService $sendWelcomeEmailService, DomainEventBus $domainEventBus)
     {
         $this->sendWelcomeEmailService = $sendWelcomeEmailService;
-        $this->domainEventBus          = $domainEventBus;
+        $this->domainEventBus = $domainEventBus;
     }
 
     public function __invoke(UserRegisteredDomainEvent $event): void
     {
-        ($this->sendWelcomeEmailService)($event->email());
+        // ($this->sendWelcomeEmailService)($event->email());
 
         $this->domainEventBus->publish(
             new WelcomeEmailSentDomainEvent(

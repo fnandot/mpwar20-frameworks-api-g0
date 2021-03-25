@@ -17,14 +17,14 @@ homepage:
         permanent: true
 
 sandbox_controllers:
-    resource: './Logging/Infrastructure/Framework/Controller/Sandbox'
+    resource: '../src/Logging/Infrastructure/Framework/Controller/Sandbox'
     prefix: /sandbox/
     name_prefix: sandbox_
     type:     annotation
 
 
 v1_api_controllers:
-    resource: './Logging/Infrastructure/Framework/Controller/V1'
+    resource: '../src/Logging/Infrastructure/Framework/Controller/V1'
     prefix: /api/{version}/
     condition:  "request.headers.get('Accept') matches '/application\\\\/json/i' or (request.getMethod() in ['PUT', 'POST', 'PATCH'] and request.headers.get('Content-Type') matches '/application\\\\/json/i')"
     name_prefix: logging_api_v1_
@@ -33,15 +33,15 @@ v1_api_controllers:
         _format: json
         version: v1
 
-v2_api_controllers:
-    type: rest
-    resource: './Logging/Infrastructure/Framework/Controller/V2'
-    prefix: /api/
-    condition: "request.attributes.get('version') == '2.0'"
-    name_prefix: logging_api_v2_
+#v2_api_controllers:
+#    type: rest
+#    resource: '../src/Logging/Infrastructure/Framework/Controller/V2'
+#    prefix: /api/
+#    condition: "request.attributes.get('version') == '2.0'"
+#    name_prefix: logging_api_v2_
 
 web_controllers:
-    resource: './Logging/Infrastructure/Framework/Controller/Web'
+    resource: '../src/Logging/Infrastructure/Framework/Controller/Web'
     prefix:
         en: ''
         es: '/es'
@@ -59,7 +59,7 @@ web_controllers:
         utf8: true
 
 user_web_controllers:
-    resource: './User/Infrastructure/Framework/Controller'
+    resource: '../src/User/Infrastructure/Framework/Controller'
     name_prefix: user_web_
     prefix:
         en: ''
@@ -91,6 +91,6 @@ user_web_controllers:
 
 
 core_web_controllers:
-    resource: './Core/Infrastructure/Framework/Controller'
+    resource: '../src/Core/Infrastructure/Framework/Controller'
     name_prefix: core_web_
     type:     annotation
