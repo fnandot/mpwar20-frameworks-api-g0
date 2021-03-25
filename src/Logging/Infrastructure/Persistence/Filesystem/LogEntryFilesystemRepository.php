@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem;
 
@@ -15,16 +15,8 @@ use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Reader\LogFi
 
 final class LogEntryFilesystemRepository implements LogEntryRepository
 {
-    /** @var LogFileFinder */
-    private $finder;
-
-    /** @var LogFileReader */
-    private $reader;
-
-    public function __construct(LogFileFinder $finder, LogFileReader $reader)
+    public function __construct(private LogFileFinder $finder, private LogFileReader $reader)
     {
-        $this->finder = $finder;
-        $this->reader = $reader;
     }
 
     public function findByEnvironmentPaginated(string $environment, Pagination $pagination): PaginatedLogEntryCollection

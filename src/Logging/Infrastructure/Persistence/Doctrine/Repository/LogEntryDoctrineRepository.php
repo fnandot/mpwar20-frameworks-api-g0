@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository;
 
-use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Persistence\ObjectRepository;
 use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogEntry;
 use LaSalle\GroupZero\Logging\Domain\Model\PaginatedLogEntryCollection;
 use LaSalle\GroupZero\Logging\Domain\Model\Repository\LogEntryRepository;
@@ -15,12 +15,8 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\Pagination;
 
 final class LogEntryDoctrineRepository implements LogEntryRepository
 {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     public function findByEnvironmentPaginated(string $environment, Pagination $pagination): PaginatedLogEntryCollection

@@ -11,12 +11,8 @@ use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 
 class ClearMercureCookieOnLogoutSuccessHandler implements LogoutSuccessHandlerInterface
 {
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function onLogoutSuccess(Request $request)

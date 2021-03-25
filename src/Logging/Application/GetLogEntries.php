@@ -9,12 +9,8 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\Pagination;
 
 final class GetLogEntries
 {
-    /** @var LogEntryRepository */
-    private $repository;
-
-    public function __construct(LogEntryRepository $repository)
+    public function __construct(private LogEntryRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     public function __invoke(GetLogEntriesRequest $request)

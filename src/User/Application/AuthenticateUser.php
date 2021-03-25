@@ -17,31 +17,19 @@ use LaSalle\GroupZero\User\Domain\Model\ValueObject\Password;
 
 final class AuthenticateUser
 {
-    /** @var UserRepository */
-    private $repository;
-
-    /** @var UserPasswordValidationService */
-    private $userPasswordValidationService;
-
-    /** @var DomainEventBus */
-    private $eventBus;
-
     public function __construct(
-        UserRepository $repository,
-        UserPasswordValidationService $userPasswordValidationService,
-        DomainEventBus $eventBus
+        private UserRepository $repository,
+        private UserPasswordValidationService $userPasswordValidationService,
+        private DomainEventBus $eventBus
     ) {
-        $this->repository = $repository;
-        $this->userPasswordValidationService = $userPasswordValidationService;
-        $this->eventBus = $eventBus;
     }
 
     public function __invoke(AuthenticateUserRequest $request): void
     {
-        $email = new Email($request->email());
+        $email    = new Email($request->email());
         $password = new Password($request->password());
 
-        $user  = $this->getUserByEmail($email);
+        $user = $this->getUserByEmail($email);
 
         $this->validatePassword($user, $password);
 

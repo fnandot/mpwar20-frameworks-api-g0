@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Persistence\Pdo;
 
@@ -22,25 +22,17 @@ final class LogSummaryPdoRepository implements LogSummaryRepository
     private const COLUMN_UPDATED_ON  = 'updated_on';
 
     private const DATABASE_MAPPING = [
-        self::COLUMN_ID          => PDO::PARAM_STR,
+        self::COLUMN_ID => PDO::PARAM_STR,
         self::COLUMN_ENVIRONMENT => PDO::PARAM_STR,
-        self::COLUMN_LEVEL       => PDO::PARAM_STR,
-        self::COLUMN_COUNT       => PDO::PARAM_STR,
-        self::COLUMN_UPDATED_ON  => PDO::PARAM_STR,
+        self::COLUMN_LEVEL => PDO::PARAM_STR,
+        self::COLUMN_COUNT => PDO::PARAM_STR,
+        self::COLUMN_UPDATED_ON => PDO::PARAM_STR,
     ];
 
     private const DATETIME_FORMAT = 'Y-m-d H:i:s';
 
-    /** @var PDO */
-    private $pdo;
-
-    /** @var string */
-    private $tableName;
-
-    public function __construct(PDO $pdo, string $tableName)
+    public function __construct(private PDO $pdo, private string $tableName)
     {
-        $this->pdo       = $pdo;
-        $this->tableName = $tableName;
     }
 
     public function find(LogSummaryId $id): ?LogSummary
@@ -179,11 +171,11 @@ SQL
     private function mapToDatabase(LogSummary $logSummary): array
     {
         return [
-            self::COLUMN_ID          => $logSummary->id(),
+            self::COLUMN_ID => $logSummary->id(),
             self::COLUMN_ENVIRONMENT => $logSummary->environment(),
-            self::COLUMN_LEVEL       => (string) $logSummary->level(),
-            self::COLUMN_COUNT       => $logSummary->count()->toInt(),
-            self::COLUMN_UPDATED_ON  => $logSummary->updatedOn()->format(static::DATETIME_FORMAT),
+            self::COLUMN_LEVEL => (string) $logSummary->level(),
+            self::COLUMN_COUNT => $logSummary->count()->toInt(),
+            self::COLUMN_UPDATED_ON => $logSummary->updatedOn()->format(static::DATETIME_FORMAT),
         ];
     }
 

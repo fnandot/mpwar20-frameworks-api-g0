@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\Web;
 
@@ -28,12 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class LogSummaryController extends AbstractController
 {
-    /** @var GetLogSummariesByEnvironment */
-    private $getLogSummariesByEnvironment;
-
-    public function __construct(GetLogSummariesByEnvironment $getLogSummariesByEnvironment)
+    public function __construct(private GetLogSummariesByEnvironment $getLogSummariesByEnvironment)
     {
-        $this->getLogSummariesByEnvironment = $getLogSummariesByEnvironment;
     }
 
     /**
@@ -46,7 +42,7 @@ final class LogSummaryController extends AbstractController
         return $this->render(
             'logging/summary/list.html.twig',
             [
-                'summaries'   => $summaries,
+                'summaries' => $summaries,
                 'environment' => $environment,
             ]
         );

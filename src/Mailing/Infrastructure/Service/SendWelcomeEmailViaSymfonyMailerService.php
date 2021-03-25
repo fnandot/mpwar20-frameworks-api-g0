@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Mailing\Infrastructure\Service;
 
@@ -13,28 +13,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class SendWelcomeEmailViaSymfonyMailerService implements SendWelcomeEmailService
 {
-    /** @var MailerInterface */
-    private $mailer;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
-    /** @var string */
-    private $senderEmail;
-
-    /** @var string */
-    private $senderName;
-
-    public function __construct(
-        MailerInterface $mailer,
-        TranslatorInterface $translator,
-        string $senderEmail,
-        string $senderName
-    ) {
-        $this->mailer      = $mailer;
-        $this->translator  = $translator;
-        $this->senderEmail = $senderEmail;
-        $this->senderName  = $senderName;
+    public function __construct(private MailerInterface $mailer, private TranslatorInterface $translator, private string $senderEmail, private string $senderName)
+    {
     }
 
     public function __invoke(Email $email)

@@ -45,9 +45,9 @@ final class CreateLogEntryRequestValueResolver implements ArgumentValueResolverI
     private function resolveIdentifier($data): string
     {
         if (array_key_exists('id', $data)) {
-            return (string) $data['id'];
+            return (string)$data['id'];
         }
 
-        return (string) Uuid::uuid4();
+        return (string)Uuid::uuid4();
     }
 }

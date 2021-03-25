@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository;
 
@@ -13,20 +13,14 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 final class LogSummaryOrmDqlRepository implements LogSummaryRepository
 {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     /**
      * @throws NonUniqueResultException
-     *
-     * @return object|LogSummary|null
      */
-    public function find(LogSummaryId $logSummaryId): ?LogSummary
+    public function find(LogSummaryId $id): ?LogSummary
     {
         $query = $this
             ->entityManager
@@ -38,7 +32,7 @@ WHERE ls.id.id = :id
 DQL
             )->setParameters(
                 [
-                    'id' => $logSummaryId,
+                    'id' => $id,
                 ]
             );
 
@@ -62,7 +56,7 @@ DQL
             ->setParameters(
                 [
                     'environment' => $environment,
-                    'levels'      => $levels,
+                    'levels' => $levels,
                 ]
             );
 
@@ -73,8 +67,6 @@ DQL
 
     /**
      * @throws NonUniqueResultException
-     *
-     * @return object|LogSummary|null
      */
     public function findOneByEnvironmentAndLevel(string $environment, LogLevel $level): ?LogSummary
     {
@@ -90,7 +82,7 @@ DQL
             )->setParameters(
                 [
                     'environment' => $environment,
-                    'level'       => $level,
+                    'level' => $level,
                 ]
             );
 

@@ -11,16 +11,8 @@ use Symfony\Component\Mercure\Update;
 
 final class PublishToMercureOnLogSummaryIncreased
 {
-    /** @var PublisherInterface */
-    private $publisher;
-
-    /** @var string */
-    private $mercureResourceEntrypoint;
-
-    public function __construct(PublisherInterface $publisher, string $mercureResourceEntrypoint)
+    public function __construct(private PublisherInterface $publisher, private string $mercureResourceEntrypoint)
     {
-        $this->publisher                 = $publisher;
-        $this->mercureResourceEntrypoint = $mercureResourceEntrypoint;
     }
 
     public function __invoke(LogSummaryIncreasedDomainEvent $event): void
@@ -29,7 +21,7 @@ final class PublishToMercureOnLogSummaryIncreased
             sprintf('%s/log-summaries/%s', $this->mercureResourceEntrypoint, $event->aggregateId()),
             json_encode(
                 [
-                    'id'           => (string) $event->aggregateId(),
+                    'id'           => (string)$event->aggregateId(),
                     'type'         => 'log_summary_increased',
                     'increased_by' => $event->increasedBy(),
                     'occurred_on'  => $event->occurredOn()->getTimestamp(),
@@ -38,7 +30,7 @@ final class PublishToMercureOnLogSummaryIncreased
             [
                 sprintf('%s/roles/user', $this->mercureResourceEntrypoint),
             ],
-            (string) Uuid::uuid4()
+            (string)Uuid::uuid4()
         );
 
         ($this->publisher)($update);

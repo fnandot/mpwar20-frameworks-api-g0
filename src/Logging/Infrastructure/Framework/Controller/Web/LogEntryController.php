@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\Web;
 
@@ -33,12 +33,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class LogEntryController extends AbstractController
 {
-    /** @var GetLogEntries */
-    private $getLogEntries;
-
-    public function __construct(GetLogEntries $getLogEntries)
+    public function __construct(private GetLogEntries $getLogEntries)
     {
-        $this->getLogEntries = $getLogEntries;
     }
 
     /**
@@ -59,7 +55,7 @@ final class LogEntryController extends AbstractController
         return $this->render(
             'logging/entries/list.html.twig',
             [
-                'pagination'  => $pagination,
+                'pagination' => $pagination,
                 'environment' => $environment,
             ]
         );

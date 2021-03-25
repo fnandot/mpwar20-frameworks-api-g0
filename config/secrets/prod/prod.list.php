@@ -1,9 +1,9 @@
 <?php
 
-return array (
-  'APP_SECRET' => NULL,
-  'DATABASE_PASSWORD' => NULL,
-  'JWT_PASSPHRASE' => NULL,
-  'MERCURE_JWT_TOKEN' => NULL,
-  'MERCURE_SECRET_KEY' => NULL,
-);
+return [
+  'APP_SECRET' => null,
+  'DATABASE_PASSWORD' => null,
+  'JWT_PASSPHRASE' => null,
+  'MERCURE_JWT_TOKEN' => null,
+  'MERCURE_SECRET_KEY' => null,
+];

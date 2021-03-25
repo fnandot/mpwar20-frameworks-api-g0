@@ -8,10 +8,10 @@ use RuntimeException;
 
 final class Pagination
 {
-    /** @var int $page */
+    /** @var int */
     private $page;
 
-    /** @var int $page */
+    /** @var int */
     private $elementsPerPage;
 
     public function __construct(int $page, int $elementsPerPage)

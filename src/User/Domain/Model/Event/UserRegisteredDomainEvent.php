@@ -9,32 +9,16 @@ use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEvent;
 use LaSalle\GroupZero\User\Domain\Model\ValueObject\Email;
 use LaSalle\GroupZero\User\Domain\Model\ValueObject\UserId;
 use LaSalle\GroupZero\User\Domain\Model\ValueObject\UserRole;
-use Ramsey\Uuid\Uuid;
 
 final class UserRegisteredDomainEvent implements DomainEvent
 {
-    /** @var UserId */
-    private $aggregateId;
-
-    /** @var Email */
-    private $email;
-
-    /** @var UserRole[] */
-    private $roles;
-
-    /** @var DateTimeImmutable */
-    private $occurredOn;
-
     public function __construct(
-        UserId $aggregateId,
-        Email $email,
-        array $roles,
-        DateTimeImmutable $occurredOn
+        private UserId $aggregateId,
+        private Email $email,
+        /* @var UserRole[] */
+        private array $roles,
+        private DateTimeImmutable $occurredOn
     ) {
-        $this->aggregateId = $aggregateId;
-        $this->email = $email;
-        $this->roles = $roles;
-        $this->occurredOn = $occurredOn;
     }
 
     public function aggregateId(): UserId

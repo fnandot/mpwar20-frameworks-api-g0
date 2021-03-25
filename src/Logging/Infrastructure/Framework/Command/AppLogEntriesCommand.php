@@ -6,10 +6,6 @@ namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Command;
 
 use LaSalle\GroupZero\Logging\Application\GetLogEntriesByEnvironment;
 use LaSalle\GroupZero\Logging\Application\GetLogEntriesByEnvironmentRequest;
-use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogRotatingFileFinder;
-use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\LogEntryFilesystemRepository;
-use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Parser\JsonLogParser;
-use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Reader\LogFileReader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,13 +17,9 @@ final class AppLogEntriesCommand extends Command
 {
     protected static $defaultName = 'app:log:entries';
 
-    /** @var GetLogEntriesByEnvironment */
-    private $getLogEntriesByEnvironment;
-
-    public function __construct(GetLogEntriesByEnvironment $getLogEntriesByEnvironment)
+    public function __construct(private GetLogEntriesByEnvironment $getLogEntriesByEnvironment)
     {
         parent::__construct();
-        $this->getLogEntriesByEnvironment = $getLogEntriesByEnvironment;
     }
 
     protected function configure(): void

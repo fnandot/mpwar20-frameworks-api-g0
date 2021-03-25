@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Controller;
 
@@ -9,9 +9,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class HelloWorldParametrizedController
 {
-    /**
-     * @Route("/hello/{environment}", requirements={"environment": "dev|prod|test"}, name="hello_parametrized", methods={"GET"})
-     */
+
+    #[Route(
+        '/hello/{environment}',
+        name: 'hello_parametrized',
+        requirements: ['environment' => 'dev|prod|test'],
+        methods: ['GET']
+    )]
     public function __invoke(string $environment): Response
     {
         return new Response(

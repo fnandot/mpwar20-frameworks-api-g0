@@ -6,7 +6,7 @@ namespace LaSalle\GroupZero\Logging\Domain\Model\ValueObject;
 
 use LaSalle\GroupZero\Logging\Domain\Model\Exception\InvalidLogLevelException;
 
-final class LogLevel
+final class LogLevel implements \Stringable
 {
     public const EMERGENCY = 'emergency';
     public const ALERT     = 'alert';
@@ -36,6 +36,15 @@ final class LogLevel
         $this->setLevel($level);
     }
 
+    private function setLevel(string $level): void
+    {
+        if (!in_array($level, static::$allowedValues, true)) {
+            throw new InvalidLogLevelException($level);
+        }
+
+        $this->level = $level;
+    }
+
     public static function fromString(string $level): self
     {
         return new static($level);
@@ -61,18 +70,9 @@ final class LogLevel
 
     public function isGreaterOrEqualThan(LogLevel $other): bool
     {
-        $currentIndex = array_search((string) $this, static::$allowedValues, true);
-        $otherIndex   = array_search((string) $other, static::$allowedValues, true);
+        $currentIndex = array_search((string)$this, static::$allowedValues, true);
+        $otherIndex   = array_search((string)$other, static::$allowedValues, true);
 
         return $currentIndex <= $otherIndex;
-    }
-
-    private function setLevel(string $level): void
-    {
-        if (!in_array($level, static::$allowedValues, true)) {
-            throw new InvalidLogLevelException($level);
-        }
-
-        $this->level = $level;
     }
 }

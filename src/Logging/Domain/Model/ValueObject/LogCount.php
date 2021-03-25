@@ -18,16 +18,6 @@ final class LogCount
         $this->count = $count;
     }
 
-    public static function zero(): self
-    {
-        return new static(0);
-    }
-
-    public static function initialized(int $count): self
-    {
-        return new static($count);
-    }
-
     private function guardIsPositive(int $count): void
     {
         if ($this->isIntegerPositive($count)) {
@@ -38,6 +28,16 @@ final class LogCount
     private function isIntegerPositive(int $count): bool
     {
         return 0 > $count;
+    }
+
+    public static function zero(): self
+    {
+        return new static(0);
+    }
+
+    public static function initialized(int $count): self
+    {
+        return new static($count);
     }
 
     public function equals(LogCount $other): bool

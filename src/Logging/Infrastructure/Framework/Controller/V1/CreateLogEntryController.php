@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\V1;
 
@@ -12,12 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class CreateLogEntryController extends AbstractController
 {
-    /** @var CreateLogEntry */
-    private $createLogEntry;
-
-    public function __construct(CreateLogEntry $getLogSummariesByEnvironment)
+    public function __construct(private CreateLogEntry $createLogEntry)
     {
-        $this->createLogEntry = $getLogSummariesByEnvironment;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\EventListener;
 
@@ -31,7 +31,7 @@ class ErrorListener
             $response
                 ->setData(
                     [
-                        'error'   => $exception->getStatusCode(),
+                        'error' => $exception->getStatusCode(),
                         'message' => $exception->getMessage(),
                     ]
                 );
@@ -41,7 +41,7 @@ class ErrorListener
             $response
                 ->setData(
                     [
-                        'error'   => Response::HTTP_INTERNAL_SERVER_ERROR,
+                        'error' => Response::HTTP_INTERNAL_SERVER_ERROR,
                         'message' => 'An unexpected error occurred.',
                     ]
                 );

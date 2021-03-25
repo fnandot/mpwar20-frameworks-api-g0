@@ -1,33 +1,23 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Monolog\Processor;
 
-use Faker\Factory;
-use Faker\Generator;
 use Monolog\Processor\ProcessorInterface;
 
 class FakeWebProcessor implements ProcessorInterface
 {
-    /** @var Generator */
-    private $generator;
-
-    public function __construct()
-    {
-        $this->generator = $generator = Factory::create();
-    }
-
-    public function __invoke(array $record)
+    public function __invoke(array $record): array
     {
         $record['extra'] = array_merge(
             $record['extra'],
             [
-                'url'         => $this->generator->url,
-                'ip'          => $this->generator->ipv4,
-                'http_method' => $this->generator->randomElement(['GET', 'POST', 'PUT', 'PATCH', 'DELETE']),
-                'server'      => strtolower($this->generator->firstNameFemale).'_'.$this->generator->linuxProcessor,
-                'referrer'    => $this->generator->url,
+                'url' => 'https://www.salleurl.edu/en',
+                'ip' => '197.228.0.32',
+                'http_method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'][random_int(0, 4)],
+                'server' => sha1(random_bytes(5)),
+                'referrer' => 'https://www.salleurl.edu/en',
             ]
         );
 

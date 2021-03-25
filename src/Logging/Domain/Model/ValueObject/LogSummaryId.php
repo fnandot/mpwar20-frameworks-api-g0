@@ -7,20 +7,10 @@ namespace LaSalle\GroupZero\Logging\Domain\Model\ValueObject;
 use LaSalle\GroupZero\Logging\Domain\Model\Exception\InvalidLogSummaryIdException;
 use Ramsey\Uuid\Uuid;
 
-final class LogSummaryId
+final class LogSummaryId implements \Stringable
 {
     /** @var string */
     private $id;
-
-    public static function generate(): self
-    {
-        return new self((string) Uuid::uuid4());
-    }
-
-    public static function fromString(string $id): self
-    {
-        return new self($id);
-    }
 
     private function __construct(string $id)
     {
@@ -34,6 +24,16 @@ final class LogSummaryId
         if (!Uuid::isValid($id)) {
             throw new InvalidLogSummaryIdException($id);
         }
+    }
+
+    public static function generate(): self
+    {
+        return new self((string)Uuid::uuid4());
+    }
+
+    public static function fromString(string $id): self
+    {
+        return new self($id);
     }
 
     public function equals($other): bool

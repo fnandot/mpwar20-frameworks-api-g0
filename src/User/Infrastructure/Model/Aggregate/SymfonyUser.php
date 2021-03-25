@@ -16,7 +16,7 @@ class SymfonyUser extends User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email();
+        return (string)$this->email();
     }
 
     /**
@@ -27,7 +27,7 @@ class SymfonyUser extends User implements UserInterface
         return array_unique(
             array_map(
                 static function (UserRole $role): string {
-                    return 'ROLE_'.strtoupper((string) $role);
+                    return 'ROLE_' . strtoupper((string)$role);
                 },
                 $this->roles()
             )
@@ -39,7 +39,7 @@ class SymfonyUser extends User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password();
+        return (string)$this->password();
     }
 
     /**

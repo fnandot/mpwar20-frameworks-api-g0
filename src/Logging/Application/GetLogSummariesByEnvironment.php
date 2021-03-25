@@ -10,12 +10,8 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 
 final class GetLogSummariesByEnvironment implements ApplicationService
 {
-    /** @var LogSummaryRepository */
-    private $repository;
-
-    public function __construct(LogSummaryRepository $repository)
+    public function __construct(private LogSummaryRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     /**
@@ -58,9 +54,9 @@ final class GetLogSummariesByEnvironment implements ApplicationService
         return array_map(
             static function (LogSummary $summary) {
                 return new LogSummaryResponse(
-                    (string) $summary->id(),
+                    (string)$summary->id(),
                     $summary->environment(),
-                    (string) $summary->level(),
+                    (string)$summary->level(),
                     $summary->count()->toInt(),
                     $summary->updatedOn()
                 );

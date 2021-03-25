@@ -14,16 +14,8 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 final class IncreaseLogSummaryOnLogEntryCreated
 {
-    /** @var LogSummaryRepository */
-    private $repository;
-
-    /** @var DomainEventBus */
-    private $eventBus;
-
-    public function __construct(LogSummaryRepository $repository, DomainEventBus $eventBus)
+    public function __construct(private LogSummaryRepository $repository, private DomainEventBus $eventBus)
     {
-        $this->repository = $repository;
-        $this->eventBus   = $eventBus;
     }
 
     /**

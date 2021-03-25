@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   php-cli:
-    image: fnandot/php-cli:7.3-mpwar
+    image: fnandot/php-cli:8.0.3-mpwar
     volumes:
       - type: bind
         source: ${PWD}

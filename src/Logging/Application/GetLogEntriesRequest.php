@@ -6,20 +6,8 @@ namespace LaSalle\GroupZero\Logging\Application;
 
 final class GetLogEntriesRequest
 {
-    /** @var string */
-    private $environment;
-
-    /** @var int */
-    private $page;
-
-    /** @var int */
-    private $elementsPerPage;
-
-    public function __construct(string $environment, int $page, int $elements)
+    public function __construct(private string $environment, private int $page, private int $elementsPerPage)
     {
-        $this->environment = $environment;
-        $this->page        = $page;
-        $this->elementsPerPage    = $elements;
     }
 
     public function environment(): string

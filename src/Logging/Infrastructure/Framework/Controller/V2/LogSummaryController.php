@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\V2;
 
@@ -18,12 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class LogSummaryController extends AbstractFOSRestController
 {
-    /** @var GetLogSummariesByEnvironment */
-    private $getLogSummariesByEnvironment;
-
-    public function __construct(GetLogSummariesByEnvironment $getLogSummariesByEnvironment)
+    public function __construct(private GetLogSummariesByEnvironment $getLogSummariesByEnvironment)
     {
-        $this->getLogSummariesByEnvironment = $getLogSummariesByEnvironment;
     }
 
     /**

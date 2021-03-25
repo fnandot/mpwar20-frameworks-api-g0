@@ -1,3 +1,5 @@
-<?php // dev.encrypt.public on Sun, 09 Feb 2020 11:26:09 +0100
+<?php
+
+// dev.encrypt.public on Sun, 09 Feb 2020 11:26:09 +0100
 
 return "9\xF8R\xF7\x60Y\xC8\xC6\xE4\xFDn\xDE\xC3-_\xCF\x02\xE3\xC3\x9C\x84\x29GU\xD4M\x05\xE7\x8B\x91\x10\x40";

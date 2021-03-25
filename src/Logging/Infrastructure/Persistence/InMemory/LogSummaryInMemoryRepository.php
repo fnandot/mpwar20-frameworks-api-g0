@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Persistence\InMemory;
 
@@ -13,15 +13,11 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 final class LogSummaryInMemoryRepository implements LogSummaryRepository
 {
-    /** @var LogEntryRepository */
-    private $logEntryRepository;
-
-    public function __construct(LogEntryRepository $logEntryRepository)
+    public function __construct(private LogEntryRepository $logEntryRepository)
     {
-        $this->logEntryRepository = $logEntryRepository;
     }
 
-    public function find(LogSummaryId $logSummaryId): ?LogSummary
+    public function find(LogSummaryId $id): ?LogSummary
     {
         throw new \BadMethodCallException('Not implemented');
     }

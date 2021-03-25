@@ -12,16 +12,8 @@ use LaSalle\GroupZero\User\Domain\Model\Event\UserRegisteredDomainEvent;
 
 final class SendWelcomeEmailOnUserRegistered
 {
-    /** @var SendWelcomeEmailService */
-    private $sendWelcomeEmailService;
-
-    /** @var DomainEventBus */
-    private $domainEventBus;
-
-    public function __construct(SendWelcomeEmailService $sendWelcomeEmailService, DomainEventBus $domainEventBus)
+    public function __construct(private SendWelcomeEmailService $sendWelcomeEmailService, private DomainEventBus $domainEventBus)
     {
-        $this->sendWelcomeEmailService = $sendWelcomeEmailService;
-        $this->domainEventBus = $domainEventBus;
     }
 
     public function __invoke(UserRegisteredDomainEvent $event): void

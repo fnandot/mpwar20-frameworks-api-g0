@@ -10,12 +10,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class EventDispatcherDomainEventBus implements DomainEventBus
 {
-    /** @var EventDispatcherInterface */
-    private $eventDispatcher;
-
-    public function __construct(EventDispatcherInterface $eventDispatcher)
+    public function __construct(private EventDispatcherInterface $eventDispatcher)
     {
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function publish(DomainEvent ...$events): void

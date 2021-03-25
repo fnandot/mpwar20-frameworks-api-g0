@@ -4,16 +4,12 @@ namespace LaSalle\GroupZero\Logging\Application;
 
 class GetLogSummariesByEnvironmentRequest
 {
-    /** @var string */
-    private $environment;
-
     /** @var string[] */
     private $levels;
 
-    public function __construct(string $environment, string ...$levels)
+    public function __construct(private string $environment, string ...$levels)
     {
-        $this->environment = $environment;
-        $this->levels      = $levels;
+        $this->levels = $levels;
     }
 
     public function environment(): string

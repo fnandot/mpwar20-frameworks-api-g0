@@ -12,22 +12,13 @@ use Monolog\Logger;
 
 final class CreateLogEntryHandler extends AbstractProcessingHandler
 {
-    /** @var CreateLogEntry */
-    private $createLogEntry;
-
-    /** @var string */
-    private $kernelEnvironment;
-
     public function __construct(
-        CreateLogEntry $createLogEntry,
-        string $kernelEnvironment,
+        private CreateLogEntry $createLogEntry,
+        private string $kernelEnvironment,
         $level = Logger::DEBUG,
         bool $bubble = true
     ) {
         parent::__construct($level, $bubble);
-
-        $this->createLogEntry    = $createLogEntry;
-        $this->kernelEnvironment = $kernelEnvironment;
     }
 
     protected function write(array $record): void
@@ -36,7 +27,7 @@ final class CreateLogEntryHandler extends AbstractProcessingHandler
             new CreateLogEntryRequest(
                 $record['extra']['id'],
                 $this->kernelEnvironment,
-                (string) strtolower($record['level_name']),
+                strtolower($record['level_name']),
                 $record['message'],
                 DateTimeImmutable::createFromMutable($record['datetime'])
             )

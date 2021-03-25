@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\V1;
 
@@ -30,14 +30,13 @@ final class GetLogSummaryController extends AbstractController
     ): JsonResponse {
         try {
             $summary = ($getLogSummary)(new GetLogSummaryRequest($id));
-        } catch (LogSummaryNotFoundException $e) {
+        } catch (LogSummaryNotFoundException) {
             throw new NotFoundHttpException('Resource was not found');
         }
 
         return $this
             ->json($summary, Response::HTTP_OK, [], ['groups' => 'api-v1'])
             ->setPublic()
-            ->setMaxAge(30 /*seconds*/)
-        ;
+            ->setMaxAge(30 /*seconds*/);
     }
 }

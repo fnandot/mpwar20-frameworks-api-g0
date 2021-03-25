@@ -1,8 +1,6 @@
 <?php
 
-
 namespace LaSalle\GroupZero\Command;
-
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,17 +10,9 @@ class HelloWorldCommand extends Command
 {
     protected static $defaultName = 'app:hello';
 
-    /** @var string */
-    private $environment;
-
-    /** @var string */
-    private $environmentAlias;
-
-    public function __construct(string $environment, string $environmentAlias)
+    public function __construct(private string $environment, private string $environmentAlias)
     {
         parent::__construct();
-        $this->environment      = $environment;
-        $this->environmentAlias = $environmentAlias;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -37,5 +27,4 @@ class HelloWorldCommand extends Command
 
         return 0;
     }
-
 }

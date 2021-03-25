@@ -8,33 +8,13 @@ use DateTimeImmutable;
 
 final class LogEntryResponse
 {
-    /** @var string */
-    private $id;
-
-    /** @var string */
-    private $environment;
-
-    /** @var string */
-    private $level;
-
-    /** @var string */
-    private $message;
-
-    /** @var DateTimeImmutable */
-    private $occurredOn;
-
     public function __construct(
-        string $id,
-        string $environment,
-        string $level,
-        string $message,
-        DateTimeImmutable $occurredOn
+        private string $id,
+        private string $environment,
+        private string $level,
+        private string $message,
+        private DateTimeImmutable $occurredOn
     ) {
-        $this->id = $id;
-        $this->environment = $environment;
-        $this->level = $level;
-        $this->message = $message;
-        $this->occurredOn = $occurredOn;
     }
 
     public function id(): string

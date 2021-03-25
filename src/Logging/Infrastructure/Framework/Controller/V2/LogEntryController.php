@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\V2;
 
@@ -19,35 +19,35 @@ use Throwable;
  */
 final class LogEntryController extends AbstractFOSRestController
 {
-    /** @var CreateLogEntry */
-    private $createLogEntry;
-
-    /** @var SerializerInterface */
-    private $serializer;
-
-    public function __construct(CreateLogEntry $createLogEntry, SerializerInterface $serializer)
-    {
-        $this->createLogEntry = $createLogEntry;
-        $this->serializer     = $serializer;
-    }
-
-    public function postAction(Request $request): Response
-    {
-        $data = $request->getContent();
-
-        try {
-            $createLogEntryRequest = $this
-                ->serializer
-                ->deserialize($data, CreateLogEntryRequest::class, 'json');
-        } catch (Throwable $t) {
-            throw new BadRequestHttpException('Bad request', $t);
-        }
-
-        $logEntry = ($this->createLogEntry)($createLogEntryRequest);
-
-        return new Response(
-            null,
-            Response::HTTP_CREATED
-        );
-    }
+    ///** @var CreateLogEntry */
+    //private $createLogEntry;
+    //
+    ///** @var SerializerInterface */
+    //private $serializer;
+    //
+    //public function __construct(CreateLogEntry $createLogEntry, SerializerInterface $serializer)
+    //{
+    //    $this->createLogEntry = $createLogEntry;
+    //    $this->serializer     = $serializer;
+    //}
+    //
+    //public function postAction(Request $request): Response
+    //{
+    //    $data = $request->getContent();
+    //
+    //    try {
+    //        $createLogEntryRequest = $this
+    //            ->serializer
+    //            ->deserialize($data, CreateLogEntryRequest::class, 'json');
+    //    } catch (Throwable $t) {
+    //        throw new BadRequestHttpException('Bad request', $t);
+    //    }
+    //
+    //    $logEntry = ($this->createLogEntry)($createLogEntryRequest);
+    //
+    //    return new Response(
+    //        null,
+    //        Response::HTTP_CREATED
+    //    );
+    //}
 }

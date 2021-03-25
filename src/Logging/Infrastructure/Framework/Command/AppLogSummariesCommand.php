@@ -7,7 +7,6 @@ namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Command;
 use LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironment;
 use LaSalle\GroupZero\Logging\Application\GetLogSummariesByEnvironmentRequest;
 use LaSalle\GroupZero\Logging\Application\LogSummaryResponse;
-use LaSalle\GroupZero\Logging\Domain\Model\Aggregate\LogSummary;
 use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -24,13 +23,9 @@ final class AppLogSummariesCommand extends Command implements ContainerAwareInte
 
     protected static $defaultName = 'app:log:summaries';
 
-    /** @var GetLogSummariesByEnvironment */
-    private $getLogSummariesByEnvironment;
-
-    public function __construct(GetLogSummariesByEnvironment $getLogSummariesByEnvironment)
+    public function __construct(private GetLogSummariesByEnvironment $getLogSummariesByEnvironment)
     {
         parent::__construct();
-        $this->getLogSummariesByEnvironment = $getLogSummariesByEnvironment;
     }
 
     protected function configure(): void

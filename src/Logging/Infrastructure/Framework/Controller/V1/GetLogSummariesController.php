@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\V1;
 
@@ -29,17 +29,16 @@ final class GetLogSummariesController extends AbstractController
             throw new BadRequestHttpException('No environment supplied');
         }
 
-        $env = $request->query->get('env');
+        $env    = $request->query->get('env');
         $levels = $request->query->get('level', []);
 
         try {
             $summaries = ($getLogSummariesByEnvironment)(new GetLogSummariesByEnvironmentRequest($env, ...$levels));
-        } catch (InvalidLogLevelException $e) {
+        } catch (InvalidLogLevelException) {
             throw new BadRequestHttpException('Provided log level is not valid!');
         }
 
         return $this
-            ->json($summaries, Response::HTTP_OK, [], ['groups' => 'api-v1'])
-        ;
+            ->json($summaries, Response::HTTP_OK, [], ['groups' => 'api-v1']);
     }
 }

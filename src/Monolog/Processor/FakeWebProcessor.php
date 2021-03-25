@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Monolog\Processor;
 
@@ -23,11 +23,11 @@ class FakeWebProcessor implements ProcessorInterface
         $record['extra'] = array_merge(
             $record['extra'],
             [
-                'url'         => $this->generator->url,
-                'ip'          => $this->randomIpv4($this->generator),
+                'url' => $this->generator->url,
+                'ip' => $this->randomIpv4($this->generator),
                 'http_method' => $this->generator->randomElement(['GET', 'POST', 'PUT', 'PATCH', 'DELETE']),
-                'server'      => strtolower($this->generator->firstNameFemale).'_'.$this->generator->linuxProcessor,
-                'referrer'    => $this->generator->url,
+                'server' => strtolower($this->generator->firstNameFemale).'_'.$this->generator->linuxProcessor,
+                'referrer' => $this->generator->url,
             ]
         );
 

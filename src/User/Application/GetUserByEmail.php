@@ -11,12 +11,8 @@ use LaSalle\GroupZero\User\Domain\Model\ValueObject\Email;
 
 final class GetUserByEmail
 {
-    /** @var UserRepository */
-    private $repository;
-
-    public function __construct(UserRepository $repository)
+    public function __construct(private UserRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     public function __invoke(GetUserByEmailRequest $request): User

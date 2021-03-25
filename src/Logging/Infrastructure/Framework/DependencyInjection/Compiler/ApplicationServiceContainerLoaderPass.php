@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\DependencyInjection\Compiler;
 
-use LaSalle\GroupZero\Logging\Application\ApplicationService;
 use LaSalle\GroupZero\Logging\Infrastructure\Services\ApplicationServiceContainer;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -20,7 +19,6 @@ final class ApplicationServiceContainerLoaderPass implements CompilerPassInterfa
 
         $applicationServiceContainerDefinition = $container
             ->getDefinition(ApplicationServiceContainer::class);
-
 
         $serviceIds = $container->findTaggedServiceIds('group_zero.application_service');
 

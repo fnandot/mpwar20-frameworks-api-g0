@@ -25,7 +25,7 @@ class RegistrationFormType extends AbstractType
                 [
                     'type'           => PasswordType::class,
                     'first_options'  => [
-                        'label'       => 'label.password',
+                        'label' => 'label.password',
                     ],
                     'second_options' => [
                         'label' => 'label.repeat_password',
@@ -38,7 +38,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => RegistrationFormModel::class,
+                'data_class'      => RegistrationFormModel::class,
                 'csrf_protection' => true,
             ]
         );

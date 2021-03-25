@@ -10,12 +10,8 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 
 final class GetLogEntriesByEnvironment implements ApplicationService
 {
-    /** @var LogEntryRepository */
-    private $repository;
-
-    public function __construct(LogEntryRepository $repository)
+    public function __construct(private LogEntryRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     /**

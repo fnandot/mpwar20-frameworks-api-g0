@@ -4,13 +4,10 @@ declare(strict_types = 1);
 
 namespace LaSalle\GroupZero\User\Domain\Model\ValueObject;
 
-final class Email
+final class Email implements \Stringable
 {
-    private $email;
-
-    public function __construct(string $email)
+    public function __construct(private string $email)
     {
-        $this->email = $email;
     }
 
     public function toString(): string

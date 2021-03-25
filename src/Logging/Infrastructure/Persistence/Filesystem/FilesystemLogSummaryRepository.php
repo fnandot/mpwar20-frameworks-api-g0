@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem;
 
@@ -16,23 +16,11 @@ use Symfony\Component\Finder\SplFileInfo;
 
 final class FilesystemLogSummaryRepository implements LogSummaryRepository
 {
-    /** @var string */
-    private $directory;
-
-    /** @var string */
-    private $defaultEnvironment;
-
-    /** @var Filesystem */
-    private $filesystem;
-
-    public function __construct(string $directory, string $defaultEnvironment, Filesystem $filesystem)
+    public function __construct(private string $directory, private string $defaultEnvironment, private Filesystem $filesystem)
     {
-        $this->directory          = $directory;
-        $this->defaultEnvironment = $defaultEnvironment;
-        $this->filesystem         = $filesystem;
     }
 
-    public function find(LogSummaryId $logSummaryId): ?LogSummary
+    public function find(LogSummaryId $id): ?LogSummary
     {
         $files = $this->findFiles($this->defaultEnvironment, ...[]);
 
@@ -40,7 +28,7 @@ final class FilesystemLogSummaryRepository implements LogSummaryRepository
             /** @var LogSummary $summary */
             $summary = unserialize($file->getContents());
 
-            if (((string) $logSummaryId) === $summary->id()) {
+            if (((string) $id) === $summary->id()) {
                 return $summary;
             }
         }
@@ -105,7 +93,7 @@ final class FilesystemLogSummaryRepository implements LogSummaryRepository
                 ->in($this->directory.DIRECTORY_SEPARATOR.$environment)
                 ->path($levels)
                 ->files();
-        } catch (DirectoryNotFoundException $e) {
+        } catch (DirectoryNotFoundException) {
             return [];
         }
 

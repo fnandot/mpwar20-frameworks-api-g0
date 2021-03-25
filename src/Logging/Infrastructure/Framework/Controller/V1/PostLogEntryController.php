@@ -28,7 +28,7 @@ final class PostLogEntryController extends AbstractController
 
         try {
             $createLogEntryRequest = new CreateLogEntryRequest(
-                (string) Uuid::uuid4(),
+                (string)Uuid::uuid4(),
                 $data['environment'],
                 $data['level'],
                 $data['message'],

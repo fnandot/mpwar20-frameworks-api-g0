@@ -12,12 +12,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 final class SymfonyUserPasswordValidationService implements UserPasswordValidationService
 {
-    /** @var UserPasswordEncoderInterface */
-    private $userPasswordEncoderInterface;
-
-    public function __construct(UserPasswordEncoderInterface $userPasswordEncoderInterface)
+    public function __construct(private UserPasswordEncoderInterface $userPasswordEncoderInterface)
     {
-        $this->userPasswordEncoderInterface = $userPasswordEncoderInterface;
     }
 
     /**
@@ -25,6 +21,6 @@ final class SymfonyUserPasswordValidationService implements UserPasswordValidati
      */
     public function isValid(User $user, Password $password): bool
     {
-        return $this->userPasswordEncoderInterface->isPasswordValid($user, (string) $password);
+        return $this->userPasswordEncoderInterface->isPasswordValid($user, (string)$password);
     }
 }

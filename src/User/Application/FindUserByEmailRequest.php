@@ -6,12 +6,8 @@ namespace LaSalle\GroupZero\User\Application;
 
 final class FindUserByEmailRequest
 {
-    /** @var string */
-    private $email;
-
-    public function __construct(string $email)
+    public function __construct(private string $email)
     {
-        $this->email = $email;
     }
 
     public function email(): string

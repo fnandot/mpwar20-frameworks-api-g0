@@ -9,12 +9,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class UniqueUserValidator extends ConstraintValidator
 {
-    /** @var FindUserByEmail */
-    private $findUserByEmail;
-
-    public function __construct(FindUserByEmail $findUserByEmail)
+    public function __construct(private FindUserByEmail $findUserByEmail)
     {
-        $this->findUserByEmail = $findUserByEmail;
     }
 
     public function validate($value, Constraint $constraint): void

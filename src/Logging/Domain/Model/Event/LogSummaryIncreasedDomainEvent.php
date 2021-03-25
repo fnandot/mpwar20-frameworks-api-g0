@@ -10,23 +10,11 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 final class LogSummaryIncreasedDomainEvent implements DomainEvent
 {
-    /** @var string */
-    private $aggregateId;
-
-    /** @var int */
-    private $increasedBy;
-
-    /** @var DateTimeImmutable */
-    private $occurredOn;
-
     public function __construct(
-        LogSummaryId $id,
-        int $count,
-        DateTimeImmutable $occurredOn
+        private LogSummaryId $aggregateId,
+        private int $increasedBy,
+        private DateTimeImmutable $occurredOn
     ) {
-        $this->aggregateId = $id;
-        $this->increasedBy = $count;
-        $this->occurredOn  = $occurredOn;
     }
 
     public function aggregateId(): LogSummaryId

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Reader;
 
@@ -9,12 +9,8 @@ use SplFileInfo;
 
 final class LogFileReader
 {
-    /** @var LogParser */
-    private $parser;
-
-    public function __construct(LogParser $parser)
+    public function __construct(private LogParser $parser)
     {
-        $this->parser = $parser;
     }
 
     /**

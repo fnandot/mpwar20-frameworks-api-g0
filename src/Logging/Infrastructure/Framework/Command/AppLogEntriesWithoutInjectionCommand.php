@@ -48,7 +48,7 @@ final class AppLogEntriesWithoutInjectionCommand extends Command implements Cont
         $environment = $input->getArgument('environment');
 
         $finder = new LogRotatingFileFinder(
-            __DIR__.'/../../../../../var/log/'
+            __DIR__ . '/../../../../../var/log/'
         );
 
         $reader = new LogFileReader(new JsonLogParser());

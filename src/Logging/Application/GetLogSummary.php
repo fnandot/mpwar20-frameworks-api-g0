@@ -10,17 +10,13 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 final class GetLogSummary implements ApplicationService
 {
-    /** @var LogSummaryRepository */
-    private $repository;
-
-    public function __construct(LogSummaryRepository $repository)
+    public function __construct(private LogSummaryRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     public function __invoke(GetLogSummaryRequest $request): LogSummaryResponse
     {
-        $id = LogSummaryId::fromString($request->id());
+        $id      = LogSummaryId::fromString($request->id());
         $summary = $this->repository->find($id);
 
         if (null === $summary) {
@@ -28,9 +24,9 @@ final class GetLogSummary implements ApplicationService
         }
 
         return new LogSummaryResponse(
-            (string) $summary->id(),
+            (string)$summary->id(),
             $summary->environment(),
-            (string) $summary->level(),
+            (string)$summary->level(),
             $summary->count()->toInt(),
             $summary->updatedOn()
         );

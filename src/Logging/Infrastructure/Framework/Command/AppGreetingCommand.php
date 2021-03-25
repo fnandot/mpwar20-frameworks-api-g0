@@ -19,15 +19,16 @@ class AppGreetingCommand extends Command
         $this
             ->addArgument('name', InputArgument::REQUIRED, 'Your name')
             ->addArgument('surname', InputArgument::OPTIONAL, 'Optionally you can provide your surname')
-            ->addOption('uppercase', 'u', InputOption::VALUE_NONE, 'Whether to display the greeting in uppercase or not');
+            ->addOption('uppercase', 'u', InputOption::VALUE_NONE,
+                'Whether to display the greeting in uppercase or not');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $text = 'Hi '.$input->getArgument('name');
+        $text = 'Hi ' . $input->getArgument('name');
 
         if ($surname = $input->getArgument('surname')) {
-            $text .= ' '.$surname;
+            $text .= ' ' . $surname;
         }
 
         if ($input->getOption('uppercase')) {

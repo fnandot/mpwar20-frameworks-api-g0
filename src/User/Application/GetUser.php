@@ -11,12 +11,8 @@ use LaSalle\GroupZero\User\Domain\Model\ValueObject\UserId;
 
 final class GetUser
 {
-    /** @var UserRepository */
-    private $repository;
-
-    public function __construct(UserRepository $repository)
+    public function __construct(private UserRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     public function __invoke(GetUserRequest $request): User

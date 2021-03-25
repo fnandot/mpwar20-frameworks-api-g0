@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
@@ -33,9 +33,9 @@ VALUES(:id, :roles, :email, :password);
 SQL
             ,
             [
-                'id'       => 'f4142f08-9e3f-446f-82a8-8c7bd79aa9fc',
-                'roles'    => '["user","developer"]',
-                'email'    => 'fernando.pradas@salle.url.edu',
+                'id' => 'f4142f08-9e3f-446f-82a8-8c7bd79aa9fc',
+                'roles' => '["user","developer"]',
+                'email' => 'fernando.pradas@salle.url.edu',
                 'password' => '$argon2i$v=19$m=1024,t=3,p=1$NVl5Tk5WSFN2dGxaa1h5aA$fKUSD0ybO4jzhZwFw7TGoW5vBpvIYgSSzEiPjmieH2E',
             ]
         );

@@ -21,17 +21,9 @@ class AppUserRemoveRoleCommand extends Command
 {
     protected static $defaultName = 'app:user:remove-role';
 
-    /** @var GetUser */
-    private $getUser;
-
-    /** @var RemoveUserRole */
-    private $removeUserRole;
-
-    public function __construct(GetUser $getUser, RemoveUserRole $removeUserRole)
+    public function __construct(private GetUser $getUser, private RemoveUserRole $removeUserRole)
     {
         parent::__construct();
-        $this->getUser        = $getUser;
-        $this->removeUserRole = $removeUserRole;
     }
 
     protected function configure(): void

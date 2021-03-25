@@ -11,16 +11,8 @@ use Symfony\Component\Mercure\Update;
 
 final class PublishToMercureOnLogEntryCreated
 {
-    /** @var PublisherInterface */
-    private $publisher;
-
-    /** @var string */
-    private $mercureResourceEntrypoint;
-
-    public function __construct(PublisherInterface $publisher, string $mercureResourceEntrypoint)
+    public function __construct(private PublisherInterface $publisher, private string $mercureResourceEntrypoint)
     {
-        $this->publisher                 = $publisher;
-        $this->mercureResourceEntrypoint = $mercureResourceEntrypoint;
     }
 
     public function __invoke(LogEntryCreatedDomainEvent $event): void
@@ -40,7 +32,7 @@ final class PublishToMercureOnLogEntryCreated
             [
                 sprintf('%s/roles/developer', $this->mercureResourceEntrypoint),
             ],
-            (string) Uuid::uuid4()
+            (string)Uuid::uuid4()
         );
 
         ($this->publisher)($update);

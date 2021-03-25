@@ -12,33 +12,13 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 final class LogSummaryCreatedDomainEvent implements DomainEvent
 {
-    /** @var LogSummaryId */
-    private $aggregateId;
-
-    /** @var string */
-    private $environment;
-
-    /** @var LogLevel */
-    private $level;
-
-    /** @var LogCount */
-    private $count;
-
-    /** @var DateTimeImmutable */
-    private $occurredOn;
-
     public function __construct(
-        LogSummaryId $aggregateId,
-        string $environment,
-        LogLevel $level,
-        LogCount $count,
-        DateTimeImmutable $occurredOn
+        private LogSummaryId $aggregateId,
+        private string $environment,
+        private LogLevel $level,
+        private LogCount $count,
+        private DateTimeImmutable $occurredOn
     ) {
-        $this->aggregateId = $aggregateId;
-        $this->environment = $environment;
-        $this->level       = $level;
-        $this->count       = $count;
-        $this->occurredOn  = $occurredOn;
     }
 
     public function aggregateId(): LogSummaryId

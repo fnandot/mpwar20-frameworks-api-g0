@@ -22,17 +22,9 @@ class AppUserAddRoleCommand extends Command
 {
     protected static $defaultName = 'app:user:add-role';
 
-    /** @var GetUser */
-    private $getUser;
-
-    /** @var AddUserRole */
-    private $addUserRole;
-
-    public function __construct(GetUser $getUser, AddUserRole $addUserRole)
+    public function __construct(private GetUser $getUser, private AddUserRole $addUserRole)
     {
         parent::__construct();
-        $this->getUser     = $getUser;
-        $this->addUserRole = $addUserRole;
     }
 
     protected function configure(): void

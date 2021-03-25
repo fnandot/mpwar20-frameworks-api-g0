@@ -14,33 +14,15 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 class LogSummary extends Aggregate
 {
-    /** @var LogSummaryId */
-    private $id;
-
-    /** @var string */
-    private $environment;
-
-    /** @var LogLevel */
-    private $level;
-
-    /** @var int */
-    private $count;
-
-    /** @var DateTimeImmutable */
-    private $updatedOn;
-
     public function __construct(
-        LogSummaryId $id,
-        string $environment,
-        LogLevel $level,
-        LogCount $count = null,
-        DateTimeImmutable $updatedOn = null
+        private LogSummaryId $id,
+        private string $environment,
+        private LogLevel $level,
+        private ?LogCount $count = null,
+        private ?DateTimeImmutable $updatedOn = null
     ) {
-        $this->id          = $id;
-        $this->environment = $environment;
-        $this->level       = $level;
-        $this->count       = $count ?? LogCount::zero();
-        $this->updatedOn   = $updatedOn ?? new DateTimeImmutable();
+        $this->count     = $count ?? LogCount::zero();
+        $this->updatedOn = $updatedOn ?? new DateTimeImmutable();
     }
 
     public static function create(LogSummaryId $id, string $environment, LogLevel $level): self

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller\Sandbox;
 
@@ -66,7 +66,7 @@ EOF
     public function etagForever(): Response
     {
         $content = 'I\'ve been set to be cacheable up to 5 seconds, but given that my ETag won\'t change I will be cached forever';
-        $etag = md5($content);
+        $etag    = md5($content);
 
         return (new Response($content))
             ->setPublic()

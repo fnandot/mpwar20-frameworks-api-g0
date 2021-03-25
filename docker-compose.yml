@@ -14,7 +14,7 @@ services:
         read_only: true
 
   php-fpm:
-    image: fnandot/php-fpm:7.3-mpwar
+    image: fnandot/php-fpm:8.0.3-mpwar
     volumes:
       - type: bind
         source: ${PWD}

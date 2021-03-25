@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace LaSalle\GroupZero\User\Infrastructure\Model\Factory;
 
@@ -15,12 +15,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 final class SymfonyUserFactory implements UserFactory
 {
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
-
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(private UserPasswordEncoderInterface $passwordEncoder)
     {
-        $this->passwordEncoder = $passwordEncoder;
     }
 
     public function register(Email $email, Password $password, UserRole ...$roles): User
@@ -43,9 +39,9 @@ final class SymfonyUserFactory implements UserFactory
     private function buildPasswordWithoutConstructor(string $encodedPassword): Password
     {
         return unserialize(
-            'O:'.strlen(Password::class).':"'.Password::class.'":1:{s:'.strlen(
+            'O:' . strlen(Password::class) . ':"' . Password::class . '":1:{s:' . strlen(
                 'password'
-            ).':"'.'password";s:'.strlen($encodedPassword).':"'.$encodedPassword.'";}',
+            ) . ':"' . 'password";s:' . strlen($encodedPassword) . ':"' . $encodedPassword . '";}',
             [
                 'allowed_classes' => [Password::class],
             ]

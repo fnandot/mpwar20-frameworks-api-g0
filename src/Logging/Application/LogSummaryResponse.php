@@ -8,33 +8,13 @@ use DateTimeImmutable;
 
 final class LogSummaryResponse
 {
-    /** @var string */
-    private $id;
-
-    /** @var string */
-    private $environment;
-
-    /** @var string */
-    private $level;
-
-    /** @var int */
-    private $count;
-
-    /** @var DateTimeImmutable */
-    private $updatedOn;
-
     public function __construct(
-        string $id,
-        string $environment,
-        string $level,
-        int $count,
-        DateTimeImmutable $updatedOn
+        private string $id,
+        private string $environment,
+        private string $level,
+        private int $count,
+        private DateTimeImmutable $updatedOn
     ) {
-        $this->id          = $id;
-        $this->environment = $environment;
-        $this->level       = $level;
-        $this->count       = $count;
-        $this->updatedOn   = $updatedOn;
     }
 
     public function id(): string

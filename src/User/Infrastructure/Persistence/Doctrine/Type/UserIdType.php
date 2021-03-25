@@ -24,7 +24,7 @@ final class UserIdType extends StringType
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): string
     {
-        return (string) $value;
+        return (string)$value;
     }
 
     public function getName(): string

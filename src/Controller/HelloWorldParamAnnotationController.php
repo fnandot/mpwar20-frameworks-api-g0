@@ -7,10 +7,10 @@ namespace LaSalle\GroupZero\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class HelloWorldParamAttributeController
+final class HelloWorldParamAnnotationController
 {
     /**
-     * @Route("/hello-param-attribute", name="hello_param", methods={"GET"})
+     * @Route("/hello-param-annotation", name="hello_param_annotation", methods={"GET"})
      */
     public function __invoke(string $environment, string $environmentAlias): Response
     {

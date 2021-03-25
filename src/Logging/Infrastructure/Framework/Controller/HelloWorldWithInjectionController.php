@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\Controller;
 
@@ -13,16 +13,8 @@ final class HelloWorldWithInjectionController extends AbstractController
 {
     private const LOG_ERROR_QUERY_PARAM = 'logError';
 
-    /** @var string */
-    private $environment;
-
-    /** @var string */
-    private $environmentAlias;
-
-    public function __construct(string $environment, string $environmentAlias)
+    public function __construct(private string $environment, private string $environmentAlias)
     {
-        $this->environment      = $environment;
-        $this->environmentAlias = $environmentAlias;
     }
 
     public function __invoke(
@@ -33,7 +25,7 @@ final class HelloWorldWithInjectionController extends AbstractController
             'Hi! This an info level log from {environment} environment',
             [
                 'environment' => $this->environment,
-                'client_ips'  => $request->getClientIps(),
+                'client_ips' => $request->getClientIps(),
             ]
         );
 
@@ -41,7 +33,7 @@ final class HelloWorldWithInjectionController extends AbstractController
             'Hi! This a warning level log from {environment} environment',
             [
                 'environment' => $this->environment,
-                'client_ips'  => $request->getClientIps(),
+                'client_ips' => $request->getClientIps(),
             ]
         );
 

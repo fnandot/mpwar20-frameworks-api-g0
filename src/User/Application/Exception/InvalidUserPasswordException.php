@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace LaSalle\GroupZero\User\Application\Exception;
 
 use Exception;
-use LaSalle\GroupZero\User\Domain\Model\ValueObject\Email;
 use LaSalle\GroupZero\User\Domain\Model\ValueObject\UserId;
 use Throwable;
 

@@ -29,18 +29,11 @@ class SymfonyUserAuthenticator extends AbstractFormLoginAuthenticator implements
 {
     use TargetPathTrait;
 
-    private $urlGenerator;
-    private $csrfTokenManager;
-    private $authenticateUser;
-
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        AuthenticateUser $authenticateUser
+        private UrlGeneratorInterface $urlGenerator,
+        private CsrfTokenManagerInterface $csrfTokenManager,
+        private AuthenticateUser $authenticateUser
     ) {
-        $this->urlGenerator     = $urlGenerator;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->authenticateUser = $authenticateUser;
     }
 
     public function supports(Request $request)
@@ -52,8 +45,8 @@ class SymfonyUserAuthenticator extends AbstractFormLoginAuthenticator implements
     public function getCredentials(Request $request)
     {
         $credentials = [
-            'username'   => $request->request->get('username'),
-            'password'   => $request->request->get('password'),
+            'username' => $request->request->get('username'),
+            'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
         $request->getSession()->set(
@@ -89,7 +82,7 @@ class SymfonyUserAuthenticator extends AbstractFormLoginAuthenticator implements
             ($this->authenticateUser)(new AuthenticateUserRequest($user->getUsername(), $credentials['password']));
 
             return true;
-        } catch (InvalidUserPasswordException $exception) {
+        } catch (InvalidUserPasswordException) {
             return false;
         }
     }

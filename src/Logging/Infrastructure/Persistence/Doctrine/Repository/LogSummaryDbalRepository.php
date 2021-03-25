@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Persistence\Doctrine\Repository;
 
@@ -26,33 +26,25 @@ final class LogSummaryDbalRepository implements LogSummaryRepository
     private const COLUMN_UPDATED_ON  = 'updated_on';
 
     private const DATABASE_MAPPING = [
-        self::COLUMN_ID          => LogSummaryIdType::NAME,
+        self::COLUMN_ID => LogSummaryIdType::NAME,
         self::COLUMN_ENVIRONMENT => Types::STRING,
-        self::COLUMN_LEVEL       => LogLevelType::NAME,
-        self::COLUMN_COUNT       => LogCountType::NAME,
-        self::COLUMN_UPDATED_ON  => Types::DATETIME_IMMUTABLE,
+        self::COLUMN_LEVEL => LogLevelType::NAME,
+        self::COLUMN_COUNT => LogCountType::NAME,
+        self::COLUMN_UPDATED_ON => Types::DATETIME_IMMUTABLE,
     ];
 
-    /** @var Connection */
-    private $connection;
-
-    /** @var string */
-    private $tableName;
-
-    public function __construct(Connection $connection, string $tableName)
+    public function __construct(private Connection $connection, private string $tableName)
     {
-        $this->connection = $connection;
-        $this->tableName  = $tableName;
     }
 
-    public function find(LogSummaryId $logSummaryId): ?LogSummary
+    public function find(LogSummaryId $id): ?LogSummary
     {
         $statement = $this
             ->createNamedQueryBuilder()
             ->where('ls.id = :id')
             ->setParameters(
                 [
-                    self::COLUMN_ID => $logSummaryId,
+                    self::COLUMN_ID => $id,
                 ],
                 static::DATABASE_MAPPING
             )
@@ -96,7 +88,7 @@ final class LogSummaryDbalRepository implements LogSummaryRepository
             ->setParameters(
                 [
                     self::COLUMN_ENVIRONMENT => $environment,
-                    self::COLUMN_LEVEL       => $level,
+                    self::COLUMN_LEVEL => $level,
                 ],
                 static::DATABASE_MAPPING
             )
@@ -120,9 +112,9 @@ final class LogSummaryDbalRepository implements LogSummaryRepository
 
         $data = [
             self::COLUMN_ENVIRONMENT => $logSummary->environment(),
-            self::COLUMN_LEVEL       => $logSummary->level(),
-            self::COLUMN_COUNT       => $logSummary->count(),
-            self::COLUMN_UPDATED_ON  => $logSummary->updatedOn(),
+            self::COLUMN_LEVEL => $logSummary->level(),
+            self::COLUMN_COUNT => $logSummary->count(),
+            self::COLUMN_UPDATED_ON => $logSummary->updatedOn(),
         ];
 
         if (false === $exists) {

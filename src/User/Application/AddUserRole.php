@@ -12,16 +12,8 @@ use LaSalle\GroupZero\User\Domain\Model\ValueObject\UserRole;
 
 final class AddUserRole
 {
-    /** @var UserRepository */
-    private $repository;
-
-    /** @var DomainEventBus */
-    private $eventBus;
-
-    public function __construct(UserRepository $repository, DomainEventBus $eventBus)
+    public function __construct(private UserRepository $repository, private DomainEventBus $eventBus)
     {
-        $this->repository = $repository;
-        $this->eventBus   = $eventBus;
     }
 
     public function __invoke(AddUserRoleRequest $request): void

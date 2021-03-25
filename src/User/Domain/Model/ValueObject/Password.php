@@ -6,7 +6,7 @@ namespace LaSalle\GroupZero\User\Domain\Model\ValueObject;
 
 use LaSalle\GroupZero\User\Domain\Model\Exception\InvalidPasswordException;
 
-final class Password
+final class Password implements \Stringable
 {
     /** @var string */
     private $password;
@@ -15,6 +15,13 @@ final class Password
     {
         $this->guardPasswordIsValid($password);
         $this->password = $password;
+    }
+
+    private function guardPasswordIsValid(string $value): void
+    {
+        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', $value)) {
+            throw new InvalidPasswordException();
+        }
     }
 
     public function toString(): string
@@ -30,12 +37,5 @@ final class Password
     public function __toString(): string
     {
         return $this->password;
-    }
-
-    private function guardPasswordIsValid(string $value): void
-    {
-        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', $value)) {
-            throw new InvalidPasswordException();
-        }
     }
 }

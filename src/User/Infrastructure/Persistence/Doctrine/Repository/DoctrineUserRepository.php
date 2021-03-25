@@ -14,12 +14,8 @@ use LaSalle\GroupZero\User\Infrastructure\Model\Aggregate\SymfonyUser;
 
 final class DoctrineUserRepository implements UserRepository
 {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     public function findOne(UserId $userId): ?User
@@ -27,19 +23,19 @@ final class DoctrineUserRepository implements UserRepository
         return $this->repository()->find($userId);
     }
 
+    private function repository(): ObjectRepository
+    {
+        return $this->entityManager->getRepository(SymfonyUser::class);
+    }
+
     public function findOneByEmail(Email $email): ?User
     {
-        return $this->repository()->findOneBy(['email.email' => (string) $email]);
+        return $this->repository()->findOneBy(['email.email' => (string)$email]);
     }
 
     public function save(User $user): void
     {
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-    }
-
-    private function repository(): ObjectRepository
-    {
-        return $this->entityManager->getRepository(SymfonyUser::class);
     }
 }
