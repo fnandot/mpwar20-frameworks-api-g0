@@ -2,12 +2,17 @@ version: '3.5'
 
 services:
   kibana:
-    image: fnandot/kibana:5.5-mpwar-saved
+    image: kibana:5.5
     ports:
       - 5601:5601
+    volumes:
+      - type: bind
+        source: $PWD/docker/kibana/config
+        target: /usr/share/kibana/config
+        read_only: true
 
   elasticsearch:
-    image: fnandot/elasticsearch:5.5-mpwar-saved
+    image: elasticsearch:5.5
     ports:
       - 9200:9200
 

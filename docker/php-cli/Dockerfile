@@ -1,4 +1,4 @@
-FROM fnandot/php-fpm:8.0.3-mpwar
+FROM mpwar2021/php-fpm:8.0.3
 
 ARG XDEBUG_VERSION="2.8.0"
 RUN apt-get update -y \

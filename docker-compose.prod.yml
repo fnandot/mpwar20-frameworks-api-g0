@@ -1,6 +1,0 @@
-version: '3.5'
-
-services:
-  php-fpm:
-    env_file:
-      - .env.prod

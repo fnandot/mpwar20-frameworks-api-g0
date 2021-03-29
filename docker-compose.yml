@@ -2,7 +2,8 @@ version: '3.5'
 
 services:
   nginx:
-    image: fnandot/nginx:1.11-mpwar
+    image: mpwar2021/nginx:1.19-alpine
+    build: docker/nginx
     depends_on:
       - php-fpm
     ports:
@@ -14,7 +15,8 @@ services:
         read_only: true
 
   php-fpm:
-    image: fnandot/php-fpm:8.0.3-mpwar
+    image: mpwar2021/php-fpm:8.0.3
+    build: docker/php-fpm
     volumes:
       - type: bind
         source: ${PWD}

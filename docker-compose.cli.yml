@@ -2,7 +2,8 @@ version: '3.5'
 
 services:
   php-cli:
-    image: fnandot/php-cli:8.0.3-mpwar
+    image: mpwar2021/php-cli:8.0.3
+    build: docker/php-cli
     volumes:
       - type: bind
         source: ${PWD}
