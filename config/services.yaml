@@ -11,6 +11,9 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $environment: '%env(APP_ENV)%'
+            $environmentAlias: '%env(APP_ENV_ALIAS)%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -24,23 +27,23 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    LaSalle\GroupZero\Controller\HelloWorldParamController:
-        bind:
-            $environment: '%env(APP_ENV)%'
-            $environmentAlias: '%app.environment.alias%'
-        tags: ['controller.service_arguments']
+#    LaSalle\GroupZero\Controller\HelloWorldParamController:
+#        bind:
+#            $environment: '%env(APP_ENV)%'
+#            $environmentAlias: '%app.environment.alias%'
+#        tags: ['controller.service_arguments']
 
-    app.controller.hello_world_param_controller:
-        class: LaSalle\GroupZero\Controller\HelloWorldParamController
-        bind:
-            $environment: '%env(APP_ENV)%'
-            $environmentAlias: '%env(APP_ENV_ALIAS)%'
-        tags: ['controller.service_arguments']
+#    app.controller.hello_world_param_controller:
+#        class: LaSalle\GroupZero\Controller\HelloWorldParamController
+#        bind:
+#            $environment: '%env(APP_ENV)%'
+#            $environmentAlias: '%env(APP_ENV_ALIAS)%'
+#        tags: ['controller.service_arguments']
 
-    LaSalle\GroupZero\Command\HelloWorldCommand:
-        arguments:
-            $environment: '%env(APP_ENV)%'
-            $environmentAlias: '%env(APP_ENV_ALIAS)%'
+#    LaSalle\GroupZero\Command\HelloWorldCommand:
+#        arguments:
+#            $environment: '%env(APP_ENV)%'
+#            $environmentAlias: '%env(APP_ENV_ALIAS)%'
 
 
     # add more service definitions when explicit configuration is needed

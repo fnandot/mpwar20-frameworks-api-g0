@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace LaSalle\GroupZero\Controller;
 
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

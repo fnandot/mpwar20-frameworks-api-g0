@@ -14,8 +14,8 @@ final class HelloWorldController extends AbstractController
         return new Response(
             sprintf(
                 'Hello world from %s (%s) environment',
-                $_ENV['APP_ENV'],
-                $_ENV['APP_ENV_ALIAS']
+                getenv('APP_ENV'),
+                getenv('APP_ENV_ALIAS')
             )
         );
     }
