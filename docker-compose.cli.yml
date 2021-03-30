@@ -9,5 +9,13 @@ services:
         source: ${PWD}
         target: /app
         read_only: false
+#      - type: bind
+#        source: ~/.gitconfig
+#        target: /root/.gitconfig
+#        read_only: false
+#      - type: bind
+#        source: /var/run/docker.sock
+#        target: /var/run/docker.sock
+#        read_only: false
     env_file:
       - docker.env
