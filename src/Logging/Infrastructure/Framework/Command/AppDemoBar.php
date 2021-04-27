@@ -15,7 +15,7 @@ final class AppDemoBar extends Command implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
-    protected static string $defaultName = 'app:demo:bar';
+    protected static $defaultName = 'app:demo:bar';
 
     protected function configure(): void
     {

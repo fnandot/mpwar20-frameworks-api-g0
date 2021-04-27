@@ -67,7 +67,7 @@ final class LogEntryFilesystemRepository implements LogEntryRepository
                 $environment,
                 new LogLevel(strtolower($normalizedLogEntry['level_name'])),
                 $normalizedLogEntry['message'],
-                new DateTimeImmutable($normalizedLogEntry['datetime']['date'])
+                new DateTimeImmutable($normalizedLogEntry['datetime'])
             );
         }
 

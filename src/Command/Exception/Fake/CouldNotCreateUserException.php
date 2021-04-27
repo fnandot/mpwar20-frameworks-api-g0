@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace LaSalle\GroupZero\Command\Exception\Fake;
 
-final class CouldNotCreateUserException extends \Exception
+use Exception;
+
+final class CouldNotCreateUserException extends Exception
 {
 }

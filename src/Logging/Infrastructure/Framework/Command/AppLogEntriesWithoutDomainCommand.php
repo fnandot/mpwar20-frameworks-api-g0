@@ -19,7 +19,7 @@ final class AppLogEntriesWithoutDomainCommand extends Command implements Contain
 {
     use ContainerAwareTrait;
 
-    protected static string $defaultName = 'app:log:entries-without-domain';
+    protected static $defaultName = 'app:log:entries-without-domain';
 
     public function __construct(private LogFileFinder $finder, private LogFileReader $reader)
     {

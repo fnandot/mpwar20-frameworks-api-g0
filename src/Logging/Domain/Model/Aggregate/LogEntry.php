@@ -9,8 +9,13 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 
 final class LogEntry
 {
-    public function __construct(private string $id, private string $environment, private LogLevel $level, private string $message, private DateTimeImmutable $occurredOn)
-    {
+    public function __construct(
+        private string $id,
+        private string $environment,
+        private LogLevel $level,
+        private string $message,
+        private DateTimeImmutable $occurredOn
+    ) {
     }
 
     public function id(): string

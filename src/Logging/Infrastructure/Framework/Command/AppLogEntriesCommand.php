@@ -23,7 +23,7 @@ final class AppLogEntriesCommand extends Command implements ContainerAwareInterf
 {
     use ContainerAwareTrait;
 
-    protected static string $defaultName = 'app:log:entries';
+    protected static $defaultName = 'app:log:entries';
 
     protected function configure(): void
     {

@@ -24,7 +24,7 @@ final class AppLogSummariesCommand extends Command implements ContainerAwareInte
 {
     use ContainerAwareTrait;
 
-    protected static string $defaultName = 'app:log:summaries';
+    protected static $defaultName = 'app:log:summaries';
 
     protected function configure(): void
     {
@@ -33,7 +33,7 @@ final class AppLogSummariesCommand extends Command implements ContainerAwareInte
             ->setHelp('This command allows you to dump logs based on the environment');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -83,20 +83,6 @@ final class AppLogSummariesCommand extends Command implements ContainerAwareInte
         return 0;
     }
 
-    private function buildGetLogEntriesByEnvironment(): GetLogEntriesByEnvironment
-    {
-        $logs = $this->container->getParameter('kernel.logs_dir');
-
-        return new GetLogEntriesByEnvironment(
-            new LogEntryFilesystemRepository(
-                new LogRotatingFileFinder($logs),
-                new LogFileReader(
-                    new JsonLogParser()
-                )
-            )
-        );
-    }
-
     private function summarize(string $environment, string ...$levels): array
     {
         $logEntries = $this->buildGetLogEntriesByEnvironment()(
@@ -109,10 +95,24 @@ final class AppLogSummariesCommand extends Command implements ContainerAwareInte
         $summaries = [];
 
         foreach ($logEntries as $logEntry) {
-            $levelName             = (string) $logEntry->level();
+            $levelName = (string)$logEntry->level();
             $summaries[$levelName] = ($summaries[$levelName] ?? 0) + 1;
         }
 
         return $summaries;
+    }
+
+    private function buildGetLogEntriesByEnvironment(): GetLogEntriesByEnvironment
+    {
+        $logs = $this->container->getParameter('kernel.logs_dir');
+
+        return new GetLogEntriesByEnvironment(
+            new LogEntryFilesystemRepository(
+                new LogRotatingFileFinder($logs),
+                new LogFileReader(
+                    new JsonLogParser()
+                )
+            )
+        );
     }
 }

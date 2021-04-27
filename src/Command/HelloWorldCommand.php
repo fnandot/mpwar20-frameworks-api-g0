@@ -3,21 +3,20 @@
 
 namespace LaSalle\GroupZero\Command;
 
-
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class HelloWorldCommand extends Command
 {
-    protected static string $defaultName = 'app:hello';
+    protected static $defaultName = 'app:hello';
 
     public function __construct(private string $environment, private string $environmentAlias)
     {
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln(
             sprintf(
@@ -29,5 +28,4 @@ class HelloWorldCommand extends Command
 
         return 0;
     }
-
 }

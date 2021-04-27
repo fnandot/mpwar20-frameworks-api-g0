@@ -8,8 +8,12 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 
 final class LogSummary
 {
-    public function __construct(private string $id, private string $environment, private LogLevel $level, private int $count = 0)
-    {
+    public function __construct(
+        private string $id,
+        private string $environment,
+        private LogLevel $level,
+        private int $count = 0
+    ) {
     }
 
     public function id(): string

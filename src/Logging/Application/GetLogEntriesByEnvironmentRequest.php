@@ -11,7 +11,7 @@ class GetLogEntriesByEnvironmentRequest implements Query
 
     public function __construct(private string $environment, string ...$levels)
     {
-        $this->levels      = $levels;
+        $this->levels = $levels;
     }
 
     public function environment(): string
