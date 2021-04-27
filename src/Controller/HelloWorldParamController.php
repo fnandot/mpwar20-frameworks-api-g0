@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace LaSalle\GroupZero\Controller;
 
@@ -9,9 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class HelloWorldParamController
 {
-    /**
-     * @Route("/hello-param", name="hello_param", methods={"GET"})
-     */
+    #[Route('/hello-param', name: 'hello_param', methods: ['GET'])]
     public function __invoke(string $environment, string $environmentAlias): Response
     {
         $environment = strtoupper($environment);
