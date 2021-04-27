@@ -23,7 +23,7 @@ final class AppLogEntriesCommand extends Command implements ContainerAwareInterf
 {
     use ContainerAwareTrait;
 
-    protected static $defaultName = 'app:log:entries';
+    protected static string $defaultName = 'app:log:entries';
 
     protected function configure(): void
     {
@@ -34,7 +34,7 @@ final class AppLogEntriesCommand extends Command implements ContainerAwareInterf
                 'environment',
                 InputArgument::OPTIONAL,
                 'Only show the logs in the given environment',
-                $_ENV['APP_ENV']
+                getenv('APP_ENV')
             )
             ->addOption(
                 'level',

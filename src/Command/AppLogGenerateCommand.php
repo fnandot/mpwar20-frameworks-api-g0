@@ -26,9 +26,9 @@ class AppLogGenerateCommand extends Command implements ServiceSubscriberInterfac
 {
     use ServiceSubscriberTrait;
 
-    protected static $defaultName = 'app:log:generate';
+    protected static string $defaultName = 'app:log:generate';
 
-    protected static $logLevels = [
+    protected static array $logLevels = [
         LogLevel::EMERGENCY,
         LogLevel::ALERT,
         LogLevel::CRITICAL,

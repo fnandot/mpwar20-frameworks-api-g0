@@ -20,7 +20,7 @@ final class AppLogEntriesWithoutInjectionCommand extends Command implements Cont
 {
     use ContainerAwareTrait;
 
-    protected static $defaultName = 'app:log:entries-without-injection';
+    protected static string $defaultName = 'app:log:entries-without-injection';
 
     protected function configure(): void
     {
@@ -31,7 +31,7 @@ final class AppLogEntriesWithoutInjectionCommand extends Command implements Cont
                 'environment',
                 InputArgument::OPTIONAL,
                 'Only show the logs in the given environment',
-                $_ENV['APP_ENV']
+                getenv('APP_ENV')
             )
             ->addOption(
                 'level',

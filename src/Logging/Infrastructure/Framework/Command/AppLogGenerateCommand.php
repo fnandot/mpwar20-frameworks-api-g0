@@ -23,9 +23,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AppLogGenerateCommand extends Command
 {
-    protected static $defaultName = 'app:log:generate';
+    protected static string $defaultName = 'app:log:generate';
 
-    protected static $logLevels = [
+    protected static array $logLevels = [
         LogLevel::EMERGENCY,
         LogLevel::ALERT,
         LogLevel::CRITICAL,
@@ -36,13 +36,9 @@ class AppLogGenerateCommand extends Command
         LogLevel::DEBUG,
     ];
 
-    /** @var Logger */
-    private $logger;
-
-    public function __construct(LoggerInterface $logger)
+    public function __construct(private LoggerInterface $logger)
     {
         parent::__construct();
-        $this->logger = $logger;
     }
 
     protected function configure(): void

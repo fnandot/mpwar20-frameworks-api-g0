@@ -19,19 +19,11 @@ final class AppLogEntriesWithoutDomainCommand extends Command implements Contain
 {
     use ContainerAwareTrait;
 
-    protected static $defaultName = 'app:log:entries-without-domain';
+    protected static string $defaultName = 'app:log:entries-without-domain';
 
-    /** @var LogFileFinder */
-    private $finder;
-
-    /** @var LogFileReader */
-    private $reader;
-
-    public function __construct(LogFileFinder $finder, LogFileReader $reader)
+    public function __construct(private LogFileFinder $finder, private LogFileReader $reader)
     {
         parent::__construct();
-        $this->finder = $finder;
-        $this->reader = $reader;
     }
 
     protected function configure(): void
@@ -43,7 +35,7 @@ final class AppLogEntriesWithoutDomainCommand extends Command implements Contain
                 'environment',
                 InputArgument::OPTIONAL,
                 'Only show the logs in the given environment',
-                $_ENV['APP_ENV']
+                getenv('APP_ENV')
             )
             ->addOption(
                 'level',

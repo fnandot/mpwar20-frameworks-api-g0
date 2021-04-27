@@ -6,7 +6,7 @@ namespace LaSalle\GroupZero\Logging\Domain\Model\ValueObject;
 
 use LaSalle\GroupZero\Logging\Domain\Model\Exception\InvalidLogLevelException;
 
-final class LogLevel
+final class LogLevel implements \Stringable
 {
     public const EMERGENCY = 'emergency';
     public const ALERT     = 'alert';

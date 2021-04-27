@@ -9,12 +9,8 @@ use Symfony\Component\Finder\Finder;
 
 final class LogRotatingFileFinder implements LogFileFinder
 {
-    /** @var string */
-    private $directory;
-
-    public function __construct(string $logDirectory)
+    public function __construct(private string $directory)
     {
-        $this->directory = $logDirectory;
     }
 
     /**

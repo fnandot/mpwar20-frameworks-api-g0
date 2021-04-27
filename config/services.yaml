@@ -29,7 +29,7 @@ services:
     # please note that last definitions always *replace* previous ones
     LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Finder\LogRotatingFileFinder:
       arguments:
-        $logDirectory: '%kernel.logs_dir%'
+        $directory: '%kernel.logs_dir%'
 
     LaSalle\GroupZero\Command\HelloWorldCommand:
       arguments:

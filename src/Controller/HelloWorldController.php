@@ -21,7 +21,7 @@ final class HelloWorldController extends AbstractController
 
     public function __construct()
     {
-        $this->environment      = $_ENV['APP_ENV'];
+        $this->environment      = getenv('APP_ENV');
         $this->environmentAlias = $_ENV['APP_ENV_ALIAS'];
     }
 
