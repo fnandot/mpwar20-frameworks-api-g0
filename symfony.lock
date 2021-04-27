@@ -132,6 +132,9 @@
             ".php_cs.dist"
         ]
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.3"
+    },
     "friendsofsymfony/rest-bundle": {
         "version": "2.2",
         "recipe": {
@@ -152,6 +155,12 @@
     },
     "jean85/pretty-package-versions": {
         "version": "2.0.3"
+    },
+    "laminas/laminas-code": {
+        "version": "4.1.0"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.3.1"
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.2.0"

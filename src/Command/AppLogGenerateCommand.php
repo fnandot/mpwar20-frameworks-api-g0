@@ -2,9 +2,6 @@
 
 namespace LaSalle\GroupZero\Command;
 
-use LaSalle\GroupZero\Command\Exception\Fake\CouldNotCreateUserException;
-use LaSalle\GroupZero\Command\Exception\Fake\ExpiredTokenException;
-use LaSalle\GroupZero\Command\Exception\Fake\UserNotFoundException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Ramsey\Uuid\Uuid;
@@ -17,6 +14,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 use Symfony\Contracts\Service\ServiceSubscriberTrait;
 
@@ -24,7 +22,7 @@ class AppLogGenerateCommand extends Command implements ServiceSubscriberInterfac
 {
     use ServiceSubscriberTrait;
 
-    protected static $defaultName = 'app:log:generate';
+    protected static string $defaultName = 'app:log:generate';
 
     protected static array $logLevels = [
         LogLevel::EMERGENCY,
@@ -95,7 +93,7 @@ class AppLogGenerateCommand extends Command implements ServiceSubscriberInterfac
                 'context' => [
                     'user_id' => $this->randomUserId(),
                     'reason' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-                    'exception' => new CouldNotCreateUserException(),
+                    'exception' => new \LogicException(),
                 ],
             ],
             [
@@ -104,7 +102,7 @@ class AppLogGenerateCommand extends Command implements ServiceSubscriberInterfac
                 'message' => 'User identified by "{user_id}" could not be found"!',
                 'context' => [
                     'user_id' => $this->randomUserId(),
-                    'exception' => new UserNotFoundException(),
+                    'exception' => new NotFoundHttpException(),
                 ],
             ],
             [
@@ -170,7 +168,7 @@ class AppLogGenerateCommand extends Command implements ServiceSubscriberInterfac
                 'context' => [
                     'id' => (string) Uuid::uuid4(),
                     'iat' => time(),
-                    'exception' => new ExpiredTokenException(),
+                    'exception' => new AccessDeniedException(),
                 ],
             ],
             [
