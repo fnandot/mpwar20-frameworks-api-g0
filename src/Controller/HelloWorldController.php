@@ -14,10 +14,10 @@ final class HelloWorldController extends AbstractController
     private const LOG_ERROR_QUERY_PARAM = 'logError';
 
     /** @var string */
-    private $environment;
+    private mixed $environment;
 
     /** @var string */
-    private $environmentAlias;
+    private mixed $environmentAlias;
 
     public function __construct()
     {
@@ -43,11 +43,11 @@ final class HelloWorldController extends AbstractController
             ]
         );
 
-        if ($request->query->has(static::LOG_ERROR_QUERY_PARAM)) {
+        if ($request->query->has(HelloWorldController::LOG_ERROR_QUERY_PARAM)) {
             $logger->error(
                 'A request with {parameter} was made!',
                 [
-                    'parameter' => static::LOG_ERROR_QUERY_PARAM,
+                    'parameter' => HelloWorldController::LOG_ERROR_QUERY_PARAM,
                     'client_ips' => $request->getClientIps(),
                 ]
             );
