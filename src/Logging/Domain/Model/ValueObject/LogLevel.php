@@ -29,21 +29,11 @@ final class LogLevel implements Stringable
         self::DEBUG,
     ];
 
-    /** @var string */
-    private string $value;
-
-    public function __construct(string $value)
-    {
-        $this->setValue($value);
-    }
-
-    private function setValue(string $value): void
+    public function __construct(private string $value)
     {
         if (!in_array($value, LogLevel::$allowedValues, true)) {
             throw new InvalidLogLevelException($value);
         }
-
-        $this->value = $value;
     }
 
     public static function fromString(string $value): self

@@ -10,14 +10,9 @@ use Stringable;
 
 final class LogEntryId implements Stringable
 {
-    /** @var string */
-    private string $id;
-
-    private function __construct(string $id)
+    private function __construct(private string $id)
     {
         $this->guardIdIsValid($id);
-
-        $this->id = $id;
     }
 
     private function guardIdIsValid(string $id): void

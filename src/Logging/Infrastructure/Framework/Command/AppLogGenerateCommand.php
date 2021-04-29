@@ -70,8 +70,6 @@ class AppLogGenerateCommand extends Command implements ServiceSubscriberInterfac
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        dump($this->container);
-
         $delay = (int)$input->getOption('delay');
 
         for ($i = (int)$input->getOption('iterations'); $i > 0; --$i) {

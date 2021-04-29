@@ -16,7 +16,7 @@ final class LogSummary
     /** @var DomainEvent[] */
     private array $eventStream;
 
-    public function __construct(
+    private function __construct(
         private LogSummaryId $id,
         private string $environment,
         private LogLevel $level,

@@ -14,7 +14,7 @@ final class HelloWorldController extends AbstractController
     private const LOG_ERROR_QUERY_PARAM = 'logError';
 
     /** @var string */
-    private string|array|false $environment;
+    private string $environment;
 
     /** @var string */
     private mixed $environmentAlias;

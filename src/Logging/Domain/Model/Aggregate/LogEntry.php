@@ -15,7 +15,7 @@ final class LogEntry
     /** @var DomainEvent[] */
     private array $eventStream;
 
-    public function __construct(
+    private function __construct(
         private LogEntryId $id,
         private string $environment,
         private LogLevel $level,
