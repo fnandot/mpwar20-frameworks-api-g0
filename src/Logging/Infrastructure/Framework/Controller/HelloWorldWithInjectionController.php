@@ -37,11 +37,11 @@ final class HelloWorldWithInjectionController extends AbstractController
             ]
         );
 
-        if ($request->query->has(static::LOG_ERROR_QUERY_PARAM)) {
+        if ($request->query->has(HelloWorldWithInjectionController::LOG_ERROR_QUERY_PARAM)) {
             $logger->error(
                 'A request with {parameter} was made!',
                 [
-                    'parameter'  => static::LOG_ERROR_QUERY_PARAM,
+                    'parameter'  => HelloWorldWithInjectionController::LOG_ERROR_QUERY_PARAM,
                     'client_ips' => $request->getClientIps(),
                 ]
             );

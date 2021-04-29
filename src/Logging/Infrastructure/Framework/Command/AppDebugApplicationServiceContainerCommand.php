@@ -25,7 +25,7 @@ final class AppDebugApplicationServiceContainerCommand extends Command
             ->setHelp('This commands allows you to see all defined Application services');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         foreach ($this->applicationServiceContainer->all() as $applicationService) {
             dump($applicationService);

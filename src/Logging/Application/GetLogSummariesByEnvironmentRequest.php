@@ -5,7 +5,7 @@ namespace LaSalle\GroupZero\Logging\Application;
 class GetLogSummariesByEnvironmentRequest
 {
     /** @var string[] */
-    private $levels;
+    private array $levels;
 
     public function __construct(private string $environment, string ...$levels)
     {
