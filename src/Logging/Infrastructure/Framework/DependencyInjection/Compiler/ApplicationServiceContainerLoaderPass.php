@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace LaSalle\GroupZero\Logging\Infrastructure\Framework\DependencyInjection\Compiler;
 
-use LaSalle\GroupZero\Logging\Application\ApplicationService;
 use LaSalle\GroupZero\Logging\Infrastructure\Services\ApplicationServiceContainer;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

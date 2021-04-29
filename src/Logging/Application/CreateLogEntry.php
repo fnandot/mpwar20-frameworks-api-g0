@@ -12,16 +12,8 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogLevel;
 
 final class CreateLogEntry
 {
-    /** @var LogEntryRepository */
-    private $repository;
-
-    /** @var DomainEventBus */
-    private $eventBus;
-
-    public function __construct(LogEntryRepository $repository, DomainEventBus $eventBus)
+    public function __construct(private LogEntryRepository $repository, private DomainEventBus $eventBus)
     {
-        $this->repository = $repository;
-        $this->eventBus   = $eventBus;
     }
 
     public function __invoke(CreateLogEntryRequest $request): LogEntry

@@ -9,12 +9,8 @@ use SplFileInfo;
 
 final class LogFileReader
 {
-    /** @var LogParser */
-    private $parser;
-
-    public function __construct(LogParser $parser)
+    public function __construct(private LogParser $parser)
     {
-        $this->parser = $parser;
     }
 
     /**

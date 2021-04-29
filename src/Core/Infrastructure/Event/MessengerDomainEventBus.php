@@ -10,12 +10,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class MessengerDomainEventBus implements DomainEventBus
 {
-    /** @var MessageBusInterface */
-    private $eventBus;
-
-    public function __construct(MessageBusInterface $eventBus)
+    public function __construct(private MessageBusInterface $eventBus)
     {
-        $this->eventBus = $eventBus;
     }
 
     public function publish(DomainEvent ...$events): void

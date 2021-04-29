@@ -6,21 +6,12 @@ namespace LaSalle\GroupZero\Logging\Domain\Model\ValueObject;
 
 use LaSalle\GroupZero\Logging\Domain\Model\Exception\InvalidLogEntryIdException;
 use Ramsey\Uuid\Uuid;
+use Stringable;
 
-final class LogEntryId
+final class LogEntryId implements Stringable
 {
     /** @var string */
-    private $id;
-
-    public static function generate(): self
-    {
-        return new self((string) Uuid::uuid4());
-    }
-
-    public static function fromString(string $id): self
-    {
-        return new self($id);
-    }
+    private string $id;
 
     private function __construct(string $id)
     {
@@ -34,6 +25,16 @@ final class LogEntryId
         if (!Uuid::isValid($id)) {
             throw new InvalidLogEntryIdException($id);
         }
+    }
+
+    public static function generate(): self
+    {
+        return new self((string)Uuid::uuid4());
+    }
+
+    public static function fromString(string $id): self
+    {
+        return new self($id);
     }
 
     public function equals($other): bool

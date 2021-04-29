@@ -13,13 +13,9 @@ final class AppDebugApplicationServiceContainerCommand extends Command
 {
     protected static $defaultName = 'app:debug:application-service-container';
 
-    /** @var ApplicationServiceContainer */
-    private $applicationServiceContainer;
-
-    public function __construct(ApplicationServiceContainer $applicationServiceContainer)
+    public function __construct(private ApplicationServiceContainer $applicationServiceContainer)
     {
         parent::__construct();
-        $this->applicationServiceContainer = $applicationServiceContainer;
     }
 
     protected function configure(): void

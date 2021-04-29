@@ -9,33 +9,13 @@ use LaSalle\GroupZero\Core\Domain\Model\Event\DomainEvent;
 
 final class LogEntryCreatedDomainEvent implements DomainEvent
 {
-    /** @var string */
-    private $aggregateId;
-
-    /** @var string */
-    private $environment;
-
-    /** @var string */
-    private $level;
-
-    /** @var string */
-    private $message;
-
-    /** @var DateTimeImmutable */
-    private $occurredOn;
-
     public function __construct(
-        string $aggregateId,
-        string $environment,
-        string $level,
-        string $message,
-        DateTimeImmutable $occurredOn
+        private string $aggregateId,
+        private string $environment,
+        private string $level,
+        private string $message,
+        private DateTimeImmutable $occurredOn
     ) {
-        $this->aggregateId = $aggregateId;
-        $this->environment = $environment;
-        $this->level       = $level;
-        $this->message     = $message;
-        $this->occurredOn  = $occurredOn;
     }
 
     public function aggregateId(): string

@@ -15,16 +15,8 @@ use Symfony\Component\Finder\SplFileInfo;
 
 final class FilesystemLogSummaryRepository implements LogSummaryRepository
 {
-    /** @var string */
-    private $directory;
-
-    /** @var Filesystem */
-    private $filesystem;
-
-    public function __construct(string $directory, Filesystem $filesystem)
+    public function __construct(private string $directory, private Filesystem $filesystem)
     {
-        $this->directory  = $directory;
-        $this->filesystem = $filesystem;
     }
 
     /**
@@ -44,6 +36,23 @@ final class FilesystemLogSummaryRepository implements LogSummaryRepository
         return $summaries;
     }
 
+    /**
+     * @return SplFileInfo[]
+     */
+    private function findFiles(string $environment, LogLevel ...$levels): array
+    {
+        try {
+            $files = (new Finder())
+                ->in($this->directory . DIRECTORY_SEPARATOR . $environment)
+                ->path($levels)
+                ->files();
+        } catch (DirectoryNotFoundException) {
+            return [];
+        }
+
+        return iterator_to_array($files);
+    }
+
     public function findOneByEnvironmentAndLevel(string $environment, LogLevel $level): ?LogSummary
     {
         $files = $this->findFiles($environment, $level);
@@ -57,6 +66,18 @@ final class FilesystemLogSummaryRepository implements LogSummaryRepository
         $fileInfo = reset($files);
 
         return $this->fromPersistence($fileInfo->getContents());
+    }
+
+    private function guardOnlyOneLogSummaryByEnvironmentAndLevel($files): void
+    {
+        if (1 < count($files)) {
+            throw new RuntimeException('Hey! By design could not be more than one summary by environment and level!');
+        }
+    }
+
+    private function fromPersistence(string $contents): LogSummary
+    {
+        return unserialize($contents);
     }
 
     public function save(LogSummary $logSummary): void
@@ -74,37 +95,8 @@ final class FilesystemLogSummaryRepository implements LogSummaryRepository
         );
     }
 
-    /**
-     * @return SplFileInfo[]
-     */
-    private function findFiles(string $environment, LogLevel ...$levels): array
-    {
-        try {
-            $files = (new Finder())
-                ->in($this->directory.DIRECTORY_SEPARATOR.$environment)
-                ->path($levels)
-                ->files();
-        } catch (DirectoryNotFoundException $e) {
-            return [];
-        }
-
-        return iterator_to_array($files);
-    }
-
-    private function guardOnlyOneLogSummaryByEnvironmentAndLevel($files): void
-    {
-        if (1 < count($files)) {
-            throw new RuntimeException('Hey! By design could not be more than one summary by environment and level!');
-        }
-    }
-
     private function toPersistence(LogSummary $logSummary): string
     {
         return serialize($logSummary);
-    }
-
-    private function fromPersistence(string $contents): LogSummary
-    {
-        return unserialize($contents);
     }
 }

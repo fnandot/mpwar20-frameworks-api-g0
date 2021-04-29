@@ -23,13 +23,9 @@ final class AppLogSummariesCommand extends Command implements ContainerAwareInte
 
     protected static $defaultName = 'app:log:summaries';
 
-    /** @var GetLogSummariesByEnvironment */
-    private $getLogSummariesByEnvironment;
-
-    public function __construct(GetLogSummariesByEnvironment $getLogSummariesByEnvironment)
+    public function __construct(private GetLogSummariesByEnvironment $getLogSummariesByEnvironment)
     {
         parent::__construct();
-        $this->getLogSummariesByEnvironment = $getLogSummariesByEnvironment;
     }
 
     protected function configure(): void
@@ -43,7 +39,7 @@ final class AppLogSummariesCommand extends Command implements ContainerAwareInte
     {
         $io = new SymfonyStyle($input, $output);
 
-        $environment = $io->ask('Which environment do you want to generate a summary?', $_ENV['APP_ENV']);
+        $environment = $io->ask('Which environment do you want to generate a summary?', getenv('APP_ENV'));
 
         $question = new ChoiceQuestion(
             'Please, specify for which levels you want to generate a summary:',

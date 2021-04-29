@@ -13,16 +13,8 @@ final class HelloWorldWithInjectionController extends AbstractController
 {
     private const LOG_ERROR_QUERY_PARAM = 'logError';
 
-    /** @var string */
-    private $environment;
-
-    /** @var string */
-    private $environmentAlias;
-
-    public function __construct(string $environment, string $environmentAlias)
+    public function __construct(private string $environment, private string $environmentAlias)
     {
-        $this->environment      = $environment;
-        $this->environmentAlias = $environmentAlias;
     }
 
     public function __invoke(
@@ -45,11 +37,11 @@ final class HelloWorldWithInjectionController extends AbstractController
             ]
         );
 
-        if ($request->query->has(static::LOG_ERROR_QUERY_PARAM)) {
+        if ($request->query->has(HelloWorldWithInjectionController::LOG_ERROR_QUERY_PARAM)) {
             $logger->error(
                 'A request with {parameter} was made!',
                 [
-                    'parameter' => static::LOG_ERROR_QUERY_PARAM,
+                    'parameter'  => HelloWorldWithInjectionController::LOG_ERROR_QUERY_PARAM,
                     'client_ips' => $request->getClientIps(),
                 ]
             );

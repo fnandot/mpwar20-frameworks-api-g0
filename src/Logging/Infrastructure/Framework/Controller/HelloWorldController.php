@@ -14,14 +14,14 @@ final class HelloWorldController extends AbstractController
     private const LOG_ERROR_QUERY_PARAM = 'logError';
 
     /** @var string */
-    private $environment;
+    private string|array|false $environment;
 
     /** @var string */
-    private $environmentAlias;
+    private mixed $environmentAlias;
 
     public function __construct()
     {
-        $this->environment      = $_ENV['APP_ENV'];
+        $this->environment      = getenv('APP_ENV');
         $this->environmentAlias = $_ENV['APP_ENV_ALIAS'];
     }
 
@@ -31,7 +31,7 @@ final class HelloWorldController extends AbstractController
             'Hi! This an info level log from {environment} environment',
             [
                 'environment' => $this->environment,
-                'client_ips' => $request->getClientIps(),
+                'client_ips'  => $request->getClientIps(),
             ]
         );
 
@@ -39,15 +39,15 @@ final class HelloWorldController extends AbstractController
             'Hi! This a warning level log from {environment} environment',
             [
                 'environment' => $this->environment,
-                'client_ips' => $request->getClientIps(),
+                'client_ips'  => $request->getClientIps(),
             ]
         );
 
-        if ($request->query->has(static::LOG_ERROR_QUERY_PARAM)) {
+        if ($request->query->has(HelloWorldController::LOG_ERROR_QUERY_PARAM)) {
             $logger->error(
                 'A request with {parameter} was made!',
                 [
-                    'parameter' => static::LOG_ERROR_QUERY_PARAM,
+                    'parameter'  => HelloWorldController::LOG_ERROR_QUERY_PARAM,
                     'client_ips' => $request->getClientIps(),
                 ]
             );

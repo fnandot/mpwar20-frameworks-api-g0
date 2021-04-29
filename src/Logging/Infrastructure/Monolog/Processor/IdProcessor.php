@@ -9,7 +9,7 @@ use Ramsey\Uuid\Uuid;
 
 final class IdProcessor implements ProcessorInterface
 {
-    public function __invoke(array $record)
+    public function __invoke(array $record): array
     {
         $record['extra']['id'] = Uuid::uuid4()->toString();
 

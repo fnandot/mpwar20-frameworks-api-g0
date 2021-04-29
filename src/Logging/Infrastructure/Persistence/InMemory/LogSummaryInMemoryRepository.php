@@ -13,12 +13,8 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 final class LogSummaryInMemoryRepository implements LogSummaryRepository
 {
-    /** @var LogEntryRepository */
-    private $logEntryRepository;
-
-    public function __construct(LogEntryRepository $logEntryRepository)
+    public function __construct(private LogEntryRepository $logEntryRepository)
     {
-        $this->logEntryRepository = $logEntryRepository;
     }
 
     /**
@@ -32,7 +28,7 @@ final class LogSummaryInMemoryRepository implements LogSummaryRepository
         $summaries = [];
 
         foreach ($logEntries as $logEntry) {
-            $levelName = (string) $logEntry->level();
+            $levelName = (string)$logEntry->level();
 
             if (!array_key_exists($levelName, $summaries)) {
                 $summaries[$levelName] = $this->buildLogSummary($environment, $logEntry);
@@ -45,6 +41,11 @@ final class LogSummaryInMemoryRepository implements LogSummaryRepository
         return $summaries;
     }
 
+    private function buildLogSummary(string $environment, LogEntry $logEntry): LogSummary
+    {
+        return new LogSummary(LogSummaryId::generate(), $environment, $logEntry->level());
+    }
+
     public function findOneByEnvironmentAndLevel(string $environment, LogLevel $level): ?LogSummary
     {
         return null;
@@ -52,10 +53,5 @@ final class LogSummaryInMemoryRepository implements LogSummaryRepository
 
     public function save(LogSummary $logSummary): void
     {
-    }
-
-    private function buildLogSummary(string $environment, LogEntry $logEntry): LogSummary
-    {
-        return new LogSummary(LogSummaryId::generate(), $environment, $logEntry->level());
     }
 }

@@ -13,44 +13,37 @@ use LaSalle\GroupZero\Logging\Domain\Model\ValueObject\LogSummaryId;
 
 final class LogSummary
 {
-    /** @var LogSummaryId */
-    private $id;
-
-    /** @var string */
-    private $environment;
-
-    /** @var LogLevel */
-    private $level;
-
-    /** @var int */
-    private $count;
-
     /** @var DomainEvent[] */
-    private $eventStream;
+    private array $eventStream;
 
-    public function __construct(LogSummaryId $id, string $environment, LogLevel $level, int $count = 0)
-    {
-        $this->id          = $id;
-        $this->environment = $environment;
-        $this->level       = $level;
-        $this->count       = $count;
+    public function __construct(
+        private LogSummaryId $id,
+        private string $environment,
+        private LogLevel $level,
+        private int $count = 0
+    ) {
     }
 
     public static function create(string $environment, LogLevel $level): self
     {
-        $instance = new static(LogSummaryId::generate(), $environment, $level, 0);
+        $instance = new LogSummary(LogSummaryId::generate(), $environment, $level, 0);
 
         $instance->recordThat(
             new LogSummaryCreatedDomainEvent(
-                (string) $instance->id(),
+                (string)$instance->id(),
                 $instance->environment(),
-                (string) $instance->level(),
+                (string)$instance->level(),
                 $instance->count(),
                 new DateTimeImmutable()
             )
         );
 
         return $instance;
+    }
+
+    private function recordThat(DomainEvent $event): void
+    {
+        $this->eventStream[] = $event;
     }
 
     public function id(): LogSummaryId
@@ -79,7 +72,7 @@ final class LogSummary
 
         $this->recordThat(
             new LogSummaryIncreasedDomainEvent(
-                (string) $this->id,
+                (string)$this->id,
                 $increaseBy,
                 new DateTimeImmutable()
             )
@@ -95,10 +88,5 @@ final class LogSummary
         $this->eventStream = [];
 
         return $events;
-    }
-
-    private function recordThat(DomainEvent $event): void
-    {
-        $this->eventStream[] = $event;
     }
 }
