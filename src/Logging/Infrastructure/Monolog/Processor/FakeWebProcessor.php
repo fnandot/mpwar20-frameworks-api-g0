@@ -26,7 +26,7 @@ class FakeWebProcessor implements ProcessorInterface
                 'url'         => $this->generator->url,
                 'ip'          => $this->generator->ipv4,
                 'http_method' => $this->generator->randomElement(['GET', 'POST', 'PUT', 'PATCH', 'DELETE']),
-                'server'      => strtolower($this->generator->firstNameFemale).'_'.$this->generator->linuxProcessor,
+                'server'      => strtolower($this->generator->firstNameFemale) . '_' . $this->generator->linuxProcessor,
                 'referrer'    => $this->generator->url,
             ]
         );

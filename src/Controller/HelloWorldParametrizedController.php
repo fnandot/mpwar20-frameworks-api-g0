@@ -10,7 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 final class HelloWorldParametrizedController
 {
     /**
-     * @Route("/hello/{environment}", requirements={"environment": "dev|prod|test"}, name="hello_parametrized", methods={"GET"})
+     * @Route("/hello/{environment}", requirements={"environment": "dev|prod|test"}, name="hello_parametrized",
+     *                                methods={"GET"})
      */
     public function __invoke(string $environment): Response
     {

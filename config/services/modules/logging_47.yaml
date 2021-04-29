@@ -9,3 +9,9 @@ services:
       LaSalle\GroupZero\Logging\Application\ApplicationService:
           tags: ['group_zero.application_service']
 
+
+  # Extra with !tagged_iterator
+  LaSalle\GroupZero\Logging\Infrastructure\Services\ApplicationServiceContainer:
+    arguments:
+      - !tagged_iterator group_zero.application_service
+

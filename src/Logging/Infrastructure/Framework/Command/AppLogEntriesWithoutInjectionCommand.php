@@ -31,7 +31,7 @@ final class AppLogEntriesWithoutInjectionCommand extends Command implements Cont
                 'environment',
                 InputArgument::OPTIONAL,
                 'Only show the logs in the given environment',
-                $_ENV['APP_ENV']
+                getenv('APP_ENV')
             )
             ->addOption(
                 'level',
@@ -48,7 +48,7 @@ final class AppLogEntriesWithoutInjectionCommand extends Command implements Cont
         $environment = $input->getArgument('environment');
 
         $finder = new LogRotatingFileFinder(
-            __DIR__.'/../../../../../var/log/'
+            __DIR__ . '/../../../../../var/log/'
         );
 
         $reader = new LogFileReader(new JsonLogParser());

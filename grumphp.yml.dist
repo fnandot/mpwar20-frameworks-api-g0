@@ -1,4 +1,4 @@
-parameters:
+grumphp:
     hooks_dir: ~
     hooks_preset: local
     git_hook_variables:
@@ -8,8 +8,12 @@ parameters:
     stop_on_failure: false
     ignore_unstaged_changes: false
     hide_circumvention_tip: false
-    process_async_limit: 10
-    process_async_wait: 1000
+    parallel:
+            enabled: true
+            max_workers: 32
+    fixer:
+        enabled: true
+        fix_by_default: false
     process_timeout: 60
     ascii:
         failed: grumphp-grumpy.txt
@@ -41,27 +45,20 @@ parameters:
             triggered_by: [php]
             exclude: []
         phpcsfixer:
-            config_file: ~
+            allow_risky: ~
+            cache_file: ~
             config: ~
-            fixers: []
-            level: ~
+            rules: []
+            using_cache: ~
+            config_contains_finder: true
             verbose: true
-        phpmd:
-            whitelist_patterns: []
-            exclude: []
-            ruleset: ['codesize']
+            diff: false
             triggered_by: ['php']
-        securitychecker:
-            lockfile: ./composer.lock
-            format: ~
-            end_point: ~
-            timeout: ~
-            run_always: false
-        twigcs:
-            path: '.'
-            severity: 'warning'
-            ruleset: 'FriendsOfTwig\Twigcs\Ruleset\Official'
-            triggered_by: ['twig']
+#        phpmd:
+#            whitelist_patterns: []
+#            exclude: []
+#            ruleset: ['codesize']
+#            triggered_by: ['php']
         yamllint:
             whitelist_patterns: []
             ignore_patterns: []

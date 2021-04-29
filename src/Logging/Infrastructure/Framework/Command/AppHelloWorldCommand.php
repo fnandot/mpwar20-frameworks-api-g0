@@ -19,8 +19,10 @@ final class AppHelloWorldCommand extends Command
             ->setHelp('This command allows you to say "Hello World"');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Hello world');
+
+        return 0;
     }
 }

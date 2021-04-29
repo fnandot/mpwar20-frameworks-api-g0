@@ -13,12 +13,8 @@ use Ramsey\Uuid\Uuid;
 
 final class LogSummaryInMemoryRepository implements LogSummaryRepository
 {
-    /** @var LogEntryRepository */
-    private $logEntryRepository;
-
-    public function __construct(LogEntryRepository $logEntryRepository)
+    public function __construct(private LogEntryRepository $logEntryRepository)
     {
-        $this->logEntryRepository = $logEntryRepository;
     }
 
     /**
@@ -32,7 +28,7 @@ final class LogSummaryInMemoryRepository implements LogSummaryRepository
         $summaries = [];
 
         foreach ($logEntries as $logEntry) {
-            $levelName = (string) $logEntry->level();
+            $levelName = (string)$logEntry->level();
 
             if (!array_key_exists($levelName, $summaries)) {
                 $summaries[$levelName] = $this->buildLogSummary($environment, $logEntry);
@@ -47,6 +43,6 @@ final class LogSummaryInMemoryRepository implements LogSummaryRepository
 
     private function buildLogSummary(string $environment, LogEntry $logEntry): LogSummary
     {
-        return new LogSummary((string) Uuid::uuid4(), $environment, $logEntry->level());
+        return new LogSummary((string)Uuid::uuid4(), $environment, $logEntry->level());
     }
 }

@@ -13,16 +13,8 @@ use LaSalle\GroupZero\Logging\Infrastructure\Persistence\Filesystem\Reader\LogFi
 
 final class LogEntryFilesystemRepository implements LogEntryRepository
 {
-    /** @var LogFileFinder */
-    private $finder;
-
-    /** @var LogFileReader */
-    private $reader;
-
-    public function __construct(LogFileFinder $finder, LogFileReader $reader)
+    public function __construct(private LogFileFinder $finder, private LogFileReader $reader)
     {
-        $this->finder = $finder;
-        $this->reader = $reader;
     }
 
     /**
@@ -63,7 +55,7 @@ final class LogEntryFilesystemRepository implements LogEntryRepository
                 $environment,
                 new LogLevel(strtolower($normalizedLogEntry['level_name'])),
                 $normalizedLogEntry['message'],
-                new DateTimeImmutable($normalizedLogEntry['datetime']['date'])
+                new DateTimeImmutable($normalizedLogEntry['datetime'])
             );
         }
 

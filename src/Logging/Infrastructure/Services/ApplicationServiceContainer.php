@@ -9,7 +9,7 @@ use LaSalle\GroupZero\Logging\Application\ApplicationService;
 final class ApplicationServiceContainer
 {
     /** @var ApplicationService[] */
-    private $services;
+    private array $services;
 
     /**
      * @param ApplicationService[] $services
@@ -25,7 +25,7 @@ final class ApplicationServiceContainer
 
     public function add($service): void
     {
-        $this->services[get_class($service)] = $service;
+        $this->services[$service::class] = $service;
     }
 
     /**
