@@ -18,7 +18,7 @@ final class LogLevel implements Stringable
     public const INFO      = 'info';
     public const DEBUG     = 'debug';
 
-    public static $allowedValues = [
+    public static array $allowedValues = [
         self::EMERGENCY,
         self::ALERT,
         self::CRITICAL,
@@ -30,7 +30,7 @@ final class LogLevel implements Stringable
     ];
 
     /** @var string */
-    private $value;
+    private string $value;
 
     public function __construct(string $value)
     {
@@ -39,7 +39,7 @@ final class LogLevel implements Stringable
 
     private function setValue(string $value): void
     {
-        if (!in_array($value, static::$allowedValues, true)) {
+        if (!in_array($value, LogLevel::$allowedValues, true)) {
             throw new InvalidLogLevelException($value);
         }
 
@@ -48,7 +48,7 @@ final class LogLevel implements Stringable
 
     public static function fromString(string $value): self
     {
-        return new static($value);
+        return new LogLevel($value);
     }
 
     /**
@@ -56,7 +56,7 @@ final class LogLevel implements Stringable
      */
     public static function all(): array
     {
-        return array_map([static::class, 'fromString'], static::$allowedValues);
+        return array_map([LogLevel::class, 'fromString'], LogLevel::$allowedValues);
     }
 
     public function equals(self $other): bool
@@ -71,8 +71,8 @@ final class LogLevel implements Stringable
 
     public function isGreaterOrEqualThan(LogLevel $other): bool
     {
-        $currentIndex = array_search((string)$this, static::$allowedValues, true);
-        $otherIndex   = array_search((string)$other, static::$allowedValues, true);
+        $currentIndex = array_search((string)$this, LogLevel::$allowedValues, true);
+        $otherIndex   = array_search((string)$other, LogLevel::$allowedValues, true);
 
         return $currentIndex <= $otherIndex;
     }

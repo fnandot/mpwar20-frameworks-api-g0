@@ -7,7 +7,7 @@ use LaSalle\GroupZero\Core\Application\Query;
 class GetLogEntriesByEnvironmentRequest implements Query
 {
     /** @var string[] */
-    private $levels;
+    private array $levels;
 
     public function __construct(private string $environment, string ...$levels)
     {
